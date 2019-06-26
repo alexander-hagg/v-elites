@@ -1,0 +1,21 @@
+function viewDomainMap(obsMap,d)
+%VIEWDOMAINMAP Summary of this function goes here
+%   Detailed explanation goes here
+
+disp('get')
+
+genomes = reshape(obsMap.genes,size(obsMap.genes,1)*size(obsMap.genes,2),[]);
+fullGenomes = [genomes,genomes(:,1:2)];
+
+for x=1:size(obsMap.genes,1)
+    for y=1:size(obsMap.genes,2)
+        
+            if ~isnan(fullGenomes(i,1))
+                pgon = polyshape(fullGenomes(i,1:2:end),fullGenomes(i,2:2:end));
+                plot(pgon);
+                drawnow;
+            end
+        end
+    end
+end
+
