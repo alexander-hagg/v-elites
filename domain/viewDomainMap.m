@@ -16,13 +16,11 @@ for x=1:sizMapX
         genome = fullGenomes(genomeID,:);
         if ~isnan(genome(1))
             pgon = polyshape(genome(1:2:end),genome(2:2:end));
-            pgon = simplify(pgon);
             pgon.Vertices(:,1) = pgon.Vertices(:,1) + x*3;
-            pgon.Vertices(:,2) = pgon.Vertices(:,2) + y*3;
+            pgon.Vertices(:,2) = pgon.Vertices(:,2) - y*3;
             plot(pgon,'FaceColor','green'); hold on;
-            axis([0 3*sizMapX+1 0 3*sizMapY+1]);
-            %drawnow; 
         end
     end
 end
+axis([0 3*sizMapX+1 -3*sizMapY+1 0]);
 

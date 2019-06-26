@@ -31,8 +31,8 @@ function [map, percImproved, percValid, h, allMaps, percFilled] = mapElites(fitn
 % View Initial Map
 h = [];
 if p.display.illu
-    %figure(1); clf;
-    %[h(1), h(2)] = viewMap(map.fitness, d, map.edges,'flip'); title('Fitness');
+    figure(1); clf;
+    [h(1), h(2)] = viewMap(map.fitness, d, map.edges,'flip'); title('Fitness');
     
     figure(2); clf; viewDomainMap(map,d);
 end
@@ -79,11 +79,11 @@ while (iGen < p.nGens)
     
     %% View New Map
     if p.display.illu && (~mod(iGen,p.display.illuMod) || (iGen==p.nGens-1))
-        %figure(1);
-        %viewMap(map.fitness, d, map.edges,'flip');
-        %colormap(h(1),parula(16));
+        figure(1);
+        viewMap(map.fitness, d, map.edges,'flip');
+        colormap(h(1),parula(16));
         %caxis([0 500]);  %REMOVE THIS
-        %title(['Original Fitness Gen ' int2str(iGen) '/' int2str(p.nGens)]); 
+        title(['Original Fitness Gen ' int2str(iGen) '/' int2str(p.nGens)]); 
         
         figure(2); viewDomainMap(map,d);
         title(['Generation: ' int2str(iGen)]);

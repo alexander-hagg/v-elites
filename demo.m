@@ -1,15 +1,15 @@
 disp("Running MAP-elites on npoly problem");
 addpath(genpath('.'));
-numPoints = 5;
+numPoints = 7;
 d = domain_NPoly(numPoints*2);
 p = defaultParamSet(4);
 
-p.nChildren = 10;
+numInitSamples = 500;
 
 %
 sobSequence         = scramble(sobolset(d.dof,'Skip',1e3),'MatousekAffineOwen');
 sobPoint            = 1;
-initSamples         = (2*sobSequence(sobPoint:(sobPoint+p.nChildren)-1,:))-1;
+initSamples         = (2*sobSequence(sobPoint:(sobPoint+numInitSamples)-1,:))-1;
 fitness             = d.fitfun(initSamples);
 
 obsMap = createMap(d.featureRes, d.dof);

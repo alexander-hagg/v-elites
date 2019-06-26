@@ -27,7 +27,7 @@ p.selectProcedure           = 'random'; %random or curiousness
 
 % Visualization and data management
 p.display.illu              = true;
-p.display.illuMod           = 50;
+p.display.illuMod           = 200;
 p.numMaps2Save              = 10;
 
 % Read from environment variables
