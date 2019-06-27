@@ -34,7 +34,9 @@ if p.display.illu
     figure(1); clf;
     [h(1), h(2)] = viewMap(map.fitness, d, map.edges,'flip'); title('Fitness');
     
-    figure(2); clf; viewDomainMap(map,d);
+    figure(2); viewDomainMap(map,d);
+    title(['Generation: 1']); grid on;
+    drawnow;
 end
 
 iGen = 1;
@@ -69,7 +71,7 @@ while (iGen < p.nGens)
     [fitness, values] = fitnessFunction(children); %% TODO: Speed up without anonymous functions
     
     %% Add Children to Map
-    [replaced, replacement] = nicheCompete(children,fitness,[],map,d);
+    [replaced, replacement] = nicheCompete(children,fitness,values,map,d);
     percImproved(iGen) = length(replaced)/p.nChildren;
     map = updateMap(replaced,replacement,map,fitness,children,...
         values,d.extraMapValues);
@@ -82,11 +84,12 @@ while (iGen < p.nGens)
         figure(1);
         viewMap(map.fitness, d, map.edges,'flip');
         colormap(h(1),parula(16));
-        %caxis([0 500]);  %REMOVE THIS
+        caxis([1 10]);  %REMOVE THIS
         title(['Original Fitness Gen ' int2str(iGen) '/' int2str(p.nGens)]); 
         
         figure(2); viewDomainMap(map,d);
         title(['Generation: ' int2str(iGen)]);
+        grid on;
         drawnow;
     end
         

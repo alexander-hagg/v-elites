@@ -6,11 +6,11 @@ warning('off', 'MATLAB:polyshape:repairedBySimplify');
 
 
 d.nDims                     = 2;
-d.featureMin                = [0 2];
-d.featureMax                = [4 20];
+d.featureMin                = [0    1];
+d.featureMax                = [2.5  250];
 d.categorize                = 'categorize';
 d.featureLabels             = {'x','y'};
-d.featureRes                = [50 50];
+d.featureRes                = [40 40];
 d.debug                     = false;
 d.extraMapValues            = {'random'};
 

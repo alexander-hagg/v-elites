@@ -28,7 +28,7 @@ function [bestIndex, bestBin] = getBestPerCell(samples,fitness,values,d, edges)
 %------------- BEGIN CODE --------------
 
 % Get Features of all samples
-feature = feval(d.categorize, samples, d);
+feature = feval(d.categorize, samples, values, d);
 for iDim = 1:d.nDims
     bin(:,iDim) = discretize(feature(:,iDim),edges{iDim});
 end

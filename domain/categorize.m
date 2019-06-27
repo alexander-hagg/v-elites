@@ -1,4 +1,4 @@
-function feature = categorize(samples, d, varargin)
+function feature = categorize(samples, values, d, varargin)
 %categorize
 %
 %
@@ -8,12 +8,22 @@ function feature = categorize(samples, d, varargin)
 % Nov 2018; Last revision: 02-Nov-2018
 %
 %------------- BEGIN CODE -------------- 
-
-fullGenomes = [samples,samples(:,1:2)];
-for i=1:size(fullGenomes,1)
-    pgon = polyshape(fullGenomes(i,1:2:end),fullGenomes(i,2:2:end));
+imSize = 256;
+    
+for i=1:length(values{1})
+    pgon = values{1}{i};
     feature(i,1) = area(pgon);
-    feature(i,2) = perimeter(pgon);
+    %feature(i,2) = perimeter(pgon);
+    
+    % Rescale and get pixel mask
+    xCoords = (pgon.Vertices(:,1)+1)*(imSize/2);
+    yCoords = (pgon.Vertices(:,2)+1)*(imSize/2);
+    bw = poly2mask(xCoords,yCoords,imSize,imSize); % Sample pixels from nPoly
+    [B,~] = bwboundaries(bw);
+    boundary = B{1};
+    %plot(boundary(:,1), boundary(:,2), 'b', 'LineWidth', 2)
+    distances = pdist2(boundary,boundary);
+    feature(i,2) = max(distances(:))./min(distances(distances(:)>0));
 end
 
 feature(:,1) = (feature(:,1)-d.featureMin(1))./(d.featureMax(1)-d.featureMin(1));
