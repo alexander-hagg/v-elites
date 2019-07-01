@@ -6,8 +6,8 @@ warning('off', 'MATLAB:polyshape:repairedBySimplify');
 
 
 d.nDims                     = 2;
-d.featureMin                = [0    1];
-d.featureMax                = [2.5  8];
+d.featureMin                = [0    10];
+d.featureMax                = [2.5  30];
 d.categorize                = 'categorize';
 d.featureLabels             = {'area','perimeter'};
 d.featureRes                = [40 40];

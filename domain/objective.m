@@ -6,8 +6,10 @@ fullGenomes = [solutions,solutions(:,1:2)];
 for i=1:size(fullGenomes,1)
     xCoords = fullGenomes(i,1:2:end); 
     yCoords = fullGenomes(i,2:2:end);
-    k = convhull(xCoords,yCoords);
-    pgon{i} = polyshape(xCoords(k),yCoords(k));
+    %k = convhull(xCoords,yCoords);
+    %pgon{i} = polyshape(xCoords(k),yCoords(k));
+    pgon{i} = polyshape(xCoords,yCoords);
+    
     fitness(i) = pgon{i}.NumRegions + pgon{i}.NumHoles;
 end
 

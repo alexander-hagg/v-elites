@@ -16,12 +16,12 @@ for x=1:sizMapX
         genome = fullGenomes(genomeID,:);
         if ~isnan(genome(1))
             
-            xCoords = genome(1:2:end); 
-            yCoords = genome(2:2:end);
-            k = convhull(xCoords,yCoords);
-            pgon = polyshape(xCoords(k),yCoords(k));
+            %xCoords = genome(1:2:end); 
+            %yCoords = genome(2:2:end);
+            %k = convhull(xCoords,yCoords);
+            %pgon = polyshape(xCoords(k),yCoords(k));
     
-            %pgon = polyshape(genome(1:2:end),genome(2:2:end));
+            pgon = polyshape(genome(1:2:end),genome(2:2:end));
             
             
             pgon.Vertices(:,1) = pgon.Vertices(:,1) + x*3;
