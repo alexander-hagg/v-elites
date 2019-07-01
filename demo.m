@@ -15,7 +15,6 @@ initSamples         = (2*sobSequence(sobPoint:(sobPoint+numInitSamples)-1,:))-1;
 obsMap = createMap(d.featureRes, d.dof);
 [replaced, replacement] = nicheCompete(initSamples, fitness, values, obsMap, d);
 obsMap = updateMap(replaced,replacement,obsMap,fitness,initSamples,[],[]);
-
 [acqMap, percImproved, percValid, h, allMaps] = mapElites(d.fitfun,obsMap,p,d);
 
 %% Visualization

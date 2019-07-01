@@ -4,8 +4,6 @@ function [fitness,values] = objective(solutions)
 fullGenomes = [solutions,solutions(:,1:2)];
 
 for i=1:size(fullGenomes,1)
-    %pgon{i} = polyshape(fullGenomes(i,1:2:end),fullGenomes(i,2:2:end));
-    %pgon{i} = convhull(pgon{i});
     xCoords = fullGenomes(i,1:2:end); 
     yCoords = fullGenomes(i,2:2:end);
     k = convhull(xCoords,yCoords);

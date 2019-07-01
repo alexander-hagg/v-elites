@@ -31,4 +31,6 @@ for x=1:sizMapX
     end
 end
 axis([0 3*sizMapX+1 -3*sizMapY+1 0]);
+xlabel(d.featureLabels{1});
+ylabel(d.featureLabels{2});
 
