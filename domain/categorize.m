@@ -13,7 +13,7 @@ imSize = 256;
 for i=1:length(values{1})
     pgon = values{1}{i};
     feature(i,1) = area(pgon);
-    feature(i,2) = perimeter(pgon);
+    feature(i,2) = log(perimeter(pgon));
     
     % Rescale and get pixel mask
     %xCoords = (pgon.Vertices(:,1)+1)*(imSize/2);
