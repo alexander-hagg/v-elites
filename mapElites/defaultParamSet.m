@@ -21,7 +21,7 @@ disp(['Number of children: ' int2str(p.nChildren)]);
 p.mutSigma                  = 0.1;
 
 p.constraintType            = 'prior'; %'none', 'prior' 'posterior'
-p.nGens                     = 2^12;
+p.nGens                     = 2^10;
 p.numInitSamples            = 10;
 p.selectProcedure           = 'random'; %random or curiousness
 

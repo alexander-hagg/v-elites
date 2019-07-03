@@ -27,14 +27,15 @@ orgGenomes = reshape(acqMap.genes,size(acqMap.genes,1)*size(acqMap.genes,2),[]);
 genomes = orgGenomes(~any(isnan(orgGenomes')),:);
 % include initial samples
 genomes = [genomes;initSamples];
+[phenotypes,bitmaps] = getPhenotype(genomes);
+
 
 %[classification,stats] = extractClasses(genomes);
 
 [simX, mapping]  = compute_mapping(genomes, 'tSNE', 2);
 K = 20;
-[labels, C] = kmedoids(genomes, K);
+[labels, C] = kmedoids(simX, K);
 
-[phenotypes,bitmaps] = getPhenotype(genomes);
 
 
 
@@ -53,7 +54,7 @@ figure(5);
 classMap = nan(size(acqMap.fitness));
 classMap(~any(isnan(orgGenomes'))) = labels(1:end-numInitSamples);
 viewMap(classMap, d, acqMap.edges,'flip');
-colormap(parula(16));
+colormap(hsv(K));
 title(['Class Map Gen ' int2str(p.nGens) '/' int2str(p.nGens)]);
 
 figure(6); viewDomainMap(acqMap,d);
@@ -72,4 +73,8 @@ figure(7);
 h = plotShapes(movedPhenotypes,numInitSamples);
 legend([h(1),h(2)],'initial samples','elites')
 
-
+%% Voronoi
+values{1} = phenotypes(1:end-numInitSamples);
+featureValues = categorize(genomes(1:end-numInitSamples,:), values , d);
+voronoi(featureValues(:,1),featureValues(:,2))
+%[V,C] = voronoin()
