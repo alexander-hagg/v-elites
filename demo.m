@@ -2,17 +2,17 @@ disp("Running MAP-elites on npoly problem");
 addpath(genpath('.'));
 
 %%
-numPoints = 6;
+numPoints = 16;
 d = domain_NPoly(numPoints*2);
 p = defaultParamSet(4);
 
-numInitSamples = 500;
+numInitSamples = 2000;
 
 %
 sobSequence         = scramble(sobolset(d.dof,'Skip',1e3),'MatousekAffineOwen');
 sobPoint            = 1;
 %initSamples         = (2*sobSequence(sobPoint:(sobPoint+numInitSamples)-1,:))-1;
-initSamples         = (1*sobSequence(sobPoint:(sobPoint+numInitSamples)-1,:))-0.5;
+initSamples         = (sobSequence(sobPoint:(sobPoint+numInitSamples)-1,:))-0.5;
 [fitness, values]   = d.fitfun(initSamples);
 
 obsMap = createMap(d.featureRes, d.dof);
@@ -25,10 +25,13 @@ obsMap = updateMap(replaced,replacement,obsMap,fitness,initSamples,[],[]);
 %%
 orgGenomes = reshape(acqMap.genes,size(acqMap.genes,1)*size(acqMap.genes,2),[]);
 genomes = orgGenomes(~any(isnan(orgGenomes')),:);
+% include initial samples
+genomes = [genomes;initSamples];
+
 %[classification,stats] = extractClasses(genomes);
 
 [simX, mapping]  = compute_mapping(genomes, 'tSNE', 2);
-K = 10;
+K = 20;
 [labels, C] = kmedoids(genomes, K);
 
 [phenotypes,bitmaps] = getPhenotype(genomes);
@@ -48,10 +51,9 @@ scatter(simX(:,1),simX(:,2),16,cmap(labels,:),'filled');
 
 figure(5);
 classMap = nan(size(acqMap.fitness));
-classMap(~any(isnan(orgGenomes'))) = labels;
+classMap(~any(isnan(orgGenomes'))) = labels(1:end-numInitSamples);
 viewMap(classMap, d, acqMap.edges,'flip');
 colormap(parula(16));
-%caxis([1 10]);  %REMOVE THIS
 title(['Class Map Gen ' int2str(p.nGens) '/' int2str(p.nGens)]);
 
 figure(6); viewDomainMap(acqMap,d);
@@ -65,4 +67,9 @@ scaleFactor = 1.5;
 for i=1:length(phenotypes)
     movedPhenotypes{i}.Vertices = movedPhenotypes{i}.Vertices + simX(i,:)*scaleFactor;
 end
-plotShapes(movedPhenotypes)
+
+figure(7);
+h = plotShapes(movedPhenotypes,numInitSamples);
+legend([h(1),h(2)],'initial samples','elites')
+
+
