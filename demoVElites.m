@@ -11,11 +11,11 @@ sobPoint            = 1;
 initSamples         = (2*sobSequence(sobPoint:(sobPoint+p.numInitSamples)-1,:))-1;
 [fitness, values]   = d.fitfun(initSamples);
 
-%%
+%
 obsMap                  = createMap(d.dof, p.maxBins, p.competeDistance);
 [replaced, replacement, features] = nicheCompete(initSamples, fitness, values, obsMap, d);
 obsMap = updateMap(replaced,replacement,obsMap,fitness,initSamples,features);
-imgHandle = viewMap(obsMap.features,d);
+imgHandle = viewMap(obsMap.features,d,1);
 
-%[acqMap, percImproved, percValid, h, allMaps] = mapElites(d.fitfun,obsMap,p,d);
+[acqMap, percImproved, percValid, h, allMaps] = vElites(d.fitfun,obsMap,p,d);
 

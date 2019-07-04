@@ -1,4 +1,4 @@
-function [figHandle, imageHandle, cHandle] = viewMap(elites, d)
+function [figHandle, imageHandle, cHandle] = viewMap(elites, d, varargin)
 %computeFitness - Computes fitness with penalties from drag, lift, area
 %
 % Syntax:  viewMap(predMap.fitness, d)
@@ -32,7 +32,7 @@ function [figHandle, imageHandle, cHandle] = viewMap(elites, d)
 % Jun 2016; Last revision: 20-Aug-2017
 
 %------------- BEGIN CODE --------------
-figHandle = figure;
+if nargin > 2; figHandle = figure(varargin{1}); else; figHandle = figure;end
 imageHandle = voronoi(elites(:,1),elites(:,2));
 
 %[v,c] = voronoin(elites);
@@ -43,6 +43,8 @@ imageHandle = voronoi(elites(:,1),elites(:,2));
 %end
 
 cHandle = [];
+
+axis([0 1 0 1]);
 
 xlab = xlabel([d.featureLabels{1} '\rightarrow']);
 ylab = ylabel(['\leftarrow' d.featureLabels{2} ]);
