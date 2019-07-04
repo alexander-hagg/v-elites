@@ -43,7 +43,7 @@ distances(distances==0) = 99; %TODO: this is a hack to prevent comparisons of a 
 
 % Compete if needed
 competing = distances < map.config.competeDistance;
-competition = fitness < (fitness.*competing);
+competition = fitness >(fitness.*competing);
 won = all(competition(any(competing==1),:)'==0);
 % Add competing candidates that improve the map
 replacement(any(competing==1)) = won;

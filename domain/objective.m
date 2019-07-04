@@ -13,7 +13,7 @@ for i=1:size(fullGenomes,1)
     fitness(i) = pgon{i}.NumRegions + pgon{i}.NumHoles;
 end
 
-fitness = fitness';
+fitness = -fitness';
 values{1} = pgon;
 
 end
