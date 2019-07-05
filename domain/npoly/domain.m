@@ -1,4 +1,4 @@
-function d = domain_NPoly(varargin)
+function d = domain()
 %DOMAIN_NPOLY Get domain configuration for n-polygon
 RandStream.setGlobalStream(RandStream('mt19937ar','Seed','shuffle')); % Random number stream
 warning('off', 'MATLAB:MKDIR:DirectoryExists');
@@ -13,11 +13,14 @@ d.featureLabels             = {'area','perimeter'};
 d.featureRes                = [40 40];
 d.debug                     = false;
 d.extraMapValues            = {'random'};
+d.fitnessRange              = [-10 -1];
+d.fitfun                    = @(X) objective(X);
+
 
 d.penaltyWeight             = str2num(getenv('CFG_PWEIGHT')); if isempty(d.penaltyWeight); d.penaltyWeight = 0.5; end
 disp(['Penalty weight: ' num2str(d.penaltyWeight)]);
 
-d.dof = 4; if nargin > 0; d.dof = varargin{1}; end;
+d.dof = 16;
 d.tmpdir = getenv('JOBTMPDIR'); if isempty(d.tmpdir); d.tmpdir='/tmp';end
 disp(['tmp dir: ' d.tmpdir]);
 mkdir(d.tmpdir);
@@ -32,11 +35,6 @@ d.flipMap = true;
 %% Individual's genome and phenotype
 d.sampleInd.genome    = nan(d.dof,1);
 
-%% Objective Function: Path length
-d.metricFitness               = @metricFitness;
-%d.fitfun                      = @(X) objective(X, d.evalFcn, d.metricFitness, [], d.penaltyWeight);
-d.fitfun                      = @(X) objective(X);
-
-disp('Domain loaded');
+disp("Running vElites on npoly domain");
 end
 
