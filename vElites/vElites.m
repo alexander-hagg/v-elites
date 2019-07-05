@@ -32,9 +32,16 @@ function [map, percImproved, percValid, h, allMaps, percFilled] = vElites(fitnes
 h = [];
 if p.display.illu
     figure(1); clf;
-    h(1) = viewMap(map.features,d,1); title('Voronoi Map');
+    viewMap(map,d,1); title('Voronoi Map'); caxis(d.fitnessRange);
     drawnow;
 end
+
+%HACK
+percImproved = 0;
+percValid = 0;
+h = 0;
+allMaps = 0;
+percFilled = 0;
 
 iGen = 1;
 while (iGen < p.nGens)
@@ -42,7 +49,7 @@ while (iGen < p.nGens)
     % Continue to remutate until enough children which satisfy geometric constraints are created
     children = []; 
     while size(children,1) < p.nChildren
-        disp('Still randomly selecting!');
+        %disp('Still randomly selecting!');
         newChildren = createChildren(map, p, d);
         %validInds = feval(d.validate,newChildren,d);
         %children = [children ; newChildren(validInds,:)] ; %#ok<AGROW>
@@ -54,7 +61,8 @@ while (iGen < p.nGens)
     
     %% Add Children to Map
     [replaced, replacement, features] = nicheCompete(children, fitness, values, map, d);
-
+    map = updateMap(replaced,replacement,map,fitness,children,features);
+    iGen = iGen+1;
 %    [replaced, replacement] = nicheCompete(children,fitness,values,map,d);
 %    percImproved(iGen) = length(replaced)/p.nChildren;
 %    map = updateMap(replaced,replacement,map,fitness,children,...
@@ -63,19 +71,13 @@ while (iGen < p.nGens)
 %    allMaps{iGen} = map;
 %    percFilled(iGen) = sum(~isnan(map.fitness(:)))/(size(map.fitness,1)*size(map.fitness,2));
     
-%     %% View New Map
-%     if p.display.illu && (~mod(iGen,p.display.illuMod) || (iGen==p.nGens-1))
-%         figure(1);
-%         viewMap(map.fitness, d, map.edges,'flip');
-%         colormap(h(1),parula(16));
-%         caxis([1 10]);  %REMOVE THIS
-%         title(['Original Fitness Gen ' int2str(iGen) '/' int2str(p.nGens)]); 
-%         
-%         figure(2); viewDomainMap(map,d);
-%         title(['Generation: ' int2str(iGen)]);
-%         grid on;
-%         drawnow;
-%     end
+     %% View New Map
+     if p.display.illu && (~mod(iGen,p.display.illuMod) || (iGen==p.nGens-1))
+         viewMap(map,d,1);
+         caxis(d.fitnessRange);
+         title(['Fitness Gen ' int2str(iGen) '/' int2str(p.nGens)]); 
+         drawnow;
+     end
 %         
 %     iGen = iGen+1;
 %     if ~mod(iGen,25) || iGen==2

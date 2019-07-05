@@ -24,37 +24,68 @@ function [replaced, replacement, features, percImprovement] = nicheCompete(newIn
 features = feval(d.categorize, newInds, values, d);
 replacement = false(size(newInds,1),1);
 
-%%TODO
-replaced = false(length(map.fitness),1);
 percImprovement = 0;
 
+
+
+
 % Get distance to elites
-if ~isempty(map.genes)   
-    distances = pdist2(features,map.features);
+if ~isempty(map.genes)
+    eliteDistance = pdist2(features,map.features);
 else
-    distances = [];
+    eliteDistance = [];
 end
-% Compete if needed
-%TODO Competition with old elites
 
 % Get distance between candidates
-distances = [distances pdist2(features,features)];
-distances(distances==0) = 99; %TODO: this is a hack to prevent comparisons of a candidate with itself
+distances = [eliteDistance pdist2(features,features)];
+distances(distances==0) = nan; %TODO: this is a hack to prevent comparisons of a candidate with itself
 
 % Compete if needed
 competing = distances < map.config.competeDistance;
-competition = fitness >(fitness.*competing);
-won = all(competition(any(competing==1),:)'==0);
+competition = ([map.fitness; fitness]'.*competing);
+
 % Add competing candidates that improve the map
-replacement(any(competing==1)) = won;
+won = fitness > competition;
+takehome = won;
+takehome(~competing) = 1; % Add non-competing
+replacement = all(takehome'==1);
 
-% Add non-competing candidates
-noncompeting = all(competing==0);
-replacement(noncompeting) = 1;
+% if ~isempty(map.genes)
+%     figure(2);hold off;
+%     h(1) = scatter(map.features(:,1),map.features(:,2),64,'k','filled');
+%     hold on;
+%     h(2) = scatter(features(:,1),features(:,2),'b','filled');
+%     h(3) = scatter(features(any(competing'==1),1),features(any(competing'==1),2),'r','filled');
+%     wonIDs = logical(any(competing'==1).*replacement);
+%     h(4) = scatter(features(wonIDs,1),features(wonIDs,2),'g','filled');
+%     legend(h,'Elites', 'Candidates', 'Competing Candidates', 'Won');
+%     axis([0 1 0 1]);
+%     grid on;
+%     drawnow;
+% end
 
 
-%%TODO  do not delete old elites but merge
+%% TODO cells removed
+%disp('No max bins implemented yet');
+replaced = false(length(map.fitness),1);
+if ~isempty(map.genes)
+    % only remove elites from the map here
+    
+    % Get all distances
+    removalCandidates = distances;
+    % Only distances that were won by new candidates
+    removalCandidates = removalCandidates.*won;
+    % Ignore non-competitions
+    removalCandidates(removalCandidates==0) = nan;
+    % Get only candidate distances from map
+    removalCandidates = removalCandidates(:,1:end-length(fitness));
+    [~, nn] = min(removalCandidates');
+    removeIDs = nn(logical(replacement.*~all(isnan(removalCandidates'))));
+    replaced(removeIDs) = 1;
+end
 
+%% TODO MAX BINS
+%p.maxBins
 
 %% OLD CODE
 %[bestIndex, bestBin] = getBestPerCell(newInds,fitness, values, d, map.edges);

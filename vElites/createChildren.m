@@ -52,9 +52,8 @@ elseif strcmp(p.selectProcedure,'curiousness')
 end
 parents = parentPool(selection, :);
 
-mutation = randn(p.nChildren,d.dof) .* p.mutSigma;
-
 % Apply mutation
+mutation = randn(p.nChildren,d.dof) .* p.mutSigma;
 children = parents + mutation;
 children(children>d.ranges(2)) = d.ranges(2); children(children<d.ranges(1)) = d.ranges(1);
 

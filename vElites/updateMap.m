@@ -27,7 +27,7 @@ function map = updateMap(replaced,replacement,map,...
 
 % Assign Fitness
 if ~isempty(replaced);map.fitness(replaced) = [];end
-map.fitness = [map.fitness fitness(replacement)];
+map.fitness = [map.fitness; fitness(replacement)];
 
 % Assign Genes
 if ~isempty(replaced);map.genes(replaced,:) = [];end
