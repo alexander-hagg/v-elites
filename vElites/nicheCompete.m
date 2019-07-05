@@ -41,8 +41,11 @@ distances = [eliteDistance pdist2(features,features)];
 distances(distances==0) = nan; %TODO: this is a hack to prevent comparisons of a candidate with itself
 
 % Compete if needed
-competing = distances < map.config.competeDistance;
-competition = ([map.fitness; fitness]'.*competing);
+%fitnessScaling = (1./(2+fitness));
+fitnessScaling = 1./(1+fitness*10);
+competing = distances < map.config.competeDistance.*fitnessScaling;%.*ones(size(distances,1),1);
+competition = ([map.fitness; fitness]' .* competing);
+competition(~competing) = nan;
 
 % Add competing candidates that improve the map
 won = fitness > competition;
@@ -70,18 +73,23 @@ replacement = all(takehome'==1);
 replaced = false(length(map.fitness),1);
 if ~isempty(map.genes)
     % only remove elites from the map here
+    distanceCompetition = (distances .* competing);
+    distanceCompetition(~competing) = nan;
     
     % Get all distances
-    removalCandidates = distances;
+    %removalCandidates = distances;
     % Only distances that were won by new candidates
-    removalCandidates = removalCandidates.*won;
+    removalCandidates = distanceCompetition.*won;
     % Ignore non-competitions
     removalCandidates(removalCandidates==0) = nan;
     % Get only candidate distances from map
     removalCandidates = removalCandidates(:,1:end-length(fitness));
     [~, nn] = min(removalCandidates');
-    removeIDs = nn(logical(replacement.*~all(isnan(removalCandidates'))));
-    replaced(removeIDs) = 1;
+    removeIDs = nn(~all(isnan(removalCandidates')));
+    %removeIDs = nn(logical(replacement));
+    %removeIDs = nn(logical(replacement.*~all(isnan(removalCandidates'))));
+    %removeIDs(all(competing'==0)) = [];
+    if ~isempty(removeIDs); replaced(removeIDs) = 1;end
 end
 
 %% TODO MAX BINS

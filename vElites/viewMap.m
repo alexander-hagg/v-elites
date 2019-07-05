@@ -59,12 +59,11 @@ for s=1:size(elites,1)
             vPatch(idx+1:end,:)]; % Replace Inf values at idx with coordinates from the unbounded edges that meet the two adjacent finite vertices
     end
     patch(vPatch(:,1),vPatch(:,2),map.fitness(s));
-    %axis([0 10 0 10]);
 end
 hold on;
-scatter(elites(:,1),elites(:,2),'filled');
+%scatter(elites(:,1),elites(:,2),'filled');
 
-colormap(hot(16));
+colormap(hot(32));
 cHandle = colorbar;
 axis([0 1 0 1]);
 

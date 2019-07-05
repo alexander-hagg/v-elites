@@ -21,3 +21,4 @@ obsMap = updateMap(replaced,replacement,obsMap,fitness,initSamples,features);
 %[acqMap, percImproved, percValid, h, allMaps] = vElites(d.fitfun,obsMap,p,d);
 [predMap, ~, ~, ~, ~] = vElites(d.fitfun,obsMap,p,d);
 
+%%
