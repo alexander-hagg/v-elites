@@ -40,7 +40,6 @@ end
 percImproved = 0;
 percValid = 0;
 h = 0;
-allMaps = 0;
 percFilled = 0;
 
 iGen = 1;
@@ -62,13 +61,9 @@ while (iGen < p.nGens)
     %% Add Children to Map
     [replaced, replacement, features] = nicheCompete(children, fitness, values, map, d);
     map = updateMap(replaced,replacement,map,fitness,children,features);
-    iGen = iGen+1;
-%    [replaced, replacement] = nicheCompete(children,fitness,values,map,d);
 %    percImproved(iGen) = length(replaced)/p.nChildren;
-%    map = updateMap(replaced,replacement,map,fitness,children,...
-%        values,d.extraMapValues);
-    
-%    allMaps{iGen} = map;
+
+    allMaps{iGen} = map;
 %    percFilled(iGen) = sum(~isnan(map.fitness(:)))/(size(map.fitness,1)*size(map.fitness,2));
     
      %% View New Map
@@ -78,11 +73,12 @@ while (iGen < p.nGens)
          title(['Fitness Gen ' int2str(iGen) '/' int2str(p.nGens)]); 
          drawnow;
      end
-%         
-%     iGen = iGen+1;
-%     if ~mod(iGen,25) || iGen==2
-%         disp([char(9) 'Illumination Generation: ' int2str(iGen) ' - Map Coverage: ' num2str(100*percFilled(iGen-1)) '% - Improvement: ' num2str(100*percImproved(iGen-1))]);
-%     end
+     
+     iGen = iGen+1;
+     if ~mod(iGen,25) || iGen==2
+         %disp([char(9) 'Illumination Generation: ' int2str(iGen) ' - Map Coverage: ' num2str(100*percFilled(iGen-1)) '% - Improvement: ' num2str(100*percImproved(iGen-1))]);
+         disp([char(9) 'Illumination Generation: ' int2str(iGen) ]);
+     end
 end
 %if percImproved(end) > 0.05; disp('Warning: MAP-Elites finished while still making improvements ( >5% / generation )');end
 
