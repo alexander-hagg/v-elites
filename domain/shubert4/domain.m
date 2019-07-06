@@ -5,8 +5,8 @@ warning('off', 'MATLAB:MKDIR:DirectoryExists');
 warning('off', 'MATLAB:polyshape:repairedBySimplify');
 
 d.nDims                     = 2;
-d.featureMin                = [-5    -5];
-d.featureMax                = [5    5];
+d.featureMin                = [-2    -2];
+d.featureMax                = [2    2];
 d.categorize                = 'categorize';
 d.featureLabels             = {'x1','x2'};
 d.featureRes                = [10 10];
@@ -17,15 +17,14 @@ d.fitfun                    = @(X) objective(X);
 
 d.dof = 2;
 
-d.ranges          = [-5 5];
+d.ranges          = [-2 2];
 d.evalFcn         = @(samples) eval_maze(samples, d, false);
 d.validate        = 'validateChildren';
-d.flipMap = true;
 
 
 %% Individual's genome and phenotype
 d.sampleInd.genome    = nan(d.dof,1);
 
-disp("Running vElites on dropwave domain");
+disp("Running vElites on Shubert 4 domain");
 end
 

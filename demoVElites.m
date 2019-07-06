@@ -1,5 +1,5 @@
 addpath(genpath('.'));
-DOMAIN = 'dropwave'; %npoly
+DOMAIN = 'shubert4'; %npoly dropwave
 rmpath(genpath('domain')); addpath(['domain/' DOMAIN]);
 
 ALGORITHM = 'vElites';
@@ -21,9 +21,12 @@ obsMap = updateMap(replaced,replacement,obsMap,fitness,initSamples,features);
 %[acqMap, percImproved, percValid, h, allMaps] = vElites(d.fitfun,obsMap,p,d);
 %%
 p.selectProcedure = 'random';
+tic;
 [predMapRANDOM, ~, ~, ~, allMapsRANDOM] = vElites(d.fitfun,obsMap,p,d);
-p.selectProcedure = 'bin';
-[predMapBIN, ~, ~, ~, allMapsBIN] = vElites(d.fitfun,obsMap,p,d);
+toc;
+viewMap(predMapRANDOM,d,1); title(['Voronoi Map with Random Selection']); caxis(d.fitnessRange);
+%p.selectProcedure = 'bin';
+%[predMapBIN, ~, ~, ~, allMapsBIN] = vElites(d.fitfun,obsMap,p,d);
 
 %%
 filename = 'vElites.gif';
