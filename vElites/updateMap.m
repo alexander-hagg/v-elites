@@ -37,5 +37,14 @@ map.genes = [map.genes; genes(replacement,:)];
 if ~isempty(replaced);map.features(replaced,:) = [];end
 map.features = [map.features; features(replacement,:)];
 
+% Get Voronoi segmentation and calculate new areas
+if ~isempty(replaced);map.areas(replaced) = [];end
+[map.voronoi.vertices,map.voronoi.bins] = voronoin(map.features);
+for i=1:length(map.voronoi.bins)
+    bin = map.voronoi.vertices(map.voronoi.bins{i},:);
+    bin(isinf(bin)) = map.config.infReplacement;
+    map.areas(i) = polyarea(bin(:,1),bin(:,2));    
+end
+
 
 %------------- END OF CODE --------------
