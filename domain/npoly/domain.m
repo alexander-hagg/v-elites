@@ -13,7 +13,7 @@ d.featureLabels             = {'area','perimeter'};
 d.featureRes                = [40 40];
 d.debug                     = false;
 d.extraMapValues            = {'random'};
-d.fitnessRange              = [-10 -1];
+d.fitnessRange              = [0 1];
 d.fitfun                    = @(X) objective(X);
 
 

@@ -19,6 +19,6 @@ function [scores,values] = objective(x)
         end
     end
     scores = (scores+25)/50;
-    values = scores;
+    values = x;
 end
 

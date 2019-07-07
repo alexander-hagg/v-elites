@@ -34,6 +34,8 @@ function [figHandle, imageHandle, cHandle] = viewMap(map, d, varargin)
 %------------- BEGIN CODE --------------
 if nargin > 2; figHandle = figure(varargin{1}); else; figHandle = figure;end
 elites = map.features;
+[elites,ids] = unique(elites,'rows');
+fitness = map.fitness(ids);
 hold off;
 
 [v,c]=voronoin(elites);
@@ -45,10 +47,11 @@ v1Unbounded = v1(end-(nUnbounded-1):end,:,:);
 vUnbounded = v1Unbounded(:,:,2); % Displayed coordinate of the unbounded end of the cell edge
 
 l = 0;
-maxPatch = 25;
+maxPatch = 50;
 patchesX = nan(maxPatch,size(elites,1));patchesY = nan(maxPatch,size(elites,1));
 for s=1:size(elites,1)
     l=l+1;
+    if l > length(c); continue;end
     cPatch = c{l}; % List of vertex indices
     vPatch = v(cPatch,:); % Vertex coordinates which may contain Inf
     idx = find(cPatch==1); % Check if cell has unbounded edges
@@ -63,7 +66,7 @@ for s=1:size(elites,1)
     patchesX(1:length(vPatch(:,1)),s) = vPatch(:,1);
     patchesY(1:length(vPatch(:,2)),s) = vPatch(:,2);
 end
-patch(patchesX,patchesY,map.fitness);
+patch(patchesX,patchesY,fitness);
 
 colormap(hot(32));
 cHandle = colorbar;

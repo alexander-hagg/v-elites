@@ -1,5 +1,5 @@
 addpath(genpath('.'));
-DOMAIN = 'shubert4'; %npoly dropwave
+DOMAIN = 'shubert4'; %npoly dropwave shubert4
 rmpath(genpath('domain')); addpath(['domain/' DOMAIN]);
 
 ALGORITHM = 'vElites';
@@ -10,8 +10,7 @@ p = defaultParamSet(4);
 
 sobSequence         = scramble(sobolset(d.dof,'Skip',1e3),'MatousekAffineOwen');
 sobPoint            = 1;
-initSamples         = (2*sobSequence(sobPoint:(sobPoint+p.numInitSamples)-1,:))-1;
-initSamples         = initSamples.*d.ranges;
+initSamples         = range(d.ranges).*sobSequence(sobPoint:(sobPoint+p.numInitSamples)-1,:)+d.ranges(1);
 [fitness, values]   = d.fitfun(initSamples);
 
 obsMap              = createMap(d.dof, p.maxBins, p.competeDistance, p.infReplacement);
@@ -24,7 +23,7 @@ p.selectProcedure = 'random';
 tic;
 [predMapRANDOM, ~, ~, ~, allMapsRANDOM] = vElites(d.fitfun,obsMap,p,d);
 toc;
-viewMap(predMapRANDOM,d,1); title(['Voronoi Map with Random Selection']); caxis(d.fitnessRange);
+[figHandle, imageHandle, cHandle] = viewMap(predMapRANDOM,d,3); title(['Domain: ' DOMAIN]); caxis(d.fitnessRange); cHandle.Label.String = 'Fitness';
 %p.selectProcedure = 'bin';
 %[predMapBIN, ~, ~, ~, allMapsBIN] = vElites(d.fitfun,obsMap,p,d);
 
