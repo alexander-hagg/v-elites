@@ -30,8 +30,10 @@ toc;
 %%
 
 figure(1);viewDomainMap(predMapRANDOM,d);
-
-figure(2);viewDomainSimspace(predMapRANDOM,d);
+%%
+shapeScale = 1;
+randScale = 10;
+figure(2);viewDomainSimspace(predMapRANDOM,d,shapeScale,randScale);
 
 %% GIF
 filename = 'vElites.gif';
