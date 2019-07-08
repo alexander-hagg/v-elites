@@ -1,5 +1,5 @@
 addpath(genpath('.'));
-DOMAIN = 'shubert4'; %npoly dropwave shubert4
+DOMAIN = 'npoly'; %npoly dropwave shubert4
 rmpath(genpath('domain')); addpath(['domain/' DOMAIN]);
 
 ALGORITHM = 'vElites';
@@ -28,6 +28,12 @@ toc;
 %[predMapBIN, ~, ~, ~, allMapsBIN] = vElites(d.fitfun,obsMap,p,d);
 
 %%
+
+figure(1);viewDomainMap(predMapRANDOM,d);
+
+figure(2);viewDomainSimspace(predMapRANDOM,d);
+
+%% GIF
 filename = 'vElites.gif';
 h = figure(1); clf;
 for n=1:25:length(allMaps)
