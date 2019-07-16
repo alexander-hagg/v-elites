@@ -20,29 +20,31 @@ obsMap = updateMap(replaced,replacement,obsMap,fitness,initSamples,features);
 %[acqMap, percImproved, percValid, h, allMaps] = vElites(d.fitfun,obsMap,p,d);
 %%
 p.selectProcedure = 'random';
-tic;
+p.nGens = 2^12;
+p.competeDistance           = 1;
+%tic;
 [predMapRANDOM, ~, ~, ~, allMapsRANDOM] = vElites(d.fitfun,obsMap,p,d);
-toc;
-[figHandle, imageHandle, cHandle] = viewMap(predMapRANDOM,d,3); title(['Domain: ' DOMAIN]); caxis(d.fitnessRange); cHandle.Label.String = 'Fitness';
+%toc;
+%[figHandle, imageHandle, cHandle] = viewMap(predMapRANDOM,d,3); title(['Domain: ' DOMAIN]); caxis(d.fitnessRange); cHandle.Label.String = 'Fitness';
 %p.selectProcedure = 'bin';
 %[predMapBIN, ~, ~, ~, allMapsBIN] = vElites(d.fitfun,obsMap,p,d);
 
 %%
 
-figure(1);viewDomainMap(predMapRANDOM,d);
+figure(2);viewDomainMap(predMapRANDOM,d);
 %%
 shapeScale = 1;
 randScale = 10;
-figure(2);viewDomainSimspace(predMapRANDOM,d,shapeScale,randScale);
+figure(3);viewDomainSimspace(predMapRANDOM,d,shapeScale,randScale);
 
 %% GIF
 filename = 'vElites.gif';
 h = figure(1); clf;
-for n=1:25:length(allMaps)
+for n=1:25:length(allMapsRANDOM)
     subplot(2,1,1);
     viewMap(allMapsRANDOM{n},d,1); title(['Random Map - Gen ' int2str(n)]); caxis(d.fitnessRange);
-    subplot(2,1,2);
-    viewMap(allMapsBIN{n},d,1); title(['Bin Map - Gen ' int2str(n)]); caxis(d.fitnessRange);
+    %subplot(2,1,2);
+    %viewMap(allMapsBIN{n},d,1); title(['Bin Map - Gen ' int2str(n)]); caxis(d.fitnessRange);
     drawnow;
     % Capture the plot as an image
     frame = getframe(h);
