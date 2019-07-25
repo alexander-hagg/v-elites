@@ -71,6 +71,7 @@ hold(figHandle,'on');
 patch(figHandle,patchesX,patchesY,fitness);
 colormap(figHandle,hot(32));
 cHandle = colorbar(figHandle);
+cHandle.Label.String = 'Fitness';
 axis(figHandle,[0 1 0 1]);
 
 scatter(figHandle,elites(:,1),elites(:,2),[],[0 0 0],'filled');

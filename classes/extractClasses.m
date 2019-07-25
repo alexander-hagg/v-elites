@@ -13,7 +13,7 @@ function [classification,stats] = extractClasses(X,varargin)
 mapMethod               = 'tSNE'; % Configure dimensionality reduction
 if nargin > 1; mapMethod = varargin{1};end
 
-numClusterTrials        = 5;
+numClusterTrials        = 2;
 if nargin > 2; numClusterTrials = varargin{2};end
 
 numDims_DR              = 2;

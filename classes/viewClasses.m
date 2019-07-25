@@ -1,4 +1,4 @@
-function [pltHandle] = viewClasses(classification,showLabels,varargin)
+function [pltHandle] = viewClasses(X, classification, varargin)
 %viewClasses -
 %
 % Syntax:  viewClasses(classStruct,d,varargin)
@@ -25,28 +25,33 @@ function [pltHandle] = viewClasses(classification,showLabels,varargin)
 % Nov 2018; Last revision: 02-Nov-2018
 
 %------------- BEGIN CODE --------------
+if nargin > 2; figHandle = varargin{1}; else; figHandle = figure;end
 
+if isempty(classification) 
+    classification = extractClasses(X);
+end
+    
 inds        = classification.simX;
 numInds     = size(classification.simX,1);
 
-if nargin > 2; selection=varargin{1};end
-if exist('selection','var')
-    disp('Showing selected classes');
-    colors = [1 0 0;0 1 0];
-    selColors = ismember(classification.labels,selection)+1;
-else
+%if nargin > 2; selection=varargin{1};end
+%if exist('selection','var')
+%    disp('Showing selected classes');
+%    colors = [1 0 0;0 1 0];
+%    selColors = ismember(classification.labels,selection)+1;
+%else
     colors = flipud(colorcube(max(classification.labels))); 
     selColors = classification.labels;
-end
+%end
 
 %%
-pltHandle = scatter(inds(:,1), inds(:,2), 32, colors(selColors,:), 'filled');
+pltHandle = scatter(figHandle,inds(:,1), inds(:,2), 32, colors(selColors,:), 'filled');
 
 [~,ids] = unique(classification.labels);
 
-if showLabels
-    text(inds(ids,1)+0.1,inds(ids,2)+0.1,[int2str(classification.labels(ids))],'FontSize',16);
-end
+%if showLabels
+%    text(inds(ids,1)+0.1,inds(ids,2)+0.1,[int2str(classification.labels(ids))],'FontSize',16);
+%end
 
 end
 
