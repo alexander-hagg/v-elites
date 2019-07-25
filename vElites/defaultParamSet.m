@@ -16,7 +16,7 @@ function p = defaultParamSet(varargin)
 
 p.nChildren                 = 2^5;
 p.mutSigma                  = 0.1;
-p.nGens                     = 2^10;
+p.nGens                     = 2^8;
 p.numInitSamples            = 2^5;
 p.selectProcedure           = 'random'; % random bin
 p.maxBins                   = 2^3; % not used yet
