@@ -27,17 +27,15 @@ replacement = false(size(newInds,1),1);
 percImprovement = 0;
 
 
-
-
 % Get distance to elites
 if ~isempty(map.genes)
-    eliteDistance = pdist2(features,map.features);
+    eliteDistance = pdist2(features(:,d.selectedFeatures),map.features(:,d.selectedFeatures));
 else
     eliteDistance = [];
 end
 
 % Get distance between candidates
-distances = [eliteDistance pdist2(features,features)];
+distances = [eliteDistance pdist2(features(:,d.selectedFeatures),features(:,d.selectedFeatures))];
 distances(distances==0) = nan; %TODO: this is a hack to prevent comparisons of a candidate with itself
 
 % Compete if needed

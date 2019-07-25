@@ -34,7 +34,7 @@ function [figHandle, imageHandle, cHandle] = viewMap(map, d, varargin)
 %------------- BEGIN CODE --------------
 if nargin > 2; figHandle = varargin{1}; else; figHandle = figure;end
 
-elites = map.features;
+elites = map.features(:,d.selectedFeatures);
 [elites,ids] = unique(elites,'rows');
 fitness = map.fitness(ids);
 hold(figHandle,'off');
@@ -73,9 +73,9 @@ colormap(figHandle,hot(32));
 cHandle = colorbar(figHandle);
 axis(figHandle,[0 1 0 1]);
 
-scatter(figHandle,elites(:,1),elites(:,2),16,[0 0 0],'filled');
+scatter(figHandle,elites(:,1),elites(:,2),[],[0 0 0],'filled');
 
-xlab = xlabel(figHandle,[d.featureLabels{1} '\rightarrow']);
-ylab = ylabel(figHandle,['\leftarrow' d.featureLabels{2} ]);
+xlab = xlabel(figHandle,[d.featureLabels{d.selectedFeatures(1)} '\rightarrow']);
+ylab = ylabel(figHandle,['\leftarrow' d.featureLabels{d.selectedFeatures(2)} ]);
 
 %------------- END OF CODE --------------

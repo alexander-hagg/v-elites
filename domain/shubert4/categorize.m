@@ -13,5 +13,7 @@ feature(:,2) = (samples(:,2)-d.featureMin(2))./(d.featureMax(2)-d.featureMin(2))
 
 feature(feature>1) = 1; feature(feature<0) = 0;
 
+feature(:,3) = rand(size(feature(:,1)));
+
 end
 
