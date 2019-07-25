@@ -48,7 +48,7 @@ v1Unbounded = v1(end-(nUnbounded-1):end,:,:);
 vUnbounded = v1Unbounded(:,:,2); % Displayed coordinate of the unbounded end of the cell edge
 
 l = 0;
-maxPatch = 50;
+maxPatch = 100;
 patchesX = nan(maxPatch,size(elites,1));patchesY = nan(maxPatch,size(elites,1));
 for s=1:size(elites,1)
     l=l+1;
