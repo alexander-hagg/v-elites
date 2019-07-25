@@ -32,14 +32,15 @@ function [figHandle, imageHandle, cHandle] = viewMap(map, d, varargin)
 % Jun 2016; Last revision: 20-Aug-2017
 
 %------------- BEGIN CODE --------------
-if nargin > 2; figHandle = figure(varargin{1}); else; figHandle = figure;end
+if nargin > 2; figHandle = varargin{1}; else; figHandle = figure;end
+
 elites = map.features;
 [elites,ids] = unique(elites,'rows');
 fitness = map.fitness(ids);
-hold off;
+hold(figHandle,'off');
 
 [v,c]=voronoin(elites);
-imageHandle = voronoi(elites(:,1),elites(:,2));
+imageHandle = voronoi(figHandle,elites(:,1),elites(:,2));
 v1 = shiftdim(reshape([imageHandle(2).XData;imageHandle(2).YData],2,3,[]),2); % Arranged one edge per row, one vertex per slice in the third dimension
 nUnbounded = sum(cellfun(@(ic)ismember(1,ic),c));
 v1Unbounded = v1(end-(nUnbounded-1):end,:,:);
@@ -66,13 +67,15 @@ for s=1:size(elites,1)
     patchesX(1:length(vPatch(:,1)),s) = vPatch(:,1);
     patchesY(1:length(vPatch(:,2)),s) = vPatch(:,2);
 end
-patch(patchesX,patchesY,fitness);
+hold(figHandle,'on');
+patch(figHandle,patchesX,patchesY,fitness);
+colormap(figHandle,hot(32));
+cHandle = colorbar(figHandle);
+axis(figHandle,[0 1 0 1]);
 
-colormap(hot(32));
-cHandle = colorbar;
-axis([0 1 0 1]);
+scatter(figHandle,elites(:,1),elites(:,2),16,[0 0 0],'filled');
 
-xlab = xlabel([d.featureLabels{1} '\rightarrow']);
-ylab = ylabel(['\leftarrow' d.featureLabels{2} ]);
+xlab = xlabel(figHandle,[d.featureLabels{1} '\rightarrow']);
+ylab = ylabel(figHandle,['\leftarrow' d.featureLabels{2} ]);
 
 %------------- END OF CODE --------------

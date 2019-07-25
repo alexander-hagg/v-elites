@@ -1,10 +1,10 @@
 addpath(genpath('.'));
-DOMAIN = 'npoly'; %npoly dropwave shubert4
+DOMAIN = 'dropwave'; %npoly dropwave shubert4
 rmpath(genpath('domain')); addpath(['domain/' DOMAIN]);
 
 ALGORITHM = 'vElites';
 rmpath('mapElites'); rmpath('vElites'); addpath(ALGORITHM);
-%% Load configuration of domain and V-Elites
+% Load configuration of domain and V-Elites
 d = domain;
 p = defaultParamSet(4);
 
@@ -17,15 +17,7 @@ obsMap              = createMap(d.dof, p.maxBins, p.competeDistance, p.infReplac
 [replaced, replacement, features] = nicheCompete(initSamples, fitness, values, obsMap, d);
 obsMap = updateMap(replaced,replacement,obsMap,fitness,initSamples,features);
 
-%[acqMap, percImproved, percValid, h, allMaps] = vElites(d.fitfun,obsMap,p,d);
-%%
-p.selectProcedure = 'random';
-p.nGens = 2^12;
-p.competeDistance           = 1;
-%tic;
 [predMapRANDOM, ~, ~, ~, allMapsRANDOM] = vElites(d.fitfun,obsMap,p,d);
-%toc;
-%[figHandle, imageHandle, cHandle] = viewMap(predMapRANDOM,d,3); title(['Domain: ' DOMAIN]); caxis(d.fitnessRange); cHandle.Label.String = 'Fitness';
 %p.selectProcedure = 'bin';
 %[predMapBIN, ~, ~, ~, allMapsBIN] = vElites(d.fitfun,obsMap,p,d);
 

@@ -41,9 +41,10 @@ distances = [eliteDistance pdist2(features,features)];
 distances(distances==0) = nan; %TODO: this is a hack to prevent comparisons of a candidate with itself
 
 % Compete if needed
-%fitnessScaling = 1./(1+fitness*20);
-fitnessScaling = 1./fitness/sum(fitness);
-competing = distances < map.config.competeDistance.*fitnessScaling;%.*ones(size(distances,1),1);
+%fitnessScaling = 1./(1+fitness*30);
+%fitnessScaling = 1./(1+fitness*sum(fitness));
+fitnessScaling = 1./(fitness/sum(fitness));
+competing = distances < map.config.competeDistance.*fitnessScaling;
 competition = ([map.fitness; fitness]' .* competing);
 competition(~competing) = nan;
 
@@ -94,14 +95,4 @@ end
 
 %% TODO MAX BINS
 %p.maxBins
-
-%% OLD CODE
-%[bestIndex, bestBin] = getBestPerCell(newInds,fitness, values, d, map.edges);
-%mapLinIndx = sub2ind(d.featureRes,bestBin(:,1),bestBin(:,2));
-
-% Compare to already existing samples
-%improvement = ~(fitness (bestIndex) >= map.fitness(mapLinIndx)); % comparisons to NaN are always false
-%improvement(isnan(fitness(bestIndex))) = false;
-%replacement = bestIndex (improvement);
-%replaced    = mapLinIndx(improvement);
 %------------- END OF CODE --------------

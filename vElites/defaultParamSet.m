@@ -16,15 +16,15 @@ function p = defaultParamSet(varargin)
 
 p.nChildren                 = 2^5;
 p.mutSigma                  = 0.1;
-p.nGens                     = 2^5;
+p.nGens                     = 2^10;
 p.numInitSamples            = 2^5;
 p.selectProcedure           = 'random'; % random bin
 p.maxBins                   = 2^3; % not used yet
-p.competeDistance           = 0.1;
-p.infReplacement            = 5;
+p.competeDistance           = 0.0005;
+p.infReplacement            = 1;
 
 % Visualization and data management
-p.display.illu              = true;
+p.display.illu              = false;
 p.display.illuMod           = 100;
 
 end

@@ -32,7 +32,9 @@ function [map, percImproved, percValid, h, allMaps, percFilled] = vElites(fitnes
 h = [];
 if p.display.illu
     figure(1); clf;
-    viewMap(map,d,1); title('Voronoi Map'); caxis(d.fitnessRange);
+    viewMap(map,d,1); title('Fitness'); caxis(d.fitnessRange);
+    %figure(2); clf;
+    %viewMap(map,d,2); title('New Members'); caxis(d.fitnessRange);
     drawnow;
 end
 
