@@ -45,7 +45,7 @@ numInds     = size(classification.simX,1);
 %end
 
 %%
-pltHandle = scatter(figHandle,inds(:,1), inds(:,2), 32, colors(selColors,:), 'filled');
+pltHandle = scatter(figHandle,inds(:,1), inds(:,2), 8, colors(selColors,:), 'filled');
 
 [~,ids] = unique(classification.labels);
 

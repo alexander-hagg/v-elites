@@ -13,17 +13,18 @@ function [classification,stats] = extractClasses(X,varargin)
 mapMethod               = 'tSNE'; % Configure dimensionality reduction
 if nargin > 1; mapMethod = varargin{1};end
 
-numClusterTrials        = 2;
+numClusterTrials        = 1;
 if nargin > 2; numClusterTrials = varargin{2};end
 
 numDims_DR              = 2;
-
-minGPLUS = 1e-4;
-
+minGPLUS                = 1e-4;
+perplexity              = 50;
+numDims_ORG             = size(X,2);
+speedQualitytradeOff    = 0.3;
 
 for t=1:numClusterTrials
-    [simX{t}, mapping]  = compute_mapping(X, mapMethod, numDims_DR);
-    %simX{t} = fast_tsne(X, numDims_DR, 10);
+    %[simX{t}, mapping]  = compute_mapping(X, mapMethod, numDims_DR);
+    simX{t} = fast_tsne(X, numDims_DR, numDims_ORG, perplexity, speedQualitytradeOff);
     coreneighbours      = max(2 * numDims_DR,3); %Rule of thumb
     [~,t_distances]     = knnsearch(simX{t},simX{t},'K',coreneighbours+1);
     t_distances(:,1)    = [];

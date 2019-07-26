@@ -1,4 +1,4 @@
-function [map, percImproved, percValid, h, allMaps, percFilled] = mapElites(fitnessFunction,map,p,d)
+function [map, percImproved, percValid, h, allMaps, percFilled] = illuminate(fitnessFunction,map,p,d)
 %mapElites - Multi-dimensional Archive of Phenotypic Elites algorithm
 %
 % Syntax:  map = mapElites(fitnessFunction, map, p, d);

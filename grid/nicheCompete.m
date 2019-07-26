@@ -33,4 +33,6 @@ improvement = ~(fitness (bestIndex) >= map.fitness(mapLinIndx)); % comparisons t
 improvement(isnan(fitness(bestIndex))) = false;
 replacement = bestIndex (improvement);
 replaced    = mapLinIndx(improvement);
+
+percImprovement = 0;
 %------------- END OF CODE --------------

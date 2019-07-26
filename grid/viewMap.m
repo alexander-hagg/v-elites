@@ -32,22 +32,24 @@ function [figHandle, imageHandle, cHandle] = viewMap(mapMatrix, d, varargin)
 % Jun 2016; Last revision: 20-Aug-2017
 
 %------------- BEGIN CODE --------------
-mapRes = size(mapMatrix);
+if nargin > 2; figHandle = varargin{1}; else; figHandle = figure;end
+
+mapRes = size(mapMatrix.fitness);
 for i=1:length(mapRes)
     edges{i} = linspace(0,1,mapRes(i)+1); %#ok<AGROW>
 end
 
 yOffset = [0.5 -0.0 0];
-imgHandle = imagesc(flipud(rot90(mapMatrix))); fitPlot = gca;
+imgHandle = imagesc(figHandle,flipud(rot90(mapMatrix.fitness))); 
 if nargin > 3
     if strcmp(varargin{1},'flip')
-        imgHandle = imagesc(fliplr(rot90(rot90(mapMatrix)))); fitPlot = gca;
+        imgHandle = imagesc(figHandle,fliplr(rot90(rot90(mapMatrix.fitness)))); fitPlot = gca;
     end
 end
 
 set(imgHandle,'AlphaData',~isnan(imgHandle.CData)*1)
-xlab = xlabel([d.featureLabels{1} '\rightarrow']);
-ylab = ylabel(['\leftarrow' d.featureLabels{2} ]);
+xlab = xlabel(figHandle,[d.featureLabels{1} '\rightarrow']);
+ylab = ylabel(figHandle,['\leftarrow' d.featureLabels{2} ]);
 %set(ylab,'Rotation',0,'Position',get(ylab,'Position')-yOffset)
 
 
@@ -66,7 +68,7 @@ if length(yticklabels)>10
     yticklabels(~keep,:)= ' ';
 end
 xticklabels = {}; yticklabels = {};
-set(fitPlot,...
+set(figHandle,...
     'XTickLabel',xticklabels,...
     'XTick', linspace(0.5,d.featureRes(2)+0.5,d.featureRes(2)+1), ...
     'YTickLabel',yticklabels,...
@@ -75,8 +77,9 @@ set(fitPlot,...
     'xcolor', 'k', 'ycolor', 'k'...
     )
 
-cHandle = colorbar;
-axis square
-figHandle = fitPlot; imageHandle = imgHandle;
+cHandle = colorbar(figHandle);
+axis(figHandle,'square');
+%figHandle = fitPlot; 
+imageHandle = imgHandle;
 
 %------------- END OF CODE --------------

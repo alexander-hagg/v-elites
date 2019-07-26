@@ -1,4 +1,4 @@
-function [map, percImproved, percValid, h, allMaps, percFilled] = vElites(fitnessFunction,map,p,d)
+function [map, percImproved, percValid, h, allMaps, percFilled] = illuminate(fitnessFunction,map,p,d)
 %vElites - Voronoi Archive of Phenotypic Elites algorithm
 %
 % Syntax:  map = vElites(fitnessFunction, map, p, d);

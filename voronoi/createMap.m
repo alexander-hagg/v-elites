@@ -1,4 +1,4 @@
-function map = createMap(genomeLength, maxBins, competeDistance, infReplacement)
+function map = createMap(genomeLength, p, varargin)
 %createMap - Defines map struct and feature space cell divisions
 %
 % Syntax:  [map, edges] = createMap(featureResolution, genomeLength)
@@ -24,9 +24,9 @@ function map = createMap(genomeLength, maxBins, competeDistance, infReplacement)
 %------------- BEGIN CODE --------------
 
 map.config.genomeLength         = genomeLength;
-map.config.maxBins              = maxBins;
-map.config.competeDistance      = competeDistance;
-map.config.infReplacement       = infReplacement;
+map.config.maxBins              = p.maxBins;
+map.config.competeDistance      = p.competeDistance;
+map.config.infReplacement       = p.infReplacement;
 map.fitness                     = [];
 map.genes                       = [];
 map.features                    = [];
