@@ -18,8 +18,9 @@ if nargin > 2; numClusterTrials = varargin{2};end
 
 numDims_DR              = 2;
 minGPLUS                = 1e-4;
-perplexity              = 50;
 numDims_ORG             = size(X,2);
+numSamples              = size(X,1);
+perplexity              = min(numSamples,30);
 speedQualitytradeOff    = 0.3;
 
 for t=1:numClusterTrials

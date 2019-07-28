@@ -1,7 +1,7 @@
 function showExample(figHandle,d,varargin)
 %SHOWEXAMPLE Summary of this function goes here
 
-genome = randn(2*d.dof,1); if nargin>2; genome = varargin{1}; end
+genome = randn(1,2*d.dof); if nargin>2; genome = varargin{1}; end
 
 spacer = 3;
 numRows = ceil(sqrt(size(genome,1)));
@@ -15,7 +15,6 @@ for i=1:size(genome,1)
     pgon.Vertices(:,2) = pgon.Vertices(:,2) + ((floor(i/numCols)))*spacer;
     plot(figHandle,pgon,'FaceColor','green'); 
     hold(figHandle,'on');
-    drawnow;
 end
     
 %axis(figHandle,[-5 5 -5 5]);
