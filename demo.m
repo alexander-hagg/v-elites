@@ -1,8 +1,8 @@
 addpath(genpath('.'));
-DOMAIN = 'dropwave'; %npoly dropwave shubert4
+DOMAIN = 'npoly'; %npoly dropwave shubert4
 rmpath(genpath('domain')); addpath(['domain/' DOMAIN]);
 
-ALGORITHM = 'grid';
+ALGORITHM = 'voronoi';
 rmpath('grid'); rmpath('voronoi'); addpath(ALGORITHM);
 % Load configuration of domain and V-Elites
 d = domain;
@@ -17,8 +17,10 @@ obsMap              = createMap(d.dof, p);
 [replaced, replacement, features] = nicheCompete(initSamples, fitness, values, obsMap, d);
 obsMap = updateMap(replaced,replacement,obsMap,fitness,initSamples,features);
 
+profile on
 [predMapRANDOM, ~, ~, ~, allMapsRANDOM] = illuminate(d.fitfun,obsMap,p,d);
-
+profile off
+profile viewer
 %%
 
 figure(2);viewDomainMap(predMapRANDOM,d);
