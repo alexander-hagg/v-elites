@@ -1,4 +1,4 @@
-function [pltHandle] = viewClasses(X, classification, varargin)
+function [pltHandle,classification] = viewClasses(X, classification, varargin)
 %viewClasses -
 %
 % Syntax:  viewClasses(classStruct,d,varargin)
