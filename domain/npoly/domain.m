@@ -32,6 +32,8 @@ d.evalFcn         = @(samples) eval_maze(samples, d, false);
 d.validate        = 'validateChildren';
 d.flipMap = true;
 
+d.phenotypeAxisRanges = [-5 5];
+d.spacer = 2;
 
 %% Individual's genome and phenotype
 d.sampleInd.genome    = nan(d.dof,1);
