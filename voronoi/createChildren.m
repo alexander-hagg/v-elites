@@ -36,7 +36,7 @@ elseif strcmp(p.selectProcedure,'bin')
     % Setup tournament selection
     selection = randi([1 size(parentPool,1)], [p.nChildren 2]);
     areas = map.areas(selection);    
-    [~,sorted] = sort(areas,2,'ascend');
+    [~,sorted] = sort(areas,2,'descend');
     idx = sub2ind(size(areas), (1:size(sorted,1))', sorted(:,1));
     
     selection = selection(idx);    

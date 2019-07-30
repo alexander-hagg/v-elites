@@ -50,7 +50,6 @@ while (iGen < p.nGens)
     % Continue to remutate until enough children which satisfy geometric constraints are created
     children = []; 
     while size(children,1) < p.nChildren
-        %disp('Still randomly selecting!');
         newChildren = createChildren(map, p, d);
         %validInds = feval(d.validate,newChildren,d);
         %children = [children ; newChildren(validInds,:)] ; %#ok<AGROW>

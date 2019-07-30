@@ -16,16 +16,21 @@ if nargin > 1; mapMethod = varargin{1};end
 numClusterTrials        = 1;
 if nargin > 2; numClusterTrials = varargin{2};end
 
+if ndims(X) > 2
+   X = reshape(X,size(X,1)*size(X,2),[]);
+   X = X(all(~isnan(X')),:);
+end
+
 numDims_DR              = 2;
 minGPLUS                = 1e-4;
 numDims_ORG             = size(X,2);
 numSamples              = size(X,1);
-perplexity              = min(numSamples,30);
+perplexity              = min(numSamples,5);
 speedQualitytradeOff    = 0.3;
 
 for t=1:numClusterTrials
     %[simX{t}, mapping]  = compute_mapping(X, mapMethod, numDims_DR);
-    simX{t} = fast_tsne(X, numDims_DR, numDims_ORG, perplexity, speedQualitytradeOff);
+    simX{t}             = fast_tsne(X, numDims_DR, numDims_ORG, perplexity, speedQualitytradeOff);
     coreneighbours      = max(2 * numDims_DR,3); %Rule of thumb
     [~,t_distances]     = knnsearch(simX{t},simX{t},'K',coreneighbours+1);
     t_distances(:,1)    = [];

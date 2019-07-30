@@ -1,4 +1,4 @@
-function [replaced, replacement, features, percImprovement] = nicheCompete(newInds,fitness,values,map,d)
+function [replaced, replacement, features, percImprovement] = nicheCompete(newInds,fitness,values,map,d,p)
 %nicheCompete - results of competition with map's existing elites
 %
 % Syntax:  [replaced, replacement] = nicheCompete(newInds,fitness,map,p)

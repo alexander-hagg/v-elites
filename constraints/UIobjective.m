@@ -1,5 +1,5 @@
-function [adjustedFitness, values] = objective(X, evalFcn, constraintSet, penaltyWeight, varargin)
-%OBJECTIVE Generic objective function
+function [adjustedFitness, values] = UIobjective(X, evalFcn, constraintSet, penaltyWeight, varargin)
+%UIobjective Generic objective function
 %
 %
 % Author: Alexander Hagg

@@ -76,10 +76,10 @@ set(figHandle,...
     'xgrid', 'on', 'ygrid', 'on', 'gridlinestyle', '-',...
     'xcolor', 'k', 'ycolor', 'k'...
     )
-
+colormap(figHandle,hot(32));
 cHandle = colorbar(figHandle);
 axis(figHandle,'square');
-%figHandle = fitPlot; 
+axis(figHandle,[0 size(mapMatrix.fitness,1) 0 size(mapMatrix.fitness,2)]);
 imageHandle = imgHandle;
 
 %------------- END OF CODE --------------
