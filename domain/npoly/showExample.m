@@ -22,15 +22,9 @@ for i=1:size(genome,1)
     % Change placement if necessary
     if exist('placement','var') && ~isempty(placement)
         pgon.Vertices = pgon.Vertices + placement(i,:);
-        %pgon.Vertices(:,1) = pgon.Vertices(:,1) + placement(i,1);
-        %pgon.Vertices(:,2) = pgon.Vertices(:,2) + placement(i,2);
     end
     plot(figHandle,pgon,'FaceColor','green'); 
     hold(figHandle,'on');
 end
-    
-%axis(figHandle,[d.phenotypeAxisRanges d.phenotypeAxisRanges]);
-
-drawnow;
 end
 
