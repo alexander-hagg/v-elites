@@ -14,7 +14,9 @@ d.featureRes                = [10 10];
 d.debug                     = false;
 d.extraMapValues            = {'random'};
 d.fitnessRange              = [0 1];
-d.fitfun                    = @(X) objective(X);
+d.fitfun                    = @(X) dropwaveObjective(X);
+
+d.penaltyWeight             = 0.5;
 
 d.dof = 2;
 
@@ -23,9 +25,7 @@ d.evalFcn         = @(samples) eval_maze(samples, d, false);
 d.validate        = 'validateChildren';
 d.flipMap = true;
 
-d.phenotypeAxisRanges = [-5 5];
-
-
+d.spacer = 1;
 %% Individual's genome and phenotype
 d.sampleInd.genome    = nan(d.dof,1);
 

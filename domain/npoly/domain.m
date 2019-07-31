@@ -15,10 +15,10 @@ d.featureRes                = [40 40];
 d.debug                     = false;
 d.extraMapValues            = {'random'};
 d.fitnessRange              = [0 1];
-d.fitfun                    = @(X) objective(X);
+d.fitfun                    = @(X) npolyObjective(X);
 
 
-d.penaltyWeight             = str2num(getenv('CFG_PWEIGHT')); if isempty(d.penaltyWeight); d.penaltyWeight = 0.5; end
+d.penaltyWeight             = 0.5;
 disp(['Penalty weight: ' num2str(d.penaltyWeight)]);
 
 d.dof = 16;

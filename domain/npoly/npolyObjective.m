@@ -1,5 +1,5 @@
-function [fitness,values] = objective(solutions)
-%OBJECTIVE Random fitness
+function [fitness,values] = npolyObjective(solutions)
+%NPOLYOBJECTIVE 
 
 fullGenomes = [solutions,solutions(:,1:2)];
 

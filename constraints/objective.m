@@ -1,5 +1,5 @@
-function [adjustedFitness, values] = UIobjective(X, evalFcn, constraintSet, penaltyWeight, varargin)
-%UIobjective Generic objective function
+function [adjustedFitness, values] = objective(X, evalFcn, constraintSet, penaltyWeight, varargin)
+%OBJECTIVE Generic objective function
 %
 %
 % Author: Alexander Hagg
@@ -19,9 +19,7 @@ end
 penalty = zeros(size(X,1),1);
 if ~isempty(constraintSet)
     for iT=1:length(constraintSet)
-        if ~strcmp(constraintSet(iT).constraints,'none') && ~isempty(constraintSet(iT).constraints)
-            penalty = penalty + constraintPenalty(X,constraintSet(iT).constraints);
-        end
+        penalty = penalty + constraintPenalty(X,constraintSet{iT});
     end
 end
 

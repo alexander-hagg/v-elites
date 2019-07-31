@@ -5,7 +5,7 @@ function [isValid,classDistances,selectedClasses] = applyConstraints(examples, c
 % Author: Alexander Hagg
 % Bonn-Rhein-Sieg University of Applied Sciences (HBRS)
 % email: alexander.hagg@h-brs.de
-% Nov 2018; Last revision: 15-Jan-2019
+% Nov 2018; Last revision: 31-July-2019
 
 %------------- BEGIN CODE --------------
 model = constraints.model; sigma = constraints.threshold; classLabels = constraints.classLabels; selectedClasses = constraints.selectedClasses;
@@ -14,21 +14,11 @@ model = constraints.model; sigma = constraints.threshold; classLabels = constrai
 % Get distances to all class members
 for i=1:max(classLabels)
     memberIDs = (classLabels==i);
-    
-    if constraints.dimreduction
-        members = model.trainOutput(memberIDs,:);
-        if size(members,1)==1
-            classDistances(i,:) = pdist2(outputs,members);
-        else
-            classDistances(i,:) = min(pdist2(outputs,members)');
-        end
+    members = model.trainOutput(memberIDs,:);
+    if size(members,1)==1
+        classDistances(i,:) = pdist2(outputs,members);
     else
-        members = model.trainInput(memberIDs,:);
-        if size(members,1)==1
-            classDistances(i,:) = pdist2(examples,members);
-        else
-            classDistances(i,:) = min(pdist2(examples,members)');
-        end
+        classDistances(i,:) = min(pdist2(outputs,members)');
     end
 end
 

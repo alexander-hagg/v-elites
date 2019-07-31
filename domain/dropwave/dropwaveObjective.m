@@ -1,4 +1,4 @@
-function [scores,values] = objective(x)
+function [scores,values] = dropwaveObjective(x)
 %OBJECTIVE % Computes the value of the Drop-Wave benchmark function.
 % SCORES = DROPWAVEFCN(X) computes the value of the Drop-Wave function at 
 % point X. DROPWAVEFCN accepts a matrix of size M-by-2 and returns a  
