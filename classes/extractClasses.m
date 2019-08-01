@@ -25,8 +25,8 @@ numDims_DR              = 2;
 minGPLUS                = 1e-4;
 numDims_ORG             = size(X,2);
 numSamples              = size(X,1);
-perplexity              = min(numSamples,5);
-speedQualitytradeOff    = 0.3;
+perplexity              = min(numSamples,30);
+speedQualitytradeOff    = 0.5;
 
 for t=1:numClusterTrials
     %[simX{t}, mapping]  = compute_mapping(X, mapMethod, numDims_DR);

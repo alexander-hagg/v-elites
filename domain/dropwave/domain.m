@@ -29,6 +29,10 @@ d.spacer = 1;
 %% Individual's genome and phenotype
 d.sampleInd.genome    = nan(d.dof,1);
 
-disp("Running vElites on dropwave domain");
+d.description{1} = ['Dropwave domain'];
+d.description{2} = '';
+d.description{3} = ['Description:      benchmark domain, with DOF set to ' int2str(d.dof)];
+d.description{4} = ['Representation:   sequence of (x,y) pairs.'];
+d.description{5} = ['Fitness function: Dropwave function.'];
 end
 

@@ -4,7 +4,6 @@ RandStream.setGlobalStream(RandStream('mt19937ar','Seed','shuffle')); % Random n
 warning('off', 'MATLAB:MKDIR:DirectoryExists');
 warning('off', 'MATLAB:polyshape:repairedBySimplify');
 
-
 d.nDims                     = 2;
 d.featureMin                = [0    1];
 d.featureMax                = [1    3];
@@ -37,6 +36,11 @@ d.spacer = 2;
 %% Individual's genome and phenotype
 d.sampleInd.genome    = nan(d.dof,1);
 
-disp("Running vElites on npoly domain");
+
+d.description{1} = ['N-poly domain'];
+d.description{2} = '';
+d.description{3} = ['Description:      n-polygons, with n currently set to ' int2str(d.dof)];
+d.description{4} = ['Representation:   sequence of (x,y) pairs.'];
+d.description{5} = ['Fitness function: minimize number of holes and disconnected components.'];
 end
 
