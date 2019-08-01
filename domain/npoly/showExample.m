@@ -14,7 +14,6 @@ if nargin>3
     end
 end
 
-hold(figHandle,'off');
 for i=1:size(genome,1)
     pgon = polyshape(genome(i,1:2:end),genome(i,2:2:end));
     pgon.Vertices(end+1,1) = pgon.Vertices(1,1);
