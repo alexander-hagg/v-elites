@@ -14,13 +14,11 @@ if nargin>3
     end
 end
 
-pgon = getPhenotype(genome);
+pgon = getPhenotype(genome,d.base);
 for i=1:size(genome,1)
-    %pgon.Vertices(end+1,1) = pgon.Vertices(1,1);
-    %pgon.Vertices(end+1,2) = pgon.Vertices(1,2);
     % Change placement if necessary
     if exist('placement','var') && ~isempty(placement)
-        pgon{i}.Vertices = pgon.Vertices + placement(i,:);
+        pgon{i}.Vertices = pgon{i}.Vertices + placement(i,:);
     end
     plot(figHandle,pgon{i},'FaceColor','green'); 
     hold(figHandle,'on');

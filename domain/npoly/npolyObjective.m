@@ -1,14 +1,8 @@
-function [fitness,values] = npolyObjective(solutions)
+function [fitness,values] = npolyObjective(genomes)
 %NPOLYOBJECTIVE 
 
-fullGenomes = [solutions,solutions(:,1:2)];
-
-for i=1:size(fullGenomes,1)
-    xCoords = fullGenomes(i,1:2:end); 
-    yCoords = fullGenomes(i,2:2:end);
-    %k = convhull(xCoords,yCoords);
-    pgon{i} = polyshape(xCoords,yCoords);
-    
+pgon = getPhenotype(genomes);    
+for i=1:length(pgon)
     fitness(i) = pgon{i}.NumRegions + pgon{i}.NumHoles;
 end
 

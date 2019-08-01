@@ -21,7 +21,7 @@ p.numInitSamples            = 2^5;
 p.selectProcedure           = 'random'; % random bin
 p.maxBins                   = 2^3; % not used yet
 p.competeDistance           = 0.0005;
-p.infReplacement            = 1;
+p.infReplacement            = 5;
 
 % Visualization and data management
 p.display.illu              = false;

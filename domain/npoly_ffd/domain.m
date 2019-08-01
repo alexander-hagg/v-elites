@@ -14,20 +14,27 @@ d.featureRes                = [40 40];
 d.debug                     = false;
 d.extraMapValues            = {'random'};
 d.fitnessRange              = [0 1];
-d.fitfun                    = @(X) npolyObjective(X);
+
+d.dof = 12;
+t = 0:2*pi/(d.dof/2):2*pi;
+t(end) = [];
+x1 = 0.5*cos(t);
+y1 = 0.5*sin(t);
+[theta,rho] = cart2pol(x1,y1);
+d.base = [theta;rho];
+
+d.fitfun                    = @(X) npolyObjective(X,d.base);
 
 d.penaltyWeight             = 0.5;
 d.maxPenaltyWeight          = 10;
 
 disp(['Penalty weight: ' num2str(d.penaltyWeight)]);
 
-d.dof = 12;
 d.tmpdir = getenv('JOBTMPDIR'); if isempty(d.tmpdir); d.tmpdir='/tmp';end
 disp(['tmp dir: ' d.tmpdir]);
 mkdir(d.tmpdir);
 
-
-d.ranges          = [-1 1];
+d.ranges          = [-0.5 0.5];
 d.evalFcn         = @(samples) eval_maze(samples, d, false);
 d.validate        = 'validateChildren';
 d.flipMap = true;
