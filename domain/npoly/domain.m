@@ -16,8 +16,9 @@ d.extraMapValues            = {'random'};
 d.fitnessRange              = [0 1];
 d.fitfun                    = @(X) npolyObjective(X);
 
-
 d.penaltyWeight             = 0.5;
+d.maxPenaltyWeight          = 10;
+
 disp(['Penalty weight: ' num2str(d.penaltyWeight)]);
 
 d.dof = 16;
