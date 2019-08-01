@@ -61,7 +61,6 @@ if ~isempty(map.genes)
     distanceCompetition(~competing) = nan;
     
     % Get all distances
-    %removalCandidates = distances;
     % Only distances that were won by new candidates
     removalCandidates = distanceCompetition.*won;
     % Ignore non-competitions
@@ -70,9 +69,6 @@ if ~isempty(map.genes)
     removalCandidates = removalCandidates(:,1:end-length(fitness));
     [~, nn] = min(removalCandidates');
     removeIDs = nn(~all(isnan(removalCandidates')));
-    %removeIDs = nn(logical(replacement));
-    %removeIDs = nn(logical(replacement.*~all(isnan(removalCandidates'))));
-    %removeIDs(all(competing'==0)) = [];
     if ~isempty(removeIDs); replaced(removeIDs) = 1;end
 end
 

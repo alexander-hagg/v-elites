@@ -31,7 +31,7 @@ features = feval(d.categorize, newInds, values, d);
 mapLinIndx = sub2ind(p.featureResolution,bestBin(:,1),bestBin(:,2));
 
 % Compare to already existing samples
-improvement = ~(fitness (bestIndex) >= map.fitness(mapLinIndx)); % comparisons to NaN are always false
+improvement = ~(fitness (bestIndex) < map.fitness(mapLinIndx)); % comparisons to NaN are always false
 improvement(isnan(fitness(bestIndex))) = false;
 replacement = bestIndex (improvement);
 replaced    = mapLinIndx(improvement);

@@ -67,8 +67,7 @@ while (iGen < p.nGens)
     else
         percValid(iGen) = 1;
     end
-    %[fitness, phenotype, values] = fitnessFunction(children); %% TODO: Speed up without anonymous functions
-    [fitness, values] = fitnessFunction(children); %% TODO: Speed up without anonymous functions
+    [fitness, values] = fitnessFunction(children);
     
     %% Add Children to Map
     [replaced, replacement, features] = nicheCompete(children,fitness,values,map,d,p);
