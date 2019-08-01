@@ -1,5 +1,7 @@
 function map = updateMap(replaced,replacement,map,...
-                            fitness,genes,values,features,extraMapValues)
+                            fitness,genes,features)
+%function map = updateMap(replaced,replacement,map,...
+%                            fitness,genes,values,features,extraMapValues)
 %updateMap - Replaces all values in a set of map cells
 %
 % Syntax:  map = updateMap(replaced,replacement,map,fitness,drag,lift,children)
@@ -39,10 +41,10 @@ for iReplace = 1:length(replaced)
 end
 
 % Assign Miscellaneous Map values
-if exist('extraMapValues','var') && ~isempty(extraMapValues)
-    for iValues = 1:length(extraMapValues)
-        eval(['map.' extraMapValues{iValues} '(replaced) = values{' int2str(iValues) '}(replacement);']);        
-    end
-end
+%if exist('extraMapValues','var') && ~isempty(extraMapValues)
+%    for iValues = 1:length(extraMapValues)
+%        eval(['map.' extraMapValues{iValues} '(replaced) = values{' int2str(iValues) '}(replacement);']);        
+%    end
+%end
 
 %------------- END OF CODE --------------

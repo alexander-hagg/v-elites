@@ -40,9 +40,8 @@ distances(distances==0) = nan; %TODO: this is a hack to prevent comparisons of a
 
 % Compete if needed
 %fitnessScaling = 1./(1+fitness*30);
-%fitnessScaling = 1./(1+fitness*sum(fitness));
-fitnessScaling = 1./(fitness/sum(fitness));
-competing = distances < map.config.competeDistance.*fitnessScaling;
+%fitnessScaling = 1./(fitness/sum(fitness));
+competing = distances < map.config.competeDistance;%.*fitnessScaling;
 competition = ([map.fitness; fitness]' .* competing);
 competition(~competing) = nan;
 
@@ -51,20 +50,6 @@ won = fitness > competition;
 takehome = won;
 takehome(~competing) = 1; % Add non-competing
 replacement = all(takehome'==1);
-
-% if ~isempty(map.genes)
-%     figure(2);hold off;
-%     h(1) = scatter(map.features(:,1),map.features(:,2),64,'k','filled');
-%     hold on;
-%     h(2) = scatter(features(:,1),features(:,2),'b','filled');
-%     h(3) = scatter(features(any(competing'==1),1),features(any(competing'==1),2),'r','filled');
-%     wonIDs = logical(any(competing'==1).*replacement);
-%     h(4) = scatter(features(wonIDs,1),features(wonIDs,2),'g','filled');
-%     legend(h,'Elites', 'Candidates', 'Competing Candidates', 'Won');
-%     axis([0 1 0 1]);
-%     grid on;
-%     drawnow;
-% end
 
 
 %% TODO cells removed

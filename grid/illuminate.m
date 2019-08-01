@@ -71,10 +71,11 @@ while (iGen < p.nGens)
     [fitness, values] = fitnessFunction(children); %% TODO: Speed up without anonymous functions
     
     %% Add Children to Map
-    [replaced, replacement] = nicheCompete(children,fitness,values,map,d,p);
+    [replaced, replacement, features] = nicheCompete(children,fitness,values,map,d,p);
     percImproved(iGen) = length(replaced)/p.nChildren;
-    map = updateMap(replaced,replacement,map,fitness,children,...
-        values,d.extraMapValues);
+    %map = updateMap(replaced,replacement,map,fitness,children,...
+    %    values,d.extraMapValues);
+    map = updateMap(replaced,replacement,map,fitness,children,features);    
     
     allMaps{iGen} = map;
     percFilled(iGen) = sum(~isnan(map.fitness(:)))/(size(map.fitness,1)*size(map.fitness,2));
