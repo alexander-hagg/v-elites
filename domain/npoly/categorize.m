@@ -12,7 +12,7 @@ function feature = categorize(samples, values, d, varargin)
 for i=1:length(values{1})
     pgon = values{1}{i};
     feature(i,1) = area(pgon);
-    feature(i,2) = log(perimeter(pgon));
+    feature(i,2) = perimeter(pgon);
 end
 
 feature(:,1) = (feature(:,1)-d.featureMin(1))./(d.featureMax(1)-d.featureMin(1));

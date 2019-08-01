@@ -6,9 +6,9 @@ warning('off', 'MATLAB:polyshape:repairedBySimplify');
 
 d.nDims                     = 2;
 d.featureMin                = [0    1];
-d.featureMax                = [1    3];
+d.featureMax                = [0.7    3];
 d.selectedFeatures          = [1    2];
-d.featureLabels             = {'area','log(perimeter)','random'};
+d.featureLabels             = {'area','perimeter','random'};
 d.categorize                = 'categorize';
 d.featureRes                = [40 40];
 d.debug                     = false;
@@ -21,7 +21,7 @@ d.maxPenaltyWeight          = 10;
 
 disp(['Penalty weight: ' num2str(d.penaltyWeight)]);
 
-d.dof = 16;
+d.dof = 6;
 d.tmpdir = getenv('JOBTMPDIR'); if isempty(d.tmpdir); d.tmpdir='/tmp';end
 disp(['tmp dir: ' d.tmpdir]);
 mkdir(d.tmpdir);

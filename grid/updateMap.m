@@ -27,6 +27,8 @@ function map = updateMap(replaced,replacement,map,...
 
 % Assign Fitness
 map.fitness (replaced) = fitness (replacement);
+map.features (replaced) = features (replacement);
+
 
 % Assign Genomes
 [r,c] = size(map.fitness);
