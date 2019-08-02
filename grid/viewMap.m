@@ -39,7 +39,6 @@ for i=1:length(mapRes)
     edges{i} = linspace(0,1,mapRes(i)+1); %#ok<AGROW>
 end
 
-yOffset = [0.5 -0.0 0];
 imgHandle = imagesc(figHandle,flipud(rot90(mapMatrix.fitness))); 
 if nargin > 3
     if strcmp(varargin{1},'flip')
@@ -50,8 +49,6 @@ end
 set(imgHandle,'AlphaData',~isnan(imgHandle.CData)*1)
 xlab = xlabel(figHandle,[d.featureLabels{1} '\rightarrow']);
 ylab = ylabel(figHandle,['\leftarrow' d.featureLabels{2} ]);
-%set(ylab,'Rotation',0,'Position',get(ylab,'Position')-yOffset)
-
 
 
 xticklabels = num2str(edges{2}',2);
