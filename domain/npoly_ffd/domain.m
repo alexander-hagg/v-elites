@@ -5,10 +5,10 @@ warning('off', 'MATLAB:MKDIR:DirectoryExists');
 warning('off', 'MATLAB:polyshape:repairedBySimplify');
 
 d.nDims                     = 2;
-d.featureMin                = [0    1.75];
-d.featureMax                = [1.5    4.5];
+d.featureMin                = [0    1.75   0    0   0];
+d.featureMax                = [1.5    4.5  5    5   1];
 d.selectedFeatures          = [1    2];
-d.featureLabels             = {'area','perimeter','random'};
+d.featureLabels             = {'area','perimeter','maxspan','minspan','random'};
 d.categorize                = 'categorize';
 d.featureRes                = [40 40];
 d.debug                     = false;
@@ -25,8 +25,7 @@ d.base = [theta;rho];
 
 d.fitfun                    = @(X) npolyObjective(X,d.base);
 
-d.penaltyWeight             = 0.5;
-d.maxPenaltyWeight          = 10;
+d.penaltyWeight             = 2;
 
 disp(['Penalty weight: ' num2str(d.penaltyWeight)]);
 

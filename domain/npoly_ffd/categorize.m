@@ -13,15 +13,19 @@ for i=1:length(values{1})
     pgon = values{1}{i};
     feature(i,1) = area(pgon);
     feature(i,2) = perimeter(pgon);
+    vertexDistances = pdist2(pgon.Vertices,pgon.Vertices);
+    vertexDistances(logical(eye(size(vertexDistances,1)))) = nan;
+    feature(i,3) = nanmax(vertexDistances(:));
+    feature(i,4) = nanmin(vertexDistances(:));
 end
 
 feature(:,1) = (feature(:,1)-d.featureMin(1))./(d.featureMax(1)-d.featureMin(1));
 feature(:,2) = (feature(:,2)-d.featureMin(2))./(d.featureMax(2)-d.featureMin(2));
+feature(:,3) = (feature(:,3)-d.featureMin(3))./(d.featureMax(3)-d.featureMin(3));
+feature(:,4) = (feature(:,4)-d.featureMin(4))./(d.featureMax(4)-d.featureMin(4));
+feature(:,5) = rand(size(feature(:,1)));
 
 feature(feature>1) = 1; feature(feature<0) = 0;
-
-feature(:,3) = rand(size(feature(:,1)));
-
 
 end
 
