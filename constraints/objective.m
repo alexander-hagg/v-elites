@@ -16,15 +16,15 @@ else
     [fitness,values] = evalFcn(X);
 end
         
-penalty = zeros(size(X,1),1);
+penalty = ones(size(X,1),1);
 if ~isempty(constraintSet)
     for iT=1:length(constraintSet)
-        penalty = penalty + constraintPenalty(X,constraintSet{iT});
+        penalty = penalty .* (1-penaltyWeight.*constraintPenalty(X,constraintSet{iT}));
     end
 end
 
 values{end+1} = fitness';
 values{end+1} = penalty';
-adjustedFitness = fitness .* (1 + penalty.*penaltyWeight);
+adjustedFitness = fitness .* penalty;
 end
 

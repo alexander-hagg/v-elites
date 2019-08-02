@@ -5,8 +5,8 @@ warning('off', 'MATLAB:MKDIR:DirectoryExists');
 warning('off', 'MATLAB:polyshape:repairedBySimplify');
 
 d.nDims                     = 2;
-d.featureMin                = [0    1];
-d.featureMax                = [1.5    5];
+d.featureMin                = [0    1.75];
+d.featureMax                = [1.5    4.5];
 d.selectedFeatures          = [1    2];
 d.featureLabels             = {'area','perimeter','random'};
 d.categorize                = 'categorize';
@@ -34,7 +34,7 @@ d.tmpdir = getenv('JOBTMPDIR'); if isempty(d.tmpdir); d.tmpdir='/tmp';end
 disp(['tmp dir: ' d.tmpdir]);
 mkdir(d.tmpdir);
 
-d.ranges          = [-0.25 0.25];
+d.ranges          = [-0.4 0.4];
 d.evalFcn         = @(samples) eval_maze(samples, d, false);
 d.validate        = 'validateChildren';
 d.flipMap = true;
