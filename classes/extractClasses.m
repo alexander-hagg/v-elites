@@ -11,14 +11,17 @@ function [classification,stats] = extractClasses(X,varargin)
 %------------- BEGIN CODE --------------
 
 mapMethod               = 'tSNE'; % Configure dimensionality reduction
-if nargin > 1; mapMethod = varargin{1};end
-
 numClusterTrials        = 1;
-if nargin > 2; numClusterTrials = varargin{2};end
+clusterMethod           = 'dbscan';
+
+if nargin > 2
+    clusterMethod = varargin{1};
+    numClusters = varargin{2};
+end
 
 if ndims(X) > 2
-   X = reshape(X,size(X,1)*size(X,2),[]);
-   X = X(all(~isnan(X')),:);
+    X = reshape(X,size(X,1)*size(X,2),[]);
+    X = X(all(~isnan(X')),:);
 end
 
 numDims_DR              = 2;
@@ -31,14 +34,19 @@ speedQualitytradeOff    = 0.5;
 for t=1:numClusterTrials
     %[simX{t}, mapping]  = compute_mapping(X, mapMethod, numDims_DR);
     simX{t}             = fast_tsne(X, numDims_DR, numDims_ORG, perplexity, speedQualitytradeOff);
-    coreneighbours      = max(2 * numDims_DR,3); %Rule of thumb
-    [~,t_distances]     = knnsearch(simX{t},simX{t},'K',coreneighbours+1);
-    t_distances(:,1)    = [];
-    t_distances         = sort(t_distances(:));
-    [maxVal ,~]         = getElbow(t_distances);
-    epsilon             = maxVal;
     
-    [~,labels{t},cen{t}] = dbscan(simX{t}', epsilon, coreneighbours);
+    if strcmp(clusterMethod,'dbscan')
+        coreneighbours      = max(2 * numDims_DR,3); %Rule of thumb
+        [~,t_distances]     = knnsearch(simX{t},simX{t},'K',coreneighbours+1);
+        t_distances(:,1)    = [];
+        t_distances         = sort(t_distances(:));
+        [maxVal ,~]         = getElbow(t_distances);
+        epsilon             = maxVal;
+        [~,labels{t},cen{t}] = dbscan(simX{t}', epsilon, coreneighbours);
+        
+    elseif strcmp(clusterMethod,'kmedoids')
+        [labels{t},cen{t}] = kmedoids(simX{t},numClusters);
+    end
     
     stats.valGPLUS(t) = m_gplus(pdist2(simX{t},simX{t}),labels{t});
     stats.valGPLUS_ORG(t) = m_gplus(pdist2(X,X),labels{t});
@@ -62,7 +70,9 @@ else
 end
 
 simX = simX{stats.minGPLUSID}; labels = labels{stats.minGPLUSID}; cen = cen{stats.minGPLUSID};
-labels = labels + 1; % Get rid of zero label
+if strcmp(clusterMethod,'dbscan')
+    labels = labels + 1; % Get rid of zero label
+end
 
 % Prototypes and classes
 for iii=1:length(labels)
