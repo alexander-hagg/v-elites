@@ -25,6 +25,6 @@ end
 
 values{end+1} = fitness';
 values{end+1} = penalty';
-adjustedFitness = fitness .* penalty;
+adjustedFitness = fitness .* penalty.^(penaltyWeight);
 end
 
