@@ -19,7 +19,7 @@ end
 penalty = ones(size(X,1),1);
 if ~isempty(constraintSet)
     for iT=1:length(constraintSet)
-        penalty = penalty .* (1-penaltyWeight.*constraintPenalty(X,constraintSet{iT}));
+        penalty = penalty .* (1-constraintPenalty(X,constraintSet{iT}));
     end
 end
 
