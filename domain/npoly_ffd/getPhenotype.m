@@ -10,6 +10,8 @@ for x=1:size(genomes,1)
         rho = base(2,:) + genome(size(base,2)+1:end);
         [xCoords,yCoords] = pol2cart(theta,rho); 
         phenotypes{x} = polyshape(xCoords,yCoords);   
+    else
+        phenotypes{x} = nan;
     end
 end
 

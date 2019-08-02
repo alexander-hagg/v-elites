@@ -29,15 +29,16 @@ function map = updateMap(replaced,replacement,map,...
 
 % Assign Fitness
 map.fitness (replaced) = fitness (replacement);
-map.features (replaced) = features (replacement);
 
-
-% Assign Genomes
+% Assign Genomes and Features
 [r,c] = size(map.fitness);
 [replacedI,replacedJ] = ind2sub([r c], replaced);
 for iReplace = 1:length(replaced)
     map.genes(replacedI(iReplace),replacedJ(iReplace),:) = ...
         genes(replacement(iReplace),:) ;         
+    map.features(replacedI(iReplace),replacedJ(iReplace),:) = ...
+        features(replacement(iReplace),:) ;         
+    
 end
 
 % Assign Miscellaneous Map values

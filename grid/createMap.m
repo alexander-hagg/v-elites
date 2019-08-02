@@ -1,4 +1,4 @@
-function [map, edges] = createMap(genomeLength, p, varargin)
+function [map, edges] = createMap(d, p, varargin)
 %createMap - Defines map struct and feature space cell divisions
 %
 % Syntax:  [map, edges] = createMap(featureResolution, genomeLength)
@@ -36,12 +36,17 @@ map.edges = edges;
 
 blankMap     = NaN(p.featureResolution,'double');
 map.fitness  = blankMap;
+map.features  = blankMap;
+
 
 % Evolvability
 map.curiousness = zeros(p.featureResolution);
 
 % Genome
-map.genes       = repmat(blankMap,[1 1 genomeLength]); %#ok<REPMAT>
+map.genes       = repmat(blankMap,[1 1 d.dof]); %#ok<REPMAT>
+
+% Phenotypic Features
+map.features = repmat(blankMap,[1 1 length(d.featureLabels)]); %#ok<REPMAT>
 
 if ~isempty(varargin)
     for iValues = 1:length(varargin{1})
