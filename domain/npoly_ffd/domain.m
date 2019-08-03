@@ -12,7 +12,7 @@ end
 
 d.nDims                     = 2;
 d.featureMin                = [0      1.75   0    0   0];
-d.featureMax                = [2.25   6   5    5   1];
+d.featureMax                = [2.75   6.5   5    5   1];
 d.selectedFeatures          = [1    2];
 d.featureLabels             = {'area','perimeter','maxspan','minspan','random'};
 d.categorize                = 'categorize';
