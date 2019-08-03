@@ -13,7 +13,7 @@ function p = defaultParamSet(varargin)
 % Nov 2018; Last revision: 02-Nov-2018
 
 %------------- BEGIN CODE --------------
-p.nChildren                 = 30;
+p.nChildren                 = 2^6;
 if nargin > 0; d = varargin{1}; end
 % p.nChildren = d.ncores;
 disp(['Number of children: ' int2str(p.nChildren)]);
