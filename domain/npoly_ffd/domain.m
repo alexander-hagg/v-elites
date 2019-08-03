@@ -1,12 +1,18 @@
-function d = domain()
+function d = domain(dof)
 %DOMAIN_NPOLY Get domain configuration for n-polygon
 RandStream.setGlobalStream(RandStream('mt19937ar','Seed','shuffle')); % Random number stream
 warning('off', 'MATLAB:MKDIR:DirectoryExists');
 warning('off', 'MATLAB:polyshape:repairedBySimplify');
 
+if strcmp(dof,'default')
+    d.dof = 12; 
+else
+    d.dof = dof;
+end
+
 d.nDims                     = 2;
-d.featureMin                = [0    1.75   0    0   0];
-d.featureMax                = [1.5    4.5  5    5   1];
+d.featureMin                = [0      1.75   0    0   0];
+d.featureMax                = [2.25   6   5    5   1];
 d.selectedFeatures          = [1    2];
 d.featureLabels             = {'area','perimeter','maxspan','minspan','random'};
 d.categorize                = 'categorize';
@@ -15,7 +21,6 @@ d.debug                     = false;
 d.extraMapValues            = {'random'};
 d.fitnessRange              = [0 1];
 
-d.dof = 12;
 t = 0:2*pi/(d.dof/2):2*pi;
 t(end) = [];
 x1 = 0.5*cos(t);

@@ -47,8 +47,8 @@ if nargin > 3
 end
 
 set(imgHandle,'AlphaData',~isnan(imgHandle.CData)*1)
-xlab = xlabel(figHandle,[d.featureLabels{1} '\rightarrow']);
-ylab = ylabel(figHandle,['\leftarrow' d.featureLabels{2} ]);
+xlab = xlabel(figHandle,[d.featureLabels{d.selectedFeatures(1)} '\rightarrow']);
+ylab = ylabel(figHandle,['\leftarrow' d.featureLabels{d.selectedFeatures(2)} ]);
 
 
 xticklabels = num2str(edges{2}',2);

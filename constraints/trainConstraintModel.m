@@ -3,10 +3,6 @@ function model = trainConstraintModel(coord,latent)
 %   Detailed explanation goes here
 
 % Configure GP model
-%p.covfunc   = {@covMaternard, 3};
-%p.hyp.cov   = [zeros(size(coord,2),1);0]; % (unit vector in log space)
-%p.covfunc   = @covSEiso;
-%p.hyp.cov   = [0;0]; % (unit vector in log space)
 p.covfunc   = {@covMaterniso, 3};
 p.hyp.cov   = [log(mean(mean(pdist2(coord,coord))));1]; % in log space: mean distance between samples
 
