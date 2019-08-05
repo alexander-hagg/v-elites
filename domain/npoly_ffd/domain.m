@@ -32,12 +32,6 @@ d.fitfun                    = @(X) npolyObjective(X,d.base);
 
 d.penaltyWeight             = 2;
 
-disp(['Penalty weight: ' num2str(d.penaltyWeight)]);
-
-d.tmpdir = getenv('JOBTMPDIR'); if isempty(d.tmpdir); d.tmpdir='/tmp';end
-disp(['tmp dir: ' d.tmpdir]);
-mkdir(d.tmpdir);
-
 d.ranges          = [-0.4 0.4];
 d.evalFcn         = @(samples) eval_maze(samples, d, false);
 d.validate        = 'validateChildren';
