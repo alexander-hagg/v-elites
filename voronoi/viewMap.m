@@ -38,8 +38,7 @@ elites = map.features(:,d.selectedFeatures);
 [elites,ids] = unique(elites,'rows');
 fitness = map.fitness(ids);
 hold(figHandle,'off');
-h = imagesc(figHandle,1);
-delete(h);
+h = imagesc(figHandle,1);delete(h);
 [v,c]=voronoin(elites);
 imageHandle = voronoi(figHandle,elites(:,1),elites(:,2));
 v1 = shiftdim(reshape([imageHandle(2).XData;imageHandle(2).YData],2,3,[]),2); % Arranged one edge per row, one vertex per slice in the third dimension
@@ -70,13 +69,13 @@ for s=1:size(elites,1)
 end
 
 hold(figHandle,'on');
-patch(figHandle,patchesX,1-patchesY,fitness);
+patch(figHandle,patchesX,patchesY,fitness);
 colormap(figHandle,hot(32));
 cHandle = colorbar(figHandle);
 cHandle.Label.String = 'Fitness';
 axis(figHandle,[0 1 0 1]);
 
-scatter(figHandle,elites(:,1),1-elites(:,2),[],[0 0 0],'filled');
+scatter(figHandle,elites(:,1),elites(:,2),[],[0 0 0],'filled');
 
 xlab = xlabel(figHandle,[d.featureLabels{d.selectedFeatures(1)} '\rightarrow']);
 ylab = ylabel(figHandle,['\leftarrow' d.featureLabels{d.selectedFeatures(2)} ]);
