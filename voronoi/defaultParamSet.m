@@ -20,7 +20,7 @@ p.nGens                     = 25;
 p.numInitSamples            = 2^5;
 p.selectProcedure           = 'random'; % random bin
 p.maxBins                   = 2^3; % not used yet
-p.competeDistance           = 0.04;
+p.competeDistance           = 0.03;
 p.infReplacement            = 5;
 
 % Visualization and data management
