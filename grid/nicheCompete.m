@@ -27,7 +27,7 @@ function [replaced, replacement, features, percImprovement] = nicheCompete(newIn
 %------------- BEGIN CODE --------------
 features = feval(d.categorize, newInds, values, d);
 
-[bestIndex, bestBin] = getBestPerCell(newInds,fitness, values, d, map.edges);
+[bestIndex, bestBin] = getBestPerCell(newInds,fitness, values, d, map.edges, features);
 mapLinIndx = sub2ind(p.featureResolution,bestBin(:,1),bestBin(:,2));
 
 % Compare to already existing samples

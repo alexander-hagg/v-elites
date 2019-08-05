@@ -6,6 +6,7 @@ for i=1:length(pgon)
     if pgon{i}.NumRegions == 0
         fitness(i) = nan;
     else
+        % Symmetry
         vertices = pgon{i}.Vertices;
         vertices = vertices(~all(isnan(vertices)'),:);
         a = vertices(1:end/2,:);

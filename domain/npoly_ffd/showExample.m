@@ -18,9 +18,13 @@ pgon = getPhenotype(genome,d.base);
 for i=1:size(genome,1)
     % Change placement if necessary
     if exist('placement','var') && ~isempty(placement)
-        pgon{i}.Vertices = pgon{i}.Vertices + placement(i,:);
+        if isa(pgon{i},'polyshape')
+            pgon{i}.Vertices = pgon{i}.Vertices + placement(i,:);
+        end
     end
-    plot(figHandle,pgon{i},'FaceColor','green'); 
+    if isa(pgon{i},'polyshape')
+        plot(figHandle,pgon{i},'FaceColor','green'); 
+    end
     hold(figHandle,'on');
 end
 end

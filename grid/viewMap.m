@@ -41,7 +41,7 @@ end
 
 imgHandle = imagesc(figHandle,flipud(rot90(mapMatrix.fitness))); 
 if nargin > 3
-    if strcmp(varargin{1},'flip')
+    if strcmp(varargin{2},'flip')
         imgHandle = imagesc(figHandle,fliplr(rot90(rot90(mapMatrix.fitness)))); fitPlot = gca;
     end
 end
@@ -78,5 +78,7 @@ cHandle = colorbar(figHandle);
 axis(figHandle,'square');
 axis(figHandle,[0 size(mapMatrix.fitness,1) 0 size(mapMatrix.fitness,2)]);
 imageHandle = imgHandle;
-
+hold(figHandle,'on')
+features = reshape(mapMatrix.features,mapRes(1)*mapRes(2),[]);
+scatter(figHandle,0.5+features(:,d.selectedFeatures(1))*mapRes(1),0.5+features(:,d.selectedFeatures(2))*mapRes(2),16,[0 0 0],'filled')
 %------------- END OF CODE --------------
