@@ -32,7 +32,7 @@ d.fitfun                    = @(X) npolyObjective(X,d.base);
 
 d.penaltyWeight             = 2;
 
-d.ranges          = [-0.4 0.4];
+d.ranges          = [-0.7 0.7];
 d.evalFcn         = @(samples) eval_maze(samples, d, false);
 d.validate        = 'validateChildren';
 d.flipMap = true;
