@@ -53,6 +53,6 @@ d.description{1} = ['N-poly domain'];
 d.description{2} = '';
 d.description{3} = ['Description:      n-polygons, with n currently set to ' int2str(d.dof)];
 d.description{4} = ['Representation:   sequence of (x,y) pairs.'];
-d.description{5} = ['Fitness function: minimize number of holes and disconnected components.'];
+d.description{5} = ['Fitness function: maximize radial symmetry.'];
 end
 
