@@ -13,7 +13,11 @@ for i=1:length(values{1})
     pgon = values{1}{i};
     feature(i,1) = area(pgon);
     feature(i,2) = perimeter(pgon);
-    vertexDistances = pdist2(pgon.Vertices,pgon.Vertices);
+    vertices = pgon.Vertices(all(~isnan(pgon.Vertices)'),:);    
+    vertices = unique(vertices,'rows','stable');
+    y = interppolygon([vertices],100,'linear');
+    %plot(pgon);hold on;plot(y(:,1),y(:,2));axis equal;    
+    vertexDistances = pdist2(y,y);
     vertexDistances(logical(eye(size(vertexDistances,1)))) = nan;
     feature(i,3) = nanmax(vertexDistances(:));
     feature(i,4) = nanmin(vertexDistances(:));

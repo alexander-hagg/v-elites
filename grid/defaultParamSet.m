@@ -13,7 +13,7 @@ function p = defaultParamSet(varargin)
 % Nov 2018; Last revision: 02-Nov-2018
 
 %------------- BEGIN CODE --------------
-p.nChildren                 = 2^6;
+p.nChildren                 = 2^5;
 if nargin > 0; d = varargin{1}; end
 % p.nChildren = d.ncores;
 disp(['Number of children: ' int2str(p.nChildren)]);
@@ -22,14 +22,14 @@ p.mutSigma                  = 0.1;
 
 p.constraintType            = 'prior'; %'none', 'prior' 'posterior'
 p.nGens                     = 25;
-p.numInitSamples            = 10;
+p.numInitSamples            = 2^6;
 p.selectProcedure           = 'random'; %random or curiousness
 
-p.featureResolution         = [20,20];
+p.featureResolution         = [10,10];
 
 % Visualization and data management
-p.display.illu              = false;
-p.display.illuMod           = 200;
+p.display.illu              = true;
+p.display.illuMod           = 25;
 p.numMaps2Save              = 10;
 
 % Read from environment variables

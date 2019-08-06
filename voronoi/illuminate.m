@@ -1,4 +1,4 @@
-function [map, percImproved, percValid, h, allMaps, percFilled] = illuminate(fitnessFunction,map,p,d)
+function [map, percImproved, percValid, h, allMaps, percFilled] = illuminate(fitnessFunction,map,p,d,varargin)
 %vElites - Voronoi Archive of Phenotypic Elites algorithm
 %
 % Syntax:  map = vElites(fitnessFunction, map, p, d);
@@ -30,22 +30,24 @@ function [map, percImproved, percValid, h, allMaps, percFilled] = illuminate(fit
 
 % View Initial Map
 h = [];
+if nargin > 4
+    figHandle = varargin{1}; 
+else
+    figHandle = figure(1);
+end
 if p.display.illu
-    figure(1); clf;
-    viewMap(map,d,1); title('Fitness'); caxis(d.fitnessRange);
-    %figure(2); clf;
-    %viewMap(map,d,2); title('New Members'); caxis(d.fitnessRange);
+    cla(figHandle);
+    viewMap(map,d,figHandle); title(figHandle,'Fitness'); caxis(figHandle,[0 1]);
     drawnow;
 end
 
-%HACK
 percImproved = 0;
 percValid = 0;
 h = 0;
 percFilled = 0;
 
 iGen = 1;
-while (iGen < p.nGens)
+while (iGen <= p.nGens)
     %% Create and Evaluate Children
     % Continue to remutate until enough children which satisfy geometric constraints are created
     children = []; 
@@ -68,18 +70,18 @@ while (iGen < p.nGens)
 %    percFilled(iGen) = sum(~isnan(map.fitness(:)))/(size(map.fitness,1)*size(map.fitness,2));
     
      %% View New Map
-     if p.display.illu && (~mod(iGen,p.display.illuMod) || (iGen==p.nGens-1))
-         viewMap(map,d,1);
-         caxis(d.fitnessRange);
-         title(['Fitness Gen ' int2str(iGen) '/' int2str(p.nGens)]); 
+     if p.display.illu && (~mod(iGen,p.display.illuMod) || (iGen==p.nGens))
+         cla(figHandle);
+         viewMap(map,d,figHandle);
+         title(figHandle,['Fitness Gen ' int2str(iGen) '/' int2str(p.nGens)]); 
+         caxis(figHandle,[0 1]);
          drawnow;
      end
-     
-     iGen = iGen+1;
-     if ~mod(iGen,25) || iGen==2
+     if ~mod(iGen,25) || iGen==1
          %disp([char(9) 'Illumination Generation: ' int2str(iGen) ' - Map Coverage: ' num2str(100*percFilled(iGen-1)) '% - Improvement: ' num2str(100*percImproved(iGen-1))]);
          disp([char(9) 'Illumination Generation: ' int2str(iGen) ]);
      end
+     iGen = iGen+1;
 end
 %if percImproved(end) > 0.05; disp('Warning: MAP-Elites finished while still making improvements ( >5% / generation )');end
 

@@ -1,7 +1,7 @@
 function showExample(figHandle,d,varargin)
 %SHOWEXAMPLE Summary of this function goes here
 
-genome = randn(1,d.dof); 
+genome = d.ranges(2)*(2*rand(1,d.dof)-1); 
 if nargin>2
     if ~isempty(varargin{1})
         genome = varargin{1}; 

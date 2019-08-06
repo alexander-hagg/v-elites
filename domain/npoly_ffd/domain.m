@@ -11,8 +11,8 @@ else
 end
 
 d.nDims                     = 2;
-d.featureMin                = [0      1.75   0.2    0   0];
-d.featureMax                = [2.75   6.5    2    0.3   1];
+d.featureMin                = [0      1.75   0.5      0     0];
+d.featureMax                = [2.75   7      2.5      0.05   1];
 d.selectedFeatures          = [1    2];
 d.featureLabels             = {'area','perimeter','maxspan','minspan','random'};
 d.categorize                = 'categorize';
@@ -32,7 +32,7 @@ d.fitfun                    = @(X) npolyObjective(X,d.base);
 
 d.penaltyWeight             = 2;
 
-d.ranges          = [-0.7 0.7];
+d.ranges          = [-1 1];
 d.evalFcn         = @(samples) eval_maze(samples, d, false);
 d.validate        = 'validateChildren';
 d.flipMap = true;

@@ -39,12 +39,7 @@ for i=1:length(mapRes)
     edges{i} = linspace(0,1,mapRes(i)+1); %#ok<AGROW>
 end
 
-imgHandle = imagesc(figHandle,flipud(rot90(mapMatrix.fitness))); 
-if nargin > 3
-    if strcmp(varargin{2},'flip')
-        imgHandle = imagesc(figHandle,fliplr(rot90(rot90(mapMatrix.fitness)))); fitPlot = gca;
-    end
-end
+imgHandle = imagesc(figHandle,fliplr(rot90(rot90(rot90(mapMatrix.fitness)))));
 
 set(imgHandle,'AlphaData',~isnan(imgHandle.CData)*1)
 xlab = xlabel(figHandle,[d.featureLabels{d.selectedFeatures(1)} '\rightarrow']);
@@ -76,7 +71,8 @@ set(figHandle,...
 colormap(figHandle,hot(32));
 cHandle = colorbar(figHandle);
 axis(figHandle,'square');
-axis(figHandle,[0 size(mapMatrix.fitness,1) 0 size(mapMatrix.fitness,2)]);
+axis(figHandle,[0.5 size(mapMatrix.fitness,1)+0.5 0.5 size(mapMatrix.fitness,2)+0.5]);
+
 imageHandle = imgHandle;
 hold(figHandle,'on')
 features = reshape(mapMatrix.features,mapRes(1)*mapRes(2),[]);
