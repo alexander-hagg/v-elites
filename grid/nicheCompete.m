@@ -28,7 +28,7 @@ function [replaced, replacement, features, percImprovement] = nicheCompete(newIn
 features = feval(d.categorize, newInds, values, d);
 
 [bestIndex, bestBin] = getBestPerCell(newInds,fitness, values, d, map.edges, features);
-mapLinIndx = sub2ind(p.featureResolution,bestBin(:,1),bestBin(:,2));
+mapLinIndx = sub2ind(d.featureResolution,bestBin(:,1),bestBin(:,2));
 
 % Compare to already existing samples
 improvement = ~(fitness (bestIndex) < map.fitness(mapLinIndx)); % comparisons to NaN are always false

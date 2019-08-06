@@ -29,18 +29,18 @@ function [map, edges] = createMap(d, p, varargin)
 
 %------------- BEGIN CODE --------------
 
-for i=1:length(p.featureResolution)
-    edges{i} = linspace(0,1,p.featureResolution(i)+1); %#ok<AGROW>
+for i=1:length(d.featureResolution)
+    edges{i} = linspace(0,1,d.featureResolution(i)+1); %#ok<AGROW>
 end
 map.edges = edges;
 
-blankMap     = NaN(p.featureResolution,'double');
+blankMap     = NaN(d.featureResolution,'double');
 map.fitness  = blankMap;
 map.features  = blankMap;
 
 
 % Evolvability
-map.curiousness = zeros(p.featureResolution);
+map.curiousness = zeros(d.featureResolution);
 
 % Genome
 map.genes       = repmat(blankMap,[1 1 d.dof]); %#ok<REPMAT>

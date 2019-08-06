@@ -70,7 +70,8 @@ end
 
 hold(figHandle,'on');
 patch(figHandle,patchesX,patchesY,fitness);
-colormap(figHandle,hot(32));
+cmap = hot(33); cmap(end,:) = [];
+colormap(figHandle,cmap);
 cHandle = colorbar(figHandle);
 cHandle.Label.String = 'Fitness';
 axis(figHandle,[0 1 0 1]);

@@ -25,7 +25,7 @@ p.nGens                     = 25;
 p.numInitSamples            = 2^6;
 p.selectProcedure           = 'random'; %random or curiousness
 
-p.featureResolution         = [10,10];
+%p.featureResolution         = [5,5];
 
 % Visualization and data management
 p.display.illu              = true;
