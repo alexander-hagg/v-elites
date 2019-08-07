@@ -1,4 +1,4 @@
-function [isValid,classDistances,selectedClasses] = applyConstraints(examples, constraints)
+function [isValid,classDistances,selectedClasses,outputs] = applyConstraints(examples, constraints)
 %APPLYCONSTRAINTS Summary of this function goes here
 % Detailed explanation goes here
 %

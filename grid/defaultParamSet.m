@@ -32,21 +32,14 @@ p.display.illu              = true;
 p.display.illuMod           = 25;
 p.numMaps2Save              = 10;
 
-% Read from environment variables
-%readEnvironment;
-
-%disp(['Selection method: ' p.selectionMethod]);
-
-% if p.useDimReduction
-%     disp('Using dimensionality reduction'); 
-% else
-%     disp('Not using dimensionality reduction'); 
-% end
-
 p.selectionThreshold        = 0.99;
 p.minSelectedSamples        = 50;
 p.keepNonselectSeeds        = false;
 p.dimreduxMethod			= 'tSNE';
+
+% Selection
+p.penaltyWeight             = 2;
+p.driftThreshold          = 0.5;
 
 end
 

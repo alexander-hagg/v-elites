@@ -12,14 +12,14 @@ end
 
 d.nDims                     = 2;
 d.featureMin                = [0      1.75   0.5      0     0];
-d.featureMax                = [2.75   15      2.5      0.05   1];
+d.featureMax                = [2.75   15      3      0.05   1];
 d.selectedFeatures          = [1    2];
 d.featureLabels             = {'area','perimeter','maxspan','minspan','random'};
 d.categorize                = 'categorize';
 d.debug                     = false;
 d.extraMapValues            = {'random'};
 d.fitnessRange              = [0 1];
-d.featureResolution         = [5,5];
+d.featureResolution         = [20,20];
 
 
 t = 0:2*pi/(d.dof/2):2*pi;
@@ -30,8 +30,6 @@ y1 = 0.5*sin(t);
 d.base = [theta;rho];
 
 d.fitfun                    = @(X) npolyObjective(X,d.base);
-
-d.penaltyWeight             = 2;
 
 d.ranges          = [-1 1];
 d.evalFcn         = @(samples) eval_maze(samples, d, false);

@@ -27,6 +27,10 @@ p.infReplacement            = 5;
 p.display.illu              = true;
 p.display.illuMod           = 25;
 
+% Selection
+p.penaltyWeight             = 2;
+p.driftThreshold          = 0.5;
+
 end
 
 
