@@ -14,6 +14,14 @@ if nargin>3
     end
 end
 
+selectionLabels = ones(1,size(genome,1));
+if nargin>4
+    if ~isempty(varargin{3})
+        selectionLabels = varargin{3}; 
+    end
+end
+
+colors = {'red','green'};
 pgon = getPhenotype(genome,d.base);
 for i=1:size(genome,1)
     % Change placement if necessary
@@ -23,7 +31,7 @@ for i=1:size(genome,1)
         end
     end
     if isa(pgon{i},'polyshape')
-        plot(figHandle,pgon{i},'FaceColor','green'); 
+        plot(figHandle,pgon{i},'FaceColor',colors{selectionLabels(i)}); 
     end
     hold(figHandle,'on');
 end
