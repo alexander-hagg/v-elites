@@ -39,7 +39,14 @@ d.flipMap = true;
 d.spacer = 2;
 
 %% Individual's genome and phenotype
-d.sampleInd.genome    = nan(d.dof,1);
+d.sampleInd.genome      = nan(d.dof,1);
+d.sampleHighFit         = zeros(1,d.dof);
+d.sampleLowFit          = 0.5*ones(1,d.dof);
+d.sampleLowFit(end) = -0.5;
+d.sampleLowFit(end-2) = 0.3;
+d.sampleLowFit(end-3) = -0.4;
+d.sampleLowFit(end-4) = -0.6;
+d.sampleLowFit(1) = -0.5;
 
 
 d.description{1} = ['N-poly domain'];
