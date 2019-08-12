@@ -32,4 +32,10 @@ map.genes                       = [];
 map.features                    = [];
 map.areas                       = [];
 
+if isfield(p,'extraMapValues') && ~isempty(p.extraMapValues)
+    for iValues = 1:length(p.extraMapValues)
+        eval(['map.' p.extraMapValues{iValues} ' = [];']);
+    end
+end
+
 %------------- END OF CODE --------------

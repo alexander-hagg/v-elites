@@ -31,14 +31,28 @@ function [map, percImproved, percValid, h, allMaps, percFilled] = illuminate(fit
 % View Initial Map
 h = [];
 if nargin > 4
-    figHandle = varargin{1}; 
+    figHandleMap = varargin{1}; 
 else
-    figHandle = figure(1);
+    figHandleMap = figure(1);
+end
+
+if nargin > 5
+    figHandleMedianFit = varargin{2}; 
+else
+    figHandleMedianFit = figure(2);
+end
+
+if nargin > 6
+    figHandleMedianDrift = varargin{3}; 
+else
+    figHandleMedianDrift = figure(3);
 end
 
 if p.display.illu
-    cla(figHandle); viewMap(map, d, figHandle); title(figHandle,'Fitness');    
-    caxis(figHandle,[0 1]);
+    cla(figHandleMap); viewMap(map, d, figHandleMap); title(figHandleMap,'Fitness');    
+    caxis(figHandleMap,[0 1]);
+    cla(figHandleMedianFit);
+    cla(figHandleMedianDrift);
     drawnow;
 end
 
@@ -75,22 +89,30 @@ while (iGen <= p.nGens)
     %% Add Children to Map
     [replaced, replacement, features] = nicheCompete(children,fitness,values,map,d,p);
     percImproved(iGen) = length(replaced)/p.nChildren;
-    %map = updateMap(replaced,replacement,map,fitness,children,...
-    %    values,d.extraMapValues);
-    map = updateMap(replaced,replacement,map,fitness,children,features);    
+    map = updateMap(replaced,replacement,map,fitness,children,values,features,p.extraMapValues);
     
     allMaps{iGen} = map;
     percFilled(iGen) = sum(~isnan(map.fitness(:)))/(size(map.fitness,1)*size(map.fitness,2));
+    fitnessMean(iGen) = nanmedian(map.fitness(:));
+    driftMean(iGen) = nanmedian(map.drift);
     
     %% View New Map
     if p.display.illu && (~mod(iGen,p.display.illuMod) || (iGen==p.nGens))
-        cla(figHandle);
-        viewMap(map, d, figHandle);   
-        title(figHandle,['Fitness Gen ' int2str(iGen) '/' int2str(p.nGens)]); 
-        caxis(figHandle,[0 1]);
-        %figure(2); viewDomainMap(map,d);
-        %title(['Generation: ' int2str(iGen)]);
-        %grid on;
+        cla(figHandleMap);
+        viewMap(map, d, figHandleMap);   
+        title(figHandleMap,['Fitness Gen ' int2str(iGen) '/' int2str(p.nGens)]); 
+        caxis(figHandleMap,[0 1]);
+        
+        cla(figHandleMedianFit);
+        plot(figHandleMedianFit,fitnessMean,'LineWidth',2);
+        axis(figHandleMedianFit,[0 iGen 0 1]);
+        grid(figHandleMedianFit,'on');
+        
+        cla(figHandleMedianDrift);
+        plot(figHandleMedianDrift,driftMean,'LineWidth',2);
+        axis(figHandleMedianDrift,[0 iGen 0 1]);
+        grid(figHandleMedianDrift,'on');        
+        
         drawnow;
     end
     if ~mod(iGen,25) || iGen==1

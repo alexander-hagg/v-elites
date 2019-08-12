@@ -17,7 +17,6 @@ d.selectedFeatures          = [1    2];
 d.featureLabels             = {'area','perimeter','maxspan','minspan','random'};
 d.categorize                = 'categorize';
 d.debug                     = false;
-d.extraMapValues            = {'random'};
 d.fitnessRange              = [0 1];
 d.featureResolution         = [20,20];
 

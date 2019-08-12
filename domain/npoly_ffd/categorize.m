@@ -9,8 +9,8 @@ function feature = categorize(samples, values, d, varargin)
 %
 %------------- BEGIN CODE -------------- 
 
-for i=1:length(values{1})
-    pgon = values{1}{i};
+for i=1:length(values)
+    pgon = values{i};
     feature(i,1) = area(pgon);
     feature(i,2) = perimeter(pgon);
     vertices = pgon.Vertices(all(~isnan(pgon.Vertices)'),:);    

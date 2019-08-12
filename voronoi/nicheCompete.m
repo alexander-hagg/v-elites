@@ -21,7 +21,7 @@ function [replaced, replacement, features, percImprovement] = nicheCompete(newIn
 % Jul 2019; Last revision: 04-Jul-2019
 
 %------------- BEGIN CODE --------------
-features = feval(d.categorize, newInds, values, d);
+features = feval(d.categorize, newInds, values{end}, d);
 replacement = false(size(newInds,1),1);
 
 percImprovement = 0;

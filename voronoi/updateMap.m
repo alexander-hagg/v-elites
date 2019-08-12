@@ -1,5 +1,5 @@
 function map = updateMap(replaced,replacement,map,...
-                            fitness,genes,features)
+                            fitness,genes,values,features,extraMapValues)
 %updateMap - Replaces all values in a set of map cells
 %
 % Syntax:  map = updateMap(replaced,replacement,map,fitness,drag,lift,children)
@@ -9,7 +9,7 @@ function map = updateMap(replaced,replacement,map,...
 %   replacement - [1XM]  - linear index of children values to place in map
 %   map         - struct - population archive
 %   fitness     - [1XN]  - Child fitness
-%   genes       - [NXD]  - Child genomes
+%   genes       - [NXD]  - Child genomesextraMapValues
 %   values      - [1XN]  - extra values of interest, e.g. 'cD'
 %
 % Outputs:
@@ -46,5 +46,12 @@ map.features = [map.features; features(replacement,:)];
 %    map.areas(i) = polyarea(bin(:,1),bin(:,2));    
 %end
 
+% Assign Miscellaneous Map values
+if exist('extraMapValues','var') && ~isempty(extraMapValues)
+    for iValues = 1:length(extraMapValues)
+        if ~isempty(replaced); eval(['map.' extraMapValues{iValues} '(replaced) = [];']);end
+        eval(['map.' extraMapValues{iValues} ' = [ map.' extraMapValues{iValues} ' values{' int2str(iValues) '}(replacement)];']);
+    end
+end
 
 %------------- END OF CODE --------------

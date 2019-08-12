@@ -31,13 +31,28 @@ function [map, percImproved, percValid, h, allMaps, percFilled] = illuminate(fit
 % View Initial Map
 h = [];
 if nargin > 4
-    figHandle = varargin{1}; 
+    figHandle = varargin{1};
 else
     figHandle = figure(1);
 end
+
+if nargin > 5
+    figHandleMedianFit = varargin{2};
+else
+    figHandleMedianFit = figure(2);
+end
+
+if nargin > 6
+    figHandleMedianDrift = varargin{3};
+else
+    figHandleMedianDrift = figure(3);
+end
+
 if p.display.illu
     cla(figHandle);
     viewMap(map,d,figHandle); title(figHandle,'Fitness'); caxis(figHandle,[0 1]);
+    cla(figHandleMedianFit);
+    cla(figHandleMedianDrift);
     drawnow;
 end
 
@@ -50,7 +65,7 @@ iGen = 1;
 while (iGen <= p.nGens)
     %% Create and Evaluate Children
     % Continue to remutate until enough children which satisfy geometric constraints are created
-    children = []; 
+    children = [];
     while size(children,1) < p.nChildren
         newChildren = createChildren(map, p, d);
         %validInds = feval(d.validate,newChildren,d);
@@ -63,25 +78,38 @@ while (iGen <= p.nGens)
     
     %% Add Children to Map
     [replaced, replacement, features] = nicheCompete(children, fitness, values, map, d);
-    map = updateMap(replaced,replacement,map,fitness,children,features);
-%    percImproved(iGen) = length(replaced)/p.nChildren;
-
-    allMaps{iGen} = map;
-%    percFilled(iGen) = sum(~isnan(map.fitness(:)))/(size(map.fitness,1)*size(map.fitness,2));
+    map = updateMap(replaced,replacement,map,fitness,children,values,features,p.extraMapValues);
+    %    percImproved(iGen) = length(replaced)/p.nChildren;
     
-     %% View New Map
-     if p.display.illu && (~mod(iGen,p.display.illuMod) || (iGen==p.nGens))
-         cla(figHandle);
-         viewMap(map,d,figHandle);
-         title(figHandle,['Fitness Gen ' int2str(iGen) '/' int2str(p.nGens)]); 
-         caxis(figHandle,[0 1]);
-         drawnow;
-     end
-     if ~mod(iGen,25) || iGen==1
-         %disp([char(9) 'Illumination Generation: ' int2str(iGen) ' - Map Coverage: ' num2str(100*percFilled(iGen-1)) '% - Improvement: ' num2str(100*percImproved(iGen-1))]);
-         disp([char(9) 'Illumination Generation: ' int2str(iGen) ]);
-     end
-     iGen = iGen+1;
+    allMaps{iGen} = map;
+    %    percFilled(iGen) = sum(~isnan(map.fitness(:)))/(size(map.fitness,1)*size(map.fitness,2));
+    fitnessMean(iGen) = nanmedian(map.fitness);
+    driftMean(iGen) = nanmedian(map.drift);
+    
+    %% View New Map
+    if p.display.illu && (~mod(iGen,p.display.illuMod) || (iGen==p.nGens))
+        cla(figHandle);
+        viewMap(map,d,figHandle);
+        title(figHandle,['Fitness Gen ' int2str(iGen) '/' int2str(p.nGens)]);
+        caxis(figHandle,[0 1]);
+        
+        cla(figHandleMedianFit);
+        plot(figHandleMedianFit,fitnessMean,'LineWidth',2);
+        axis(figHandleMedianFit,[0 iGen 0 1]);
+        grid(figHandleMedianFit,'on');
+        
+        cla(figHandleMedianDrift);
+        plot(figHandleMedianDrift,driftMean,'LineWidth',2);
+        axis(figHandleMedianDrift,[0 iGen 0 1]);
+        grid(figHandleMedianDrift,'on');
+        
+        drawnow;
+    end
+    if ~mod(iGen,25) || iGen==1
+        %disp([char(9) 'Illumination Generation: ' int2str(iGen) ' - Map Coverage: ' num2str(100*percFilled(iGen-1)) '% - Improvement: ' num2str(100*percImproved(iGen-1))]);
+        disp([char(9) 'Illumination Generation: ' int2str(iGen) ]);
+    end
+    iGen = iGen+1;
 end
 %if percImproved(end) > 0.05; disp('Warning: MAP-Elites finished while still making improvements ( >5% / generation )');end
 

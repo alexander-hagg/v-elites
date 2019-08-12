@@ -31,6 +31,8 @@ p.display.illuMod           = 25;
 p.penaltyWeight             = 2;
 p.driftThreshold          = 0.5;
 
+p.extraMapValues            = {'fitnessAdjustment','drift'};
+
 end
 
 

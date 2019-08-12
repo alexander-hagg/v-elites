@@ -39,8 +39,9 @@ p.dimreduxMethod			= 'tSNE';
 
 % Selection
 p.penaltyWeight             = 2;
-p.driftThreshold          = 0.5;
+p.driftThreshold            = 0.5;
 
+p.extraMapValues            = {'fitnessAdjustment','drift'};
 end
 
 
