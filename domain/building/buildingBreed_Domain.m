@@ -47,9 +47,10 @@ d.inputs  = 3;
 d.outputs = 1;
 d.activations = [1 ones(1,d.inputs) 14]; % Bias, Linear inputs, Ladder/Multistep
 %d.actRange = [1 2 3 4 10 11]; % linear, unsigned step, Unsigned higher slope sigmoid, Gaussian, squared, cos
-d.actRange = [1 3 4 10 11]; % linear, Unsigned higher slope sigmoid, Gaussian, squared, cos
+d.actRange = [1 2 3 4 10 11]; % linear, Unsigned higher slope sigmoid, Gaussian, squared, cos
+d.weightCap = 2;
 
 % Substrate
-d.substrateDims = [7 7 7]; 
+d.substrateDims = [25 25 25]; 
 
 %------------- END OF CODE --------------

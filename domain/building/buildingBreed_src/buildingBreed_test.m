@@ -1,4 +1,4 @@
-function [fitness, output] = buildingBreed_test( wMat, aMat, p, d, varargin)
+function [fitness, output] = buildingBreed_test( wMat, aMat, d, varargin)
 
 %% Substrate is input vector
 substrateDims = d.substrateDims;

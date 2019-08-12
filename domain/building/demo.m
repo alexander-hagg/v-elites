@@ -1,62 +1,21 @@
-%demo - Demonstrates usage of matNEAT
-
-% Author: Adam Gaier
-% Bonn-Rhein-Sieg University of Applied Sciences (BRSU)
-% email: adam.gaier@h-brs.de
-% Feb 2018; Last revision: 06-Mar-2018
 
 %------------- BEGIN CODE --------------
 
 
-%% Run NEAT once
-clear;
-addAllToPath;   % We add all folders to path, when a problem domain is
-% loaded we exclude other domain files to ensure no overlap
-% in functions. When we change domains these new domain's
-% folder have to be put back in the path.
-
-% Load default hyperparameters
-p = defaultParamSet; % defaults from ECJ 2002 article
-p.targetSpec = 9;
-p.maxGen = 2^5;
-p.dropOffAge = 100;
-
-% Load domain hyperparameters
-%d = ffdFoil_Domain;
 d = buildingBreed_Domain;
-d.substrateDims = [5 5 5];
+%d.weightCap = 2;
 
-% Adapt
-% p2 = p;
-% p2.addConnProb = p2.addConnProb/2;
-% p2.addNodeProb = p2.addNodeProb/2;
-% p2.mutConnProb = p2.mutConnProb/2;
+nHidden = 5;
+ind = buildingBreed_example(d,nHidden);
 
-% View progress every 5 generations
-% p.displayMod = 1;
-
-%% Run NEAT
-a = matNeat(p,d);
-
-%%
-
-pdfFileName = 'Repetition';
+%
 fig(1) = figure(1);hold off;
 
-
-
-resolutions = [2^5 2^4 2^2]' * ones(1,3);
-drawArch(a.species,p,d,resolutions);
+drawBuilding(ind,d);
 
 view(-70,10);
 
-
-zlabel('Phenotype Resolution');xlabel(''); ylabel('');
-ax = gca;
-ax.XTick=[];ax.YTick=[];
-ax.ZTick = [0 100 200]; 
-ax.ZTickLabel={int2str(resolutions(1)) int2str(resolutions(2)) int2str(resolutions(3))}
-
+axis([-1 d.substrateDims(1)+1 -1 d.substrateDims(2)+1 -1 d.substrateDims(3)+1]);
 ax.FontSize = 16;
 grid on;
 
