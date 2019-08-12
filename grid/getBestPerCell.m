@@ -1,4 +1,4 @@
-function [bestIndex, bestBin] = getBestPerCell(samples,fitness,values,d, edges, features)
+function [bestIndex, bestBin] = getBestPerCell(fitness, d, edges, features)
 %getBestPerCell - Returns index of best individual in each cell
 %
 % Syntax:  [bestIndex, bestBin] = getBestPerCell(samples,fitness,p)

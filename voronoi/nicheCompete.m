@@ -1,4 +1,4 @@
-function [replaced, replacement, features, percImprovement] = nicheCompete(newInds,fitness,values,map,d,p)
+function [replaced, replacement, features, percImprovement] = nicheCompete(newInds,fitness,phenotypes,map,d,p,varargin)
 %nicheCompete - results of competition with map's existing elites
 %
 % Syntax:  [replaced, replacement] = nicheCompete(newInds,fitness,map,p)
@@ -21,7 +21,11 @@ function [replaced, replacement, features, percImprovement] = nicheCompete(newIn
 % Jul 2019; Last revision: 04-Jul-2019
 
 %------------- BEGIN CODE --------------
-features = feval(d.categorize, newInds, values{end}, d);
+if nargin>6
+    features = varargin{1};
+else
+    features = feval(d.categorize, newInds, phenotypes, d);
+end
 replacement = false(size(newInds,1),1);
 
 percImprovement = 0;
@@ -51,9 +55,6 @@ takehome = won;
 takehome(~competing) = 1; % Add non-competing
 replacement = all(takehome'==1);
 
-
-%% TODO cells removed
-%disp('No max bins implemented yet');
 replaced = false(length(map.fitness),1);
 if ~isempty(map.genes)
     % only remove elites from the map here

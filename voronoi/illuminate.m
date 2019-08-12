@@ -74,17 +74,17 @@ while (iGen <= p.nGens)
     end
     children = children(1:p.nChildren,:);
     
-    [fitness, values] = fitnessFunction(children); %% TODO: Speed up without anonymous functions
+    [fitness, values, phenotypes] = fitnessFunction(children); %% TODO: Speed up without anonymous functions
     
     %% Add Children to Map
-    [replaced, replacement, features] = nicheCompete(children, fitness, values, map, d);
+    [replaced, replacement, features] = nicheCompete(children, fitness, phenotypes, map, d);
     map = updateMap(replaced,replacement,map,fitness,children,values,features,p.extraMapValues);
     %    percImproved(iGen) = length(replaced)/p.nChildren;
     
     allMaps{iGen} = map;
     %    percFilled(iGen) = sum(~isnan(map.fitness(:)))/(size(map.fitness,1)*size(map.fitness,2));
-    fitnessMean(iGen) = nanmedian(map.fitness);
-    driftMean(iGen) = nanmedian(map.drift);
+    fitnessMean(iGen) = nanmean(map.fitness);
+    driftMean(iGen) = nanmean(map.drift);
     
     %% View New Map
     if p.display.illu && (~mod(iGen,p.display.illuMod) || (iGen==p.nGens))

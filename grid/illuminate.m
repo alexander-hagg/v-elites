@@ -87,7 +87,7 @@ while (iGen <= p.nGens)
     [fitness, values] = fitnessFunction(children);
     
     %% Add Children to Map
-    [replaced, replacement, features] = nicheCompete(children,fitness,values,map,d,p);
+    [replaced, replacement, features] = nicheCompete(children,fitness,values{end},map,d,p);
     percImproved(iGen) = length(replaced)/p.nChildren;
     map = updateMap(replaced,replacement,map,fitness,children,values,features,p.extraMapValues);
     

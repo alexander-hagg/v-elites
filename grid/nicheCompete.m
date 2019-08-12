@@ -1,4 +1,4 @@
-function [replaced, replacement, features, percImprovement] = nicheCompete(newInds,fitness,values,map,d,p)
+function [replaced, replacement, features, percImprovement] = nicheCompete(newInds,fitness,phenotypes,map,d,p,varargin)
 %nicheCompete - results of competition with map's existing elites
 %
 % Syntax:  [replaced, replacement] = nicheCompete(newInds,fitness,map,p)
@@ -25,9 +25,13 @@ function [replaced, replacement, features, percImprovement] = nicheCompete(newIn
 % Jun 2016; Last revision: 02-Aug-2017
 
 %------------- BEGIN CODE --------------
-features = feval(d.categorize, newInds, values{end}, d);
+if nargin>6
+    features = varargin{1};
+else
+    features = feval(d.categorize, newInds, phenotypes, d);
+end
 
-[bestIndex, bestBin] = getBestPerCell(newInds,fitness, values, d, map.edges, features);
+[bestIndex, bestBin] = getBestPerCell(fitness, d, map.edges, features);
 mapLinIndx = sub2ind(d.featureResolution,bestBin(:,1),bestBin(:,2));
 
 % Compare to already existing samples

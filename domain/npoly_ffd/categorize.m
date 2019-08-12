@@ -1,4 +1,4 @@
-function feature = categorize(samples, values, d, varargin)
+function feature = categorize(samples, phenotypes, d, varargin)
 %categorize
 %
 %
@@ -9,14 +9,13 @@ function feature = categorize(samples, values, d, varargin)
 %
 %------------- BEGIN CODE -------------- 
 
-for i=1:length(values)
-    pgon = values{i};
+for i=1:length(phenotypes)
+    pgon = phenotypes{i};
     feature(i,1) = area(pgon);
     feature(i,2) = perimeter(pgon);
     vertices = pgon.Vertices(all(~isnan(pgon.Vertices)'),:);    
     vertices = unique(vertices,'rows','stable');
     y = interppolygon([vertices],100,'linear');
-    %plot(pgon);hold on;plot(y(:,1),y(:,2));axis equal;    
     vertexDistances = pdist2(y,y);
     vertexDistances(logical(eye(size(vertexDistances,1)))) = nan;
     feature(i,3) = nanmax(vertexDistances(:));
