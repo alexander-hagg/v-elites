@@ -93,8 +93,8 @@ while (iGen <= p.nGens)
     
     allMaps{iGen} = map;
     percFilled(iGen) = sum(~isnan(map.fitness(:)))/(size(map.fitness,1)*size(map.fitness,2));
-    fitnessMean(iGen) = nanmedian(map.fitness(:));
-    driftMean(iGen) = nanmedian(map.drift);
+    fitnessMean(iGen) = nanmean(map.fitness(:));
+    driftMean(iGen) = nanmean(map.drift);
     
     %% View New Map
     if p.display.illu && (~mod(iGen,p.display.illuMod) || (iGen==p.nGens))
@@ -109,9 +109,11 @@ while (iGen <= p.nGens)
         grid(figHandleMedianFit,'on');
         
         cla(figHandleMedianDrift);
-        plot(figHandleMedianDrift,driftMean,'LineWidth',2);
-        axis(figHandleMedianDrift,[0 iGen 0 1]);
-        grid(figHandleMedianDrift,'on');        
+        if sum(driftMean(:)) > 0
+            plot(figHandleMedianDrift,driftMean,'LineWidth',2);
+            axis(figHandleMedianDrift,[0 iGen 0 1]);
+            grid(figHandleMedianDrift,'on');        
+        end
         
         drawnow;
     end
