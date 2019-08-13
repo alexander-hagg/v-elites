@@ -17,7 +17,8 @@ for i=1:length(phenotypes)
     end
 end
 
-fitness = 1-(fitness'./5);
+dof = size(genomes,2);
+fitness = 1-(fitness'./(5*dof/8)); % try to normalize between 0 and 1, values dependent on on 
 fitness(fitness<0) = 0;
 fitness(fitness>1) = 1;
 

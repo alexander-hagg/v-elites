@@ -64,12 +64,12 @@ while (iGen <= p.nGens)
     while size(children,1) < p.nChildren
         if strcmp(p.selectProcedure,'random')
             newChildren = createChildren(map, p, d);
-        elseif strcmp(p.selectProcedure,'curiousness')
+        elseif strcmp(p.selectProcedure,'curiosity')
             [newChildren,newParentMapIDs] = createChildren(map, p, d);
         end
         validInds = feval(d.validate,newChildren,d);
         children = [children ; newChildren(validInds,:)] ; %#ok<AGROW>
-        if strcmp(p.selectProcedure,'curiousness'); parentMapIDs = [parentMapIDs ; newParentMapIDs(validInds,:)] ; end
+        if strcmp(p.selectProcedure,'curiosity'); parentMapIDs = [parentMapIDs ; newParentMapIDs(validInds,:)] ; end
     end
     children = children(1:p.nChildren,:);
     

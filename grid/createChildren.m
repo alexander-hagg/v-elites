@@ -34,7 +34,7 @@ parentPool(~valid,:) = [];
 % Choose parents and create mutation
 if strcmp(p.selectProcedure,'random')
     selection = randi([1 size(parentPool,1)], [p.nChildren 1]);
-elseif strcmp(p.selectProcedure,'curiousness')
+elseif strcmp(p.selectProcedure,'curiosity')
     validMapLinids = 1:length(valid);
     validMapLinids(~valid) = [];
     % Setup tournament selection

@@ -14,18 +14,10 @@ function p = defaultParamSet(varargin)
 
 %------------- BEGIN CODE --------------
 p.nChildren                 = 2^5;
-if nargin > 0; d = varargin{1}; end
-% p.nChildren = d.ncores;
-disp(['Number of children: ' int2str(p.nChildren)]);
-
 p.mutSigma                  = 0.1;
-
-p.constraintType            = 'prior'; %'none', 'prior' 'posterior'
 p.nGens                     = 25;
 p.numInitSamples            = 2^6;
-p.selectProcedure           = 'random'; %random or curiousness
-
-%p.featureResolution         = [5,5];
+p.selectProcedure           = 'random'; %random or curiosity
 
 % Visualization and data management
 p.display.illu              = true;
