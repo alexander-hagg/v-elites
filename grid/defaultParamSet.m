@@ -21,7 +21,7 @@ p.selectProcedure           = 'random'; %random or curiosity
 
 % Visualization and data management
 p.display.illu              = true;
-p.display.illuMod           = 25;
+p.display.illuMod           = 10;
 p.numMaps2Save              = 10;
 
 p.selectionThreshold        = 0.99;

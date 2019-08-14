@@ -25,7 +25,7 @@ p.infReplacement            = 5;
 
 % Visualization and data management
 p.display.illu              = true;
-p.display.illuMod           = 25;
+p.display.illuMod           = 10;
 
 % Selection
 p.penaltyWeight             = 2;

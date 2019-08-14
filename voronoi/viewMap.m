@@ -76,7 +76,7 @@ cHandle = colorbar(figHandle);
 cHandle.Label.String = 'Fitness';
 axis(figHandle,[0 1 0 1]);
 
-scatter(figHandle,elites(:,1),elites(:,2),16,[0 0 0],'filled');
+scatter(figHandle,elites(:,1),elites(:,2),8,[0 0 0],'filled');
 
 xlab = xlabel(figHandle,[d.featureLabels{d.selectedFeatures(1)} '\rightarrow']);
 ylab = ylabel(figHandle,['\leftarrow' d.featureLabels{d.selectedFeatures(2)} ]);

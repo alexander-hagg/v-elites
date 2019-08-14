@@ -12,7 +12,7 @@ end
 
 d.nDims                     = 2;
 d.featureMin                = [0      1.75   0.5      0     0];
-d.featureMax                = [2.75   15      3      0.05   1];
+d.featureMax                = [4   15      3      0.05   1];
 d.selectedFeatures          = [1    2];
 d.featureLabels             = {'area','perimeter','maxspan','minspan','random'};
 d.categorize                = 'categorize';
@@ -35,7 +35,7 @@ d.evalFcn         = @(samples) eval_maze(samples, d, false);
 d.validate        = 'validateChildren';
 d.flipMap = true;
 
-d.spacer = 2;
+d.spacer = 2.5;
 
 %% Individual's genome and phenotype
 d.sampleInd.genome      = nan(d.dof,1);
