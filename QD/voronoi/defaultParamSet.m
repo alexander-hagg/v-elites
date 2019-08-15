@@ -1,36 +1,37 @@
 function p = defaultParamSet(varargin)
-% defaultParamSet - loads default parameters for V-Elites algorithm
+% defaultParamSet - loads default parameters for QD algorithm 
+% (here: MAP-Elites with Voronoi archive)
 %
-% Syntax:  p = defaultParamSet(ncores)
-%               ncores - number of parallel workers (one child per worker for efficiency)
+% Syntax:  p = defaultParamSet(varargin)
 %
 % Outputs:
-%   p      - struct - parameter struct
+%   p      - struct - QD configuration struct
 %
 % Author: Alexander Hagg
 % Bonn-Rhein-Sieg University of Applied Sciences (HBRS)
 % email: alexander.hagg@h-brs.de
-% Jul 2019; Last revision: 04-Jul-2019
-
+% Nov 2018; Last revision: 15-Aug-2019
+%
 %------------- BEGIN CODE --------------
 
-p.nChildren                 = 2^5;
-p.mutSigma                  = 0.1;
-p.nGens                     = 25;
-p.numInitSamples            = 2^6;
-p.selectProcedure           = 'random'; % random bin
-p.maxBins                   = 2^3; % not used yet
-p.featureResolution         = 0.04;
-p.infReplacement            = 5;
+p.numInitSamples            = 2^6;      % number of initial samples
+p.nGens                     = 25;       % number of generations
+p.nChildren                 = 2^5;      % number of children per generation
+p.mutSigma                  = 0.1;      % mutation drawn from Gaussian distribution with this \sigma
+%p.maxBins                   = 2^3;     % not used yet but intention is to
+                                        % enable adjusting feature resolution 
+                                        % based on number of requested bins to
+                                        % control complexity
+p.featureResolution         = 0.04;     % resolution of the map is controlled by local competition distance threshold
+%p.infReplacement            = 5;        
+
+% Selection
+p.penaltyWeight             = 2;        % User selection drift, weight for soft constraints
+p.driftThreshold            = 0.5;      % User selection drift, threshold for hard user constraint
 
 % Visualization and data management
 p.display.illu              = true;
-p.display.illuMod           = 10;
-
-% Selection
-p.penaltyWeight             = 2;
-p.driftThreshold          = 0.5;
-
+p.display.illuMod           = 25;
 p.extraMapValues            = {'fitnessAdjustment','drift'};
 
 end

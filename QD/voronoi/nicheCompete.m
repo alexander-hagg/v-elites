@@ -1,24 +1,29 @@
 function [replaced, replacement, features, percImprovement] = nicheCompete(newInds,fitness,phenotypes,map,d,p,varargin)
 %nicheCompete - results of competition with map's existing elites
 %
-% Syntax:  [replaced, replacement] = nicheCompete(newInds,fitness,map,p)
+% Syntax:  [replaced, replacement, features, percImprovement] = nicheCompete(newInds,fitness,phenotypes,map,d,p,varargin)
 %
 % Inputs:
 %   newInds - [NXM]     - New population to compete for niches
 %   fitness - [NX1]     - Fitness values fo new population
 %   map     - struct    - Population archive
 %   d       - struct    - Domain definition
+%   p       - struct    - QD configuration
 %
 % Outputs:
 %   replaced    - [NX1] - Linear index of map cells to recieve replacements
 %   replacement - [NX1] - Index of newInds to replace current elites in niche
+%   features    - [NxNumFeatures] - return features
 %
-% Example:
+%
+% Other m-files required: getBestPerCell.m
+%
+% See also: createMap, getBestPerCell, updateMap
 
 % Author: Alexander Hagg
 % Bonn-Rhein-Sieg University of Applied Sciences (HBRS)
 % email: alexander.hagg@h-brs.de
-% Jul 2019; Last revision: 04-Jul-2019
+% Jul 2019; Last revision: 15-Aug-2019
 
 %------------- BEGIN CODE --------------
 if nargin>6
@@ -43,8 +48,6 @@ distances = [eliteDistance pdist2(features(:,d.selectedFeatures),features(:,d.se
 distances(distances==0) = nan; %TODO: this is a hack to prevent comparisons of a candidate with itself
 
 % Compete if needed
-%fitnessScaling = 1./(1+fitness*30);
-%fitnessScaling = 1./(fitness/sum(fitness));
 competing = distances < map.config.competeDistance;%.*fitnessScaling;
 competition = ([map.fitness; fitness]' .* competing);
 competition(~competing) = nan;

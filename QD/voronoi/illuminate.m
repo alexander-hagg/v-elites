@@ -1,7 +1,7 @@
 function [map, percImproved, percValid, h, allMaps, percFilled] = illuminate(fitnessFunction,map,p,d,varargin)
-%vElites - Voronoi Archive of Phenotypic Elites algorithm
+%illuminate - QD with Voronoi Multi-dimensional Archive of Phenotypic Elites algorithm
 %
-% Syntax:  map = vElites(fitnessFunction, map, p, d);
+% Syntax:  [map, percImproved, percValid, h, allMaps, percFilled] = illuminate(fitnessFunction,map,p,d,varargin)
 %
 % Inputs:
 %   fitnessFunction - funct  - returns fitness of vector of individuals
@@ -10,17 +10,16 @@ function [map, percImproved, percValid, h, allMaps, percFilled] = illuminate(fit
 %   d               - struct - Domain definition
 %
 % Outputs:
-%   map    - struct - population archive
+%   map             - struct - population archive
 %   percImproved    - percentage of children which improved on elites
-%   percValid       - percentage of children which are valid members of
-%   selected classes
-%   h      - [1X2]  - axes handle, data handle
+%   percValid       - percentage of children which are valid members of selected classes
+%   h               - [1X2]  - axes handle, data handle
 %   allMap          - all maps created in sequence
 %   percFilled      - percentage of map filled
 %
 %
 % See also: createChildren, getBestPerCell, updateMap
-
+%
 % Author: Alexander Hagg
 % Bonn-Rhein-Sieg University of Applied Sciences (HBRS)
 % email: alexander.hagg@h-brs.de
@@ -68,9 +67,8 @@ while (iGen <= p.nGens)
     children = [];
     while size(children,1) < p.nChildren
         newChildren = createChildren(map, p, d);
-        %validInds = feval(d.validate,newChildren,d);
-        %children = [children ; newChildren(validInds,:)] ; %#ok<AGROW>
-        children = [children ; newChildren] ; %#ok<AGROW>
+        validInds = feval(d.validate,newChildren,d);
+        children = [children ; newChildren(validInds,:)] ; %#ok<AGROW>
     end
     children = children(1:p.nChildren,:);
     

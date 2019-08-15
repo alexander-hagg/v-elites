@@ -1,7 +1,7 @@
-function [map, edges] = createMap(d, p, varargin)
+function map = createMap(d, p, varargin)
 %createMap - Defines map struct and feature space cell divisions
 %
-% Syntax:  [map, edges] = createMap(d, p, varargin)
+% Syntax:  map = createMap(d, p, varargin)
 %
 % Inputs:
 %    d - struct - Domain description struct

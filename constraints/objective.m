@@ -57,7 +57,7 @@ values{end+1} = fitnessAdjustment';
 values{end+1} = drift';
 values{end+1} = phenotypes;
 
-adjustedFitness = fitness .* fitnessAdjustment.^(penaltyWeight);
+adjustedFitness = (fitness .* fitnessAdjustment'.^(penaltyWeight))';
 adjustedFitness(outOfBounds) = nan;
 
 end

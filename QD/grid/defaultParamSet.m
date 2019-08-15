@@ -1,6 +1,6 @@
 function p = defaultParamSet(varargin)
-% defaultParamSet - loads default parameters for QD algorithm (here:
-% MAP-Elites with grid archive)
+% defaultParamSet - loads default parameters for QD algorithm 
+% (here: MAP-Elites with grid archive)
 %
 % Syntax:  p = defaultParamSet(ncores)
 %               ncores - number of parallel workers (one child per worker for efficiency)
@@ -21,9 +21,9 @@ p.nChildren                 = 2^5;      % number of children per generation
 p.mutSigma                  = 0.1;      % mutation drawn from Gaussian distribution with this \sigma
 p.featureResolution         = [20,20];  % Resolution of the map (in cells per dimension). Keep it square
 p.extraMapValues            = {'fitnessAdjustment','drift'}; % extra map values used in map struct
-p.convergeLimit             = 0.05:
+p.convergeLimit             = 0.05;
 
-p.dimreduxMethod			= 'tSNE';   
+% Selection
 p.penaltyWeight             = 2;        % User selection drift, weight for soft constraints
 p.driftThreshold            = 0.5;      % User selection drift, threshold for hard user constraint
 

@@ -1,5 +1,4 @@
-function map = updateMap(replaced,replacement,map,...
-                            fitness,genes,values,features,extraMapValues)
+function map = updateMap(replaced,replacement,map,fitness,genes,values,features,extraMapValues)
 %updateMap - Replaces all values in a set of map cells
 %
 % Syntax:  map = updateMap(replaced,replacement,map,fitness,drag,lift,children)
@@ -36,15 +35,6 @@ map.genes = [map.genes; genes(replacement,:)];
 % Assign Features
 if ~isempty(replaced);map.features(replaced,:) = [];end
 map.features = [map.features; features(replacement,:)];
-
-% Get Voronoi segmentation and calculate new areas
-%if ~isempty(replaced);map.areas(replaced) = [];end
-%[map.voronoi.vertices,map.voronoi.bins] = voronoin(map.features);
-%for i=1:length(map.voronoi.bins)
-%    bin = map.voronoi.vertices(map.voronoi.bins{i},:);
-%    bin(isinf(bin)) = map.config.infReplacement;
-%    map.areas(i) = polyarea(bin(:,1),bin(:,2));    
-%end
 
 % Assign Miscellaneous Map values
 if exist('extraMapValues','var') && ~isempty(extraMapValues)

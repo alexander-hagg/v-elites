@@ -15,7 +15,6 @@ function [replaced, replacement, features, percImprovement] = nicheCompete(newIn
 %   replacement - [NX1] - Index of newInds to replace current elites in niche
 %   features    - [NxNumFeatures] - return features
 %
-% Example:
 %
 % Other m-files required: getBestPerCell.m
 %

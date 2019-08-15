@@ -1,7 +1,7 @@
 function [figHandle, imageHandle, cHandle] = viewMap(map, d, varargin)
 %computeFitness - Computes fitness with penalties from drag, lift, area
 %
-% Syntax:  viewMap(predMap.fitness, d)
+% Syntax:  [figHandle, imageHandle, cHandle] = viewMap(mapMatrix, d, varargin)
 %
 % Inputs:
 %   mapMatrix   - [RXC]  - scalar value in each bin (e.g. fitness)
@@ -12,24 +12,16 @@ function [figHandle, imageHandle, cHandle] = viewMap(map, d, varargin)
 %   imageHandle - handle of resulting map image
 %
 %
-% Example:
-%    p = sail;
-%    d = af_Domain;
-%    output = sail(d,p);
-%    d.featureRes = [50 50];
-%    predMap = createPredictionMap(output.model,p,d);
-%    viewMap(predMap.fitness,d)
-%
 % Other m-files required: none
 % Subfunctions: none
 % MAT-files required: none
 %
 % See also: createMap, updateMap, createPredictionMap
 
-% Author: Adam Gaier
+% Author: Alexander Hagg
 % Bonn-Rhein-Sieg University of Applied Sciences (HBRS)
-% email: adam.gaier@h-brs.de
-% Jun 2016; Last revision: 20-Aug-2017
+% email: alexander.hagg@h-brs.de
+% Jul 2019; Last revision: 15-Aug-2019
 
 %------------- BEGIN CODE --------------
 if nargin > 2; figHandle = varargin{1}; else; figHandle = figure;end
