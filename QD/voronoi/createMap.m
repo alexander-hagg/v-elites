@@ -25,7 +25,7 @@ function map = createMap(d, p, varargin)
 
 map.config.genomeLength         = d.dof;
 map.config.maxBins              = p.maxBins;
-map.config.competeDistance      = p.competeDistance;
+map.config.competeDistance      = p.featureResolution;
 map.config.infReplacement       = p.infReplacement;
 map.fitness                     = [];
 map.genes                       = [];

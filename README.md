@@ -16,6 +16,9 @@ Hagg, A., Asteroth, A. and Bäck, T., 2019, July. Modeling user selection in qua
 - ... contains a standalone version of the GUI that you can use after installing the Matlab runtime
 - demo.m                -   non-GUI code usage example
 
+## Documentation
+- More explanation about the function headers is provided in every file, which can be accessed using "help <functionname>"
+
 ## How to add a domain
 Add a domain folder in domain/. Please use the same structure and naming conventions as in domain/npoly_ffd. The utils folder can contain some domain-specific functions. 
 
@@ -25,7 +28,7 @@ categorize.m        -   phenotypic features that can be extracted from a phenoty
 domain.m            -   parameterization of the domain
 getPhenotype.m      -   create phenotype based on genome
 showExample.m       -   visualize phenotype
-validateChildren.m  -   (optional) can contain validation of constraints. Not used at the moment.
+validate.m          -   can contain validation of known (non-user-selection) validity constraints. 
 
 
 ## Bibtex entrees

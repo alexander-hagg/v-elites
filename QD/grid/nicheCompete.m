@@ -32,7 +32,7 @@ else
 end
 
 [bestIndex, bestBin] = getBestPerCell(fitness, d, map.edges, features);
-mapLinIndx = sub2ind(d.featureResolution,bestBin(:,1),bestBin(:,2));
+mapLinIndx = sub2ind(p.featureResolution,bestBin(:,1),bestBin(:,2));
 
 % Compare to already existing samples
 improvement = ~(fitness (bestIndex) < map.fitness(mapLinIndx)); % comparisons to NaN are always false

@@ -1,7 +1,7 @@
 function [children,selectedLinIDs] = createChildren(map, p, d)
-%createChildren - produce new children through mutation of map elite
+%createChildren - produce new children through mutation of elites from map
 %
-% Syntax:  children = createChildren(map,p)
+% Syntax:  [children,selectedLinIDs] = createChildren(map, p, d)
 %
 % Inputs:
 %   map - Population struct
