@@ -32,7 +32,7 @@ function [figHandle, imageHandle, cHandle] = viewMap(mapMatrix, d, varargin)
 % Jun 2016; Last revision: 15-Aug-2019
 
 %------------- BEGIN CODE --------------
-if nargin > 2; figHandle = varargin{1}; else; figHandle = figure;end
+if nargin > 2; figHandle = varargin{1}; else; figHandle = figure; end
 
 mapRes = size(mapMatrix.fitness);
 for i=1:length(mapRes)
