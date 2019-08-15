@@ -22,11 +22,11 @@ Please use the same structure and naming conventions as in domain/npoly_ffd.
 The utils folder can contain some domain-specific functions. 
 The following functions are expected:  
 
-categorize.m        -   phenotypic features that can be extracted from a phenotype in this domain
-domain.m            -   parameterization of the domain
-getPhenotype.m      -   create phenotype based on genome
-showExample.m       -   visualize phenotype
-validateChildren.m  -   (optional) can contain validation of constraints. Not used at the moment.
+categorize.m        -   phenotypic features that can be extracted from a phenotype in this domain\s
+domain.m            -   parameterization of the domain\s
+getPhenotype.m      -   create phenotype based on genome\s
+showExample.m       -   visualize phenotype\s
+validateChildren.m  -   (optional) can contain validation of constraints. Not used at the moment.\s
 
 
 ## Bibtex entrees
