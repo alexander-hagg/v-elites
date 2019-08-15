@@ -1,11 +1,12 @@
 function [adjustedFitness, values, phenotypes] = objective(X, evalFcn, constraintSet, penaltyWeight, driftThreshold, varargin)
-%OBJECTIVE Generic objective function
-%
+%OBJECTIVE User constrained objective function
+% This objective function allows adding user constraints, as soft and hard
+% constraints
 %
 % Author: Alexander Hagg
 % Bonn-Rhein-Sieg University of Applied Sciences (HBRS)
 % email: alexander.hagg@h-brs.de
-% Nov 2018; Last revision: 02-Nov-2018
+% Aug 2019; Last revision: 15-Aug-2018
 %
 %------------- BEGIN CODE --------------
 vis = false;
@@ -44,7 +45,6 @@ if ~isempty(constraintSet)
             scatter(figHandle,xOffset+simPredCoords(outOfBounds,1),simPredCoords(outOfBounds,2),32,[1 0 0],'filled');
             rectangle(figHandle,'Position',[xOffset,0,1,1]);
             text(figHandle,0.25+xOffset,1.05,['Selection: ' int2str(iT)]);
-            %annotation(figHandle,'textbox',[xOffset,0,1,1],'String',['Selection: ' int2str(iT)]);
             axis(figHandle,'equal');
             axis(figHandle,[-(offSetScalar-1) offSetScalar*length(constraintSet) -(offSetScalar-1) 1+(offSetScalar-1)]);
             if iT==length(constraintSet); drawnow;end            
