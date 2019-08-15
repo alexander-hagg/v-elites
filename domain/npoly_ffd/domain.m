@@ -1,5 +1,22 @@
 function d = domain(dof)
-%DOMAIN_NPOLY Get domain configuration for n-polygon
+%domain - Get domain configuration for n-polygon
+%
+% Syntax:  d = domain(dof)
+%
+% Inputs:
+%    dof        - [1] - Set number of degrees of freedom
+%
+% Outputs:
+%    d          - cell - Domain configuration
+%
+%
+% Author: Alexander Hagg
+% Bonn-Rhein-Sieg University of Applied Sciences (HBRS)
+% email: alexander.hagg@h-brs.de
+% Nov 2018; Last revision: 15-Aug-2019
+%
+%------------- BEGIN CODE -------------- 
+
 RandStream.setGlobalStream(RandStream('mt19937ar','Seed','shuffle')); % Random number stream
 warning('off', 'MATLAB:MKDIR:DirectoryExists');
 warning('off', 'MATLAB:polyshape:repairedBySimplify');
@@ -11,15 +28,13 @@ else
 end
 
 d.nDims                     = 2;
-d.featureMin                = [0      1.75   0.5      0     0];
-d.featureMax                = [4   15      3      0.05   1];
+d.featureMin                = [0   1.75   0.5      0      0];
+d.featureMax                = [4   15     3        0.05   1];
 d.selectedFeatures          = [1    2];
 d.featureLabels             = {'area','perimeter','maxspan','minspan','random'};
 d.categorize                = 'categorize';
 d.debug                     = false;
 d.fitnessRange              = [0 1];
-d.featureResolution         = [20,20];
-
 
 t = 0:2*pi/(d.dof/2):2*pi;
 t(end) = [];
@@ -47,7 +62,7 @@ d.sampleLowFit(end-3) = -0.4;
 d.sampleLowFit(end-4) = -0.6;
 d.sampleLowFit(1) = -0.5;
 
-
+% Contains description text that is shown to the user
 d.description{1} = ['N-poly domain'];
 d.description{2} = '';
 d.description{3} = ['Description:      n-polygons, with n currently set to ' int2str(d.dof)];
@@ -55,3 +70,4 @@ d.description{4} = ['Representation:   sequence of (x,y) pairs.'];
 d.description{5} = ['Fitness function: maximize radial symmetry.'];
 end
 
+%------------- END CODE -------------- 

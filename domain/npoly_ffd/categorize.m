@@ -1,35 +1,50 @@
-function feature = categorize(samples, phenotypes, d, varargin)
-%categorize
+function features = categorize(samples, phenotypes, d)
+%categorize - extracts all features of the npoly domain
+%
+% Syntax:  features = categorize(samples, phenotypes, d)
+%
+% Inputs:
+%    samples        - [NxD] - N samples with dimensionality D. Sometimes
+%                             used to circumvent having to instantiate full
+%                             phenotype
+%    phenotypes     - [cell array] - phenotypes (expressed samples)
+%    d              - cell  - Domain configuration
+% 
+%
+% Outputs:
+%    features       - [NxF] - F features for N samples
 %
 %
 % Author: Alexander Hagg
 % Bonn-Rhein-Sieg University of Applied Sciences (HBRS)
 % email: alexander.hagg@h-brs.de
-% Nov 2018; Last revision: 02-Nov-2018
+% Nov 2018; Last revision: 15-Aug-2019
 %
 %------------- BEGIN CODE -------------- 
 
 for i=1:length(phenotypes)
     pgon = phenotypes{i};
-    feature(i,1) = area(pgon);
-    feature(i,2) = perimeter(pgon);
+    features(i,1) = area(pgon);
+    features(i,2) = perimeter(pgon);
     vertices = pgon.Vertices(all(~isnan(pgon.Vertices)'),:);    
     vertices = unique(vertices,'rows','stable');
     y = interppolygon([vertices],125,'linear');
     vertexDistances = pdist2(y,y);
-    %vertexDistances = pdist2(vertices,vertices);
     vertexDistances(logical(eye(size(vertexDistances,1)))) = nan;
-    feature(i,3) = nanmax(vertexDistances(:));
-    feature(i,4) = nanmin(vertexDistances(:));
+    features(i,3) = nanmax(vertexDistances(:));
+    features(i,4) = nanmin(vertexDistances(:));
 end
 
-feature(:,1) = (feature(:,1)-d.featureMin(1))./(d.featureMax(1)-d.featureMin(1));
-feature(:,2) = (feature(:,2)-d.featureMin(2))./(d.featureMax(2)-d.featureMin(2));
-feature(:,3) = (feature(:,3)-d.featureMin(3))./(d.featureMax(3)-d.featureMin(3));
-feature(:,4) = (feature(:,4)-d.featureMin(4))./(d.featureMax(4)-d.featureMin(4));
-feature(:,5) = rand(size(feature(:,1)));
+features(:,1) = (features(:,1)-d.featureMin(1))./(d.featureMax(1)-d.featureMin(1));
+features(:,2) = (features(:,2)-d.featureMin(2))./(d.featureMax(2)-d.featureMin(2));
+features(:,3) = (features(:,3)-d.featureMin(3))./(d.featureMax(3)-d.featureMin(3));
+features(:,4) = (features(:,4)-d.featureMin(4))./(d.featureMax(4)-d.featureMin(4));
 
-feature(feature>1) = 1; feature(feature<0) = 0;
+% Add feature "random" for debugging purposes
+features(:,5) = rand(size(features(:,1)));
+
+features(features>1) = 1; features(features<0) = 0;
 
 end
 
+%------------- END CODE -------------- 

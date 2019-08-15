@@ -10,7 +10,7 @@ function p = defaultParamSet(varargin)
 % Author: Alexander Hagg
 % Bonn-Rhein-Sieg University of Applied Sciences (HBRS)
 % email: alexander.hagg@h-brs.de
-% Nov 2018; Last revision: 02-Nov-2018
+% Nov 2018; Last revision: 15-Aug-2019
 
 %------------- BEGIN CODE --------------
 p.nChildren                 = 2^5;
@@ -18,19 +18,22 @@ p.mutSigma                  = 0.1;
 p.nGens                     = 25;
 p.numInitSamples            = 2^6;
 p.selectProcedure           = 'random'; %random or curiosity
+p.featureResolution         = [20,20];
 
 % Visualization and data management
 p.display.illu              = true;
 p.display.illuMod           = 10;
 p.numMaps2Save              = 10;
 
-p.selectionThreshold        = 0.99;
-p.minSelectedSamples        = 50;
-p.keepNonselectSeeds        = false;
+% 
+%p.selectionThreshold        = 0.99;
+%p.minSelectedSamples        = 50;
+%p.keepNonselectSeeds        = false;
 p.dimreduxMethod			= 'tSNE';
 
 % Selection
 p.penaltyWeight             = 2;
+% Threshold for hard user constraint
 p.driftThreshold            = 0.5;
 
 p.extraMapValues            = {'fitnessAdjustment','drift'};
