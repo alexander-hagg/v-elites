@@ -1,6 +1,24 @@
 function constraints = setConstraints(classification,selection,type,method)
-%SETCONSTRAINTS Summary of this function goes here
-%   Detailed explanation goes here
+%setConstraints - train constraint model
+%
+% Syntax:  constraints = setConstraints(classification,selection,type,method)
+%
+% Inputs:
+%    classification
+%    selection
+%    type
+%    method
+%
+% Outputs:
+%    constraints
+%
+%
+% Author: Alexander Hagg
+% Bonn-Rhein-Sieg University of Applied Sciences (HBRS)
+% email: alexander.hagg@h-brs.de
+% Aug 2019; Last revision: 15-Aug-2019
+%
+%------------- BEGIN CODE --------------
 
 constraints.type                = type;
 constraints.selectedClasses     = selection;

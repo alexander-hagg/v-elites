@@ -1,29 +1,35 @@
-function [isValid,classDistances,selectedClasses,outputs] = applyConstraints(examples, constraints)
-%APPLYCONSTRAINTS Summary of this function goes here
-% Detailed explanation goes here
+function [classDistances,simspacePredictions] = applyConstraints(samples, c)
+%applyConstraints - apply user selection constraints
+%
+% Syntax:  [isValid,classDistances,selectedClasses,outputs] = applyConstraints(samples, constraints)
+%
+% Inputs:
+%    samples        - [NxD] - N samples with dimensionality D
+%    c              - struct - user constraints
+%
+% Outputs:
+%    classDistances      - distances to closest members of classes
+%    simspacePredictions - predicted similarity space locations of samples
+%
 %
 % Author: Alexander Hagg
 % Bonn-Rhein-Sieg University of Applied Sciences (HBRS)
 % email: alexander.hagg@h-brs.de
-% Nov 2018; Last revision: 31-July-2019
-
+% Nov 2018; Last revision: 15-Aug-2019
+%
 %------------- BEGIN CODE --------------
-model = constraints.model; sigma = constraints.threshold; classLabels = constraints.classLabels; selectedClasses = constraints.selectedClasses;
-[outputs,confOutputs] = predictSimspace(examples,model);
+simspacePredictions = predictSimspace(samples,c.model);
 
 % Get distances to all class members
-for i=1:max(classLabels)
-    memberIDs = (classLabels==i);
-    members = model.trainOutput(memberIDs,:);
+for i=1:max(c.classLabels)
+    memberIDs = (c.classLabels==i);
+    members = c.model.trainOutput(memberIDs,:);
     if size(members,1)==1
-        classDistances(i,:) = pdist2(outputs,members);
+        classDistances(i,:) = mypdist2(simspacePredictions,members);
     else
-        classDistances(i,:) = min(pdist2(outputs,members)');
+        classDistances(i,:) = min(mypdist2(simspacePredictions,members)');
     end
 end
 
-classVariance = sqrt(max(confOutputs'));
-classMembership = bsxfun(@le,classDistances-min(classDistances),sigma*classVariance);
-isValid = classMembership(selectedClasses,:);
 end
 

@@ -1,7 +1,7 @@
-function [pltHandle,classification] = viewClasses(X, classification, varargin)
+function [pltHandle,classification] = viewClasses(samples, classification, varargin)
 %viewClasses -
 %
-% Syntax:  viewClasses(classStruct,d,varargin)
+% Syntax:  viewClasses(samples,classification,varargin)
 %
 % Inputs:
 %   classStruct - struct  -             
@@ -28,7 +28,7 @@ function [pltHandle,classification] = viewClasses(X, classification, varargin)
 if nargin > 2; figHandle = varargin{1}; else; figHandle = figure;end
 
 if isempty(classification) 
-    classification = extractClasses(X);
+    classification = extractClasses(samples);
 end
     
 inds        = classification.simX;

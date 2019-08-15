@@ -1,10 +1,25 @@
-function model = trainConstraintModel(coord,latent)
-%TRAINCONSTRAINTS Summary of this function goes here
-%   Detailed explanation goes here
+function model = trainConstraintModel(samples,latent)
+%trainConstraintModel - train constraint model
+%
+% Syntax:  model = trainConstraintModel(coord,latent)
+%
+% Inputs:
+%    samples - coordinates in original space
+%    latent - coordinates in latent space (t-SNE)
+%
+% Outputs:
+%    model
+%
+% Author: Alexander Hagg
+% Bonn-Rhein-Sieg University of Applied Sciences (HBRS)
+% email: alexander.hagg@h-brs.de
+% Aug 2019; Last revision: 15-Aug-2019
+%
+%------------- BEGIN CODE --------------
 
 % Configure GP model
 p.covfunc   = {@covMaterniso, 3};
-p.hyp.cov   = [log(mean(mean(pdist2(coord,coord))));1]; % in log space: mean distance between samples
+p.hyp.cov   = [log(mean(mean(pdist2(samples,samples))));1]; % in log space: mean distance between samples
 
 p.meanfunc  = {@meanConst};
 p.likfunc   = @likGauss;
@@ -16,16 +31,17 @@ latentMean = mean(latent,1);
 % Train GP mapping
 model.x = p;
 model.x.hyp.mean = latentMean(1);
-model.x.hyp = minimize_gpml(model.x.hyp,@gp, -p.functionEvals, @infExact, p.meanfunc, p.covfunc, p.likfunc, coord, latent(:,1));
+model.x.hyp = minimize_gpml(model.x.hyp,@gp, -p.functionEvals, @infExact, p.meanfunc, p.covfunc, p.likfunc, samples, latent(:,1));
 
 model.y = p;
 model.y.hyp.mean = latentMean(2);
-model.y.hyp = minimize_gpml(model.y.hyp,@gp, -p.functionEvals, @infExact, p.meanfunc, p.covfunc, p.likfunc, coord, latent(:,2));
+model.y.hyp = minimize_gpml(model.y.hyp,@gp, -p.functionEvals, @infExact, p.meanfunc, p.covfunc, p.likfunc, samples, latent(:,2));
 
-model.trainInput  = coord;
+model.trainInput  = samples;
 model.trainOutput = latent;
 
 
 disp(['Length scales: ' num2str(model.x.hyp.cov(1)) ' - ' num2str(model.x.hyp.cov(2))]);
 end
 
+%------------- END CODE --------------

@@ -1,24 +1,14 @@
 function p = paramsGP(nInputs)
 %paramsGP - Creates Gaussian Process parameter struct
-%Optional file header info (to give more details about the function than in the H1 line)
-%Optional file header info (to give more details about the function than in the H1 line)
-%Optional file header info (to give more details about the function than in the H1 line)
 %
 % Syntax:  [output1,output2] = function_name(input1,input2,input3)
 %
 % Inputs:
-%    input1 - Description
-%    input2 - Description
-%    input3 - Description
+%    nInputs - DOF of representation, number of parameters
 %
 % Outputs:
-%    output1 - Description
-%    output2 - Description
+%    p - struct - GP configuration
 %
-% Example: 
-%    Line 1 of example
-%    Line 2 of example
-%    Line 3 of example
 %
 % Other m-files required: none
 % Subfunctions: none

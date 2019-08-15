@@ -1,11 +1,29 @@
-function [drift,simspaceModelPredictions] = getUserDrift(X,constraints)
-%CONSTRAINTPENALTY Calculate constraint penalty
-% penalty between 0 and 1
-drift = zeros(size(X,1),1);
+function [drift,simspacePredictions] = getUserDrift(samples,c)
+%getUserDrift - calculate user drift
+%
+% Syntax:  [drift,simspacePredictions] = getUserDrift(samples,c)
+%
+% Inputs:
+%    samples        - [NxD] - N samples with dimensionality D
+%    c              - struct - user constraints
+%
+% Outputs:
+%    drift               - user selection drift of samples
+%    simspacePredictions - predicted similarity space locations of samples
+%
+%
+% Author: Alexander Hagg
+% Bonn-Rhein-Sieg University of Applied Sciences (HBRS)
+% email: alexander.hagg@h-brs.de
+% Nov 2018; Last revision: 15-Aug-2019
+%
+%------------- BEGIN CODE --------------
 
-[~,classDistances,~,simspaceModelPredictions] = applyConstraints(X, constraints);
+drift = zeros(size(samples,1),1);
+
+[classDistances,simspacePredictions] = applyConstraints(samples, c);
 classBinary = false(size(classDistances,1),1);
-classBinary(constraints.selectedClasses) = 1;
+classBinary(c.selectedClasses) = 1;
 if sum(classBinary)==1
     distSELECTED = classDistances(classBinary,:);
 else

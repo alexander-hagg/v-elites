@@ -6,18 +6,12 @@ function prediction = predictGP(gpModel, input )
 % Syntax:  [output1,output2] = function_name(input1,input2,input3)
 %
 % Inputs:
-%    input1 - Description
-%    input2 - Description
-%    input3 - Description
+%    gpModel - trained GP model
+%    input - locations for predictions
 %
 % Outputs:
-%    output1 - Description
-%    output2 - Description
+%    prediction - prediction for locations 'input'
 %
-% Example: 
-%    Line 1 of example
-%    Line 2 of example
-%    Line 3 of example
 %
 % Other m-files required: none
 % Subfunctions: none

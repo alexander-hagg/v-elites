@@ -9,7 +9,9 @@ function [GP_model] = trainGP(input,output,d)
 %    output - [samples X 1]
 %    d      - GP parameter struct
 %
-
+% Outputs:
+%    GP_model - trained GP model
+%
 % Author: Adam Gaier
 % Bonn-Rhein-Sieg University of Applied Sciences (HBRS)
 % email: adam.gaier@h-brs.de
