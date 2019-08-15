@@ -5,7 +5,7 @@ function validInds = validate(genomes,d)
 %
 % Inputs:
 %    genomes        - [NxM] - N genomes with dof = M
-%    d              - cell - Domain configuration.
+%    d              - struct - Domain description struct
 %
 % Outputs:
 %    validInds      - [Nx1] - Validation flags

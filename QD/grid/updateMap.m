@@ -1,10 +1,7 @@
-function map = updateMap(replaced,replacement,map,...
-                            fitness,genes,values,features,extraMapValues)
-%function map = updateMap(replaced,replacement,map,...
-%                            fitness,genes,values,features,extraMapValues)
+function map = updateMap(replaced,replacement,map,fitness,genes,values,features,extraMapValues)
 %updateMap - Replaces all values in a set of map cells
 %
-% Syntax:  map = updateMap(replaced,replacement,map,fitness,drag,lift,children)
+% Syntax:  map = updateMap(replaced,replacement,map,fitness,genes,values,features,extraMapValues)
 %
 % Inputs:
 %   replaced    - [1XM]  - linear index of map cells to be replaced
@@ -13,6 +10,8 @@ function map = updateMap(replaced,replacement,map,...
 %   fitness     - [1XN]  - Child fitness
 %   genes       - [NXD]  - Child genomes
 %   values      - [1XN]  - extra values of interest, e.g. 'cD'
+%   features    - [NxnumFeatures]
+%   extraMapValues
 %
 % Outputs:
 %   map         - struct - population archive
@@ -20,10 +19,10 @@ function map = updateMap(replaced,replacement,map,...
 %
 % See also: createMap, nicheCompete
 
-% Author: Adam Gaier
+% Author: Adam Gaier, Alexander Hagg
 % Bonn-Rhein-Sieg University of Applied Sciences (HBRS)
-% email: adam.gaier@h-brs.de
-% Jun 2016; Last revision: 02-Aug-2017
+% email: adam.gaier@h-brs.de, alexander.hagg@h-brs.de
+% Jun 2016; Last revision: 15-Aug-2019
 
 %------------- BEGIN CODE --------------
 
@@ -37,8 +36,7 @@ for iReplace = 1:length(replaced)
     map.genes(replacedI(iReplace),replacedJ(iReplace),:) = ...
         genes(replacement(iReplace),:) ;         
     map.features(replacedI(iReplace),replacedJ(iReplace),:) = ...
-        features(replacement(iReplace),:) ;         
-    
+        features(replacement(iReplace),:) ;             
 end
 
 % Assign Miscellaneous Map values

@@ -1,7 +1,7 @@
 function [map, percImproved, percValid, h, allMaps, percFilled] = illuminate(fitnessFunction,map,p,d,varargin)
-%mapElites - Multi-dimensional Archive of Phenotypic Elites algorithm
+%illuminate - QD with Multi-dimensional Archive of Phenotypic Elites algorithm
 %
-% Syntax:  map = mapElites(fitnessFunction, map, p, d);
+% Syntax:  [map, percImproved, percValid, h, allMaps, percFilled] = illuminate(fitnessFunction,map,p,d,varargin)
 %
 % Inputs:
 %   fitnessFunction - funct  - returns fitness of vector of individuals
@@ -10,22 +10,21 @@ function [map, percImproved, percValid, h, allMaps, percFilled] = illuminate(fit
 %   d               - struct - Domain definition
 %
 % Outputs:
-%   map    - struct - population archive
+%   map             - struct - population archive
 %   percImproved    - percentage of children which improved on elites
-%   percValid       - percentage of children which are valid members of
-%   selected classes
-%   h      - [1X2]  - axes handle, data handle
+%   percValid       - percentage of children which are valid members of selected classes
+%   h               - [1X2]  - axes handle, data handle
 %   allMap          - all maps created in sequence
 %   percFilled      - percentage of map filled
 %
 %
 % See also: createChildren, getBestPerCell, updateMap
-
-% Author: Adam Gaier
+%
+% Author: Adam Gaier, Alexander Hagg
 % Bonn-Rhein-Sieg University of Applied Sciences (HBRS)
-% email: adam.gaier@h-brs.de
-% Jun 2016; Last revision: 02-Aug-2017
-
+% email: adam.gaier@h-brs.de, alexander.hagg@h-brs.de
+% Jun 2016; Last revision: 15-Aug-2019
+%
 %------------- BEGIN CODE --------------
 
 % View Initial Map
@@ -60,16 +59,11 @@ iGen = 1;
 while (iGen <= p.nGens)
     %% Create and Evaluate Children
     % Continue to remutate until enough children which satisfy geometric constraints are created
-    children = []; parentMapIDs = [];
+    children = [];
     while size(children,1) < p.nChildren
-        if strcmp(p.selectProcedure,'random')
-            newChildren = createChildren(map, p, d);
-        elseif strcmp(p.selectProcedure,'curiosity')
-            [newChildren,newParentMapIDs] = createChildren(map, p, d);
-        end
+        newChildren = createChildren(map, p, d);
         validInds = feval(d.validate,newChildren,d);
         children = [children ; newChildren(validInds,:)] ; %#ok<AGROW>
-        if strcmp(p.selectProcedure,'curiosity'); parentMapIDs = [parentMapIDs ; newParentMapIDs(validInds,:)] ; end
     end
     children = children(1:p.nChildren,:);
     
@@ -122,7 +116,9 @@ while (iGen <= p.nGens)
     end        
     iGen = iGen+1;
 end
-if percImproved(end) > 0.05; disp('Warning: MAP-Elites finished while still making improvements ( >5% / generation )');end
+
+% Warning if MAP-Elites hasn't converged yet (limit set in defaultParamSet)
+if percImproved(end) > p.convergeLimit; disp(['Warning: MAP-Elites finished while still making improvements ( >' num2str(p.convergeLimit*100) '% / generation )']);end
 
 
 %------------- END OF CODE --------------

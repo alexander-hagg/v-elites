@@ -1,28 +1,29 @@
-function [children,selectedLinIDs] = createChildren(map, p, d)
-%createChildren - produce new children through mutation of elites from map
+function children = createChildren(map, p, d)
+%createChildren - produce new children through mutation of elites from map.
+% Selection: randomly taken from the map
 %
-% Syntax:  [children,selectedLinIDs] = createChildren(map, p, d)
+% Syntax:  children = createChildren(map, p, d)
 %
 % Inputs:
-%   map - Population struct
-%    .fitness
-%    .genes
-%    .<additional info> (e.g., drag, lift, etc)
-%   p   - SAIL hyperparameter struct
-%    .nChildren - number of children created
-%    .mutSigma  - sigma of gaussian mutation applied to children
-%   d   - Domain description struct
+%   map - struct - Population struct
+%      .fitness
+%      .genes
+%      .<additional info> (e.g., drag, lift, etc)
+%   p   - struct - QD configuration struct
+%      .nChildren - number of children created
+%      .mutSigma  - sigma of gaussian mutation applied to children
+%   d   - struct - Domain description struct
 %    .dof       - Degrees of freedom (genome length)
 %
 % Outputs:
-%   children - [nChildren X genomeLength] - new solutions
+%   children - [p.nChildren X d.dof] - new solutions
 %
 %
 
-% Author: Adam Gaier
+% Author: Adam Gaier, Alexander Hagg
 % Bonn-Rhein-Sieg University of Applied Sciences (HBRS)
-% email: adam.gaier@h-brs.de
-% Jun 2016; Last revision: 01-Aug-2017
+% email: adam.gaier@h-brs.de, alexander.hagg@h-brs.de
+% Jun 2016; Last revision: 15-Aug-2019
 
 %------------- BEGIN CODE --------------
 
@@ -31,35 +32,14 @@ parentPool = reshape(map.genes,[numel(map.fitness), d.dof]);
 valid = ~isnan(parentPool(:,1));
 parentPool(~valid,:) = [];
 
-% Choose parents and create mutation
-if strcmp(p.selectProcedure,'random')
-    selection = randi([1 size(parentPool,1)], [p.nChildren 1]);
-elseif strcmp(p.selectProcedure,'curiosity')
-    validMapLinids = 1:length(valid);
-    validMapLinids(~valid) = [];
-    % Setup tournament selection
-    selection = randi([1 size(parentPool,1)], [p.nChildren 2]);
-    selectedLinIDs = validMapLinids(selection);
-    
-    curiousnessParents = reshape(map.curiousness,[numel(map.fitness), 1]);
-    curiousnessParents(~valid) = [];
-    curiousnessParents = curiousnessParents(selection);
-    
-    % Get most evolvable parents
-    [~,sorted] = sort(curiousnessParents,2,'descend');
-    idx = sub2ind(size(curiousnessParents), (1:size(sorted,1))', sorted(:,1));
-    
-    selectedLinIDs = selectedLinIDs(idx);
-    selection = selection(idx);    
-end
+% Selection of parents
+selection = randi([1 size(parentPool,1)], [p.nChildren 1]);
 parents = parentPool(selection, :);
 
+% Mutation (no crossover!)
 mutation = randn(p.nChildren,d.dof) .* p.mutSigma;
-
-% Apply mutation
 children = parents + mutation;
 children(children>d.ranges(2)) = d.ranges(2); children(children<d.ranges(1)) = d.ranges(1);
-
 
 
 %------------- END OF CODE --------------

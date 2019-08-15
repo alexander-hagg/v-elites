@@ -1,17 +1,19 @@
 function [replaced, replacement, features, percImprovement] = nicheCompete(newInds,fitness,phenotypes,map,d,p,varargin)
 %nicheCompete - results of competition with map's existing elites
 %
-% Syntax:  [replaced, replacement] = nicheCompete(newInds,fitness,map,p)
+% Syntax:  [replaced, replacement, features, percImprovement] = nicheCompete(newInds,fitness,phenotypes,map,d,p,varargin)
 %
 % Inputs:
 %   newInds - [NXM]     - New population to compete for niches
 %   fitness - [NX1]     - Fitness values fo new population
 %   map     - struct    - Population archive
 %   d       - struct    - Domain definition
+%   p       - struct    - QD configuration
 %
 % Outputs:
 %   replaced    - [NX1] - Linear index of map cells to recieve replacements
 %   replacement - [NX1] - Index of newInds to replace current elites in niche
+%   features    - [NxNumFeatures] - return features
 %
 % Example:
 %
@@ -19,10 +21,10 @@ function [replaced, replacement, features, percImprovement] = nicheCompete(newIn
 %
 % See also: createMap, getBestPerCell, updateMap
 
-% Author: Adam Gaier
+% Author: Adam Gaier, Alexander Hagg
 % Bonn-Rhein-Sieg University of Applied Sciences (HBRS)
-% email: adam.gaier@h-brs.de
-% Jun 2016; Last revision: 02-Aug-2017
+% email: adam.gaier@h-brs.de, alexander.hagg@h-brs.de
+% Jun 2016; Last revision: 15-Aug-2019
 
 %------------- BEGIN CODE --------------
 if nargin>6
@@ -40,5 +42,7 @@ improvement(isnan(fitness(bestIndex))) = false;
 replacement = bestIndex (improvement);
 replaced    = mapLinIndx(improvement);
 
-percImprovement = 0;
+percImprovement = 0; %TODO
+
+
 %------------- END OF CODE --------------

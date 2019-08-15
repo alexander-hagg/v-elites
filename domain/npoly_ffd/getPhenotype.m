@@ -5,7 +5,7 @@ function phenotypes = getPhenotype(genomes,d)
 %
 % Inputs:
 %    genomes        - [NxM] - N genomes with dof = M
-%    d              - cell - Domain configuration.
+%    d              - struct - Domain description struct
 %
 % Outputs:
 %    phenotypes          - cell[Nx1] - Cell array containing all phenotypes

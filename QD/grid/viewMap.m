@@ -1,7 +1,7 @@
 function [figHandle, imageHandle, cHandle] = viewMap(mapMatrix, d, varargin)
 %computeFitness - Computes fitness with penalties from drag, lift, area
 %
-% Syntax:  viewMap(predMap.fitness, d)
+% Syntax:  [figHandle, imageHandle, cHandle] = viewMap(mapMatrix, d, varargin)
 %
 % Inputs:
 %   mapMatrix   - [RXC]  - scalar value in each bin (e.g. fitness)
@@ -26,10 +26,10 @@ function [figHandle, imageHandle, cHandle] = viewMap(mapMatrix, d, varargin)
 %
 % See also: createMap, updateMap, createPredictionMap
 
-% Author: Adam Gaier
+% Author: Adam Gaier, Alexander Hagg
 % Bonn-Rhein-Sieg University of Applied Sciences (HBRS)
-% email: adam.gaier@h-brs.de
-% Jun 2016; Last revision: 20-Aug-2017
+% email: adam.gaier@h-brs.de, alexander.hagg@h-brs.de
+% Jun 2016; Last revision: 15-Aug-2019
 
 %------------- BEGIN CODE --------------
 if nargin > 2; figHandle = varargin{1}; else; figHandle = figure;end

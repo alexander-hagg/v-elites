@@ -8,7 +8,7 @@ function features = categorize(samples, phenotypes, d)
 %                             used to circumvent having to instantiate full
 %                             phenotype
 %    phenotypes     - [cell array] - phenotypes (expressed samples)
-%    d              - cell  - Domain configuration
+%    d              - struct  - Domain description struct
 % 
 %
 % Outputs:

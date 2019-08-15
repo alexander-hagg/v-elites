@@ -7,7 +7,7 @@ function showPhenotype(figHandle,d,varargin)
 %
 % Inputs:
 %    figHandle      - [1] - figure handle
-%    d              - cell - Domain configuration.
+%    d              - struct - Domain description struct
 %
 % Optional Inputs:
 %    varargin{1}    - [NxM] - genomes

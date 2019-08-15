@@ -7,9 +7,8 @@ function d = domain(dof)
 %    dof        - [1] - Set number of degrees of freedom
 %
 % Outputs:
-%    d          - cell - Domain configuration. Please refer to the inline
-%                        comments to understand which variables are
-%                        expected
+%    d          - struct - Domain description struct. Please refer to the inline
+%                          comments to understand which variables are expected
 %
 %
 % Author: Alexander Hagg

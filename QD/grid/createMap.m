@@ -1,12 +1,14 @@
 function [map, edges] = createMap(d, p, varargin)
 %createMap - Defines map struct and feature space cell divisions
 %
-% Syntax:  [map, edges] = createMap(featureResolution, genomeLength)
+% Syntax:  [map, edges] = createMap(d, p, varargin)
 %
 % Inputs:
-%    featureResolution - [1XN] - Number of bins in N dimensions
-%    featureResolution - [1X1] - Length of genome
-%    featureResolution - cell  - Strings with name of additional value
+%    d - struct - Domain description struct
+%    p - struct - QD configuration struct
+%
+% Optional Inputs:
+%    varargin - extra map values
 %
 % Outputs:
 %    map  - struct with [M(1) X M(2)...X M(N)] matrices for fitness, etc
@@ -20,12 +22,10 @@ function [map, edges] = createMap(d, p, varargin)
 %   extraMapValues = {'cD','cL'};
 %   map = createMap(d.featureRes, d.dof, extraMapValues)
 %
-
-
-% Author: Adam Gaier
+% Author: Adam Gaier, Alexander Hagg
 % Bonn-Rhein-Sieg University of Applied Sciences (HBRS)
-% email: adam.gaier@h-brs.de
-% Jun 2016; Last revision: 27-Jan-2017
+% email: adam.gaier@h-brs.de, alexander.hagg@h-brs.de
+% Jun 2016; Last revision: 15-Aug-2019
 
 %------------- BEGIN CODE --------------
 
@@ -37,12 +37,6 @@ map.edges = edges;
 blankMap     = NaN(p.featureResolution,'double');
 map.fitness  = blankMap;
 map.features  = blankMap;
-
-
-% Evolvability
-map.curiousness = zeros(p.featureResolution);
-
-% Genome
 map.genes       = repmat(blankMap,[1 1 d.dof]); %#ok<REPMAT>
 
 % Phenotypic Features
@@ -53,7 +47,6 @@ if ~isempty(varargin)
         eval(['map.' varargin{1}{iValues} ' = blankMap;']);
     end
 end
-
 
 
 %------------- END OF CODE --------------
