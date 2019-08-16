@@ -32,7 +32,7 @@ end
 d.featureLabels             = {'area','perimeter','maxspan','minspan','random'};
 % Feature ranges
 d.featureMin                = [0   1.75   0.5      0      0];
-d.featureMax                = [4   15     3        0.05   1];
+d.featureMax                = [4   15     3.5      0.05   1];
 d.selectedFeatures          = [1    2]; % Default selection of features
 d.categorize                = 'categorize';
 d.nDims                     = 2; % Feature map resolution (do not change, other nD maps not supported as of yet)
