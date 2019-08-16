@@ -25,7 +25,7 @@ function [pltHandle,classification] = viewClasses(samples, classification, varar
 % Nov 2018; Last revision: 02-Nov-2018
 
 %------------- BEGIN CODE --------------
-if nargin > 2; figHandle = varargin{1}; else; figHandle = figure;end
+if nargin > 2; figHandle = varargin{1}; else; figure;figHandle=axes;end
 
 if isempty(classification) 
     classification = extractClasses(samples);
