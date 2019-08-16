@@ -32,19 +32,19 @@ h = [];
 if nargin > 4
     figHandleMap = varargin{1}; 
 else
-    figHandleMap = figure(1); figHandleMap = axes;
+    fig = figure(1); clf(fig); figHandleMap = axes;
 end
 
 if nargin > 5
     figHandleMedianFit = varargin{2}; 
 else
-    figHandleMedianFit = figure(2); figHandleMedianFit = axes;
+    fig = figure(2); clf(fig); figHandleMedianFit = axes;
 end
 
 if nargin > 6
     figHandleMedianDrift = varargin{3}; 
 else
-    figHandleMedianDrift = figure(3); figHandleMedianDrift = axes;
+    fig = figure(3); clf(fig); figHandleMedianDrift = axes;
 end
 
 if p.display.illu

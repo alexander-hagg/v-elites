@@ -40,8 +40,6 @@ model.y.hyp = minimize_gpml(model.y.hyp,@gp, -p.functionEvals, @infExact, p.mean
 model.trainInput  = samples;
 model.trainOutput = latent;
 
-
-disp(['Length scales: ' num2str(model.x.hyp.cov(1)) ' - ' num2str(model.x.hyp.cov(2))]);
 end
 
 %------------- END CODE --------------

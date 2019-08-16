@@ -46,42 +46,39 @@ for iter=1:nIters
         end
     end
     
-    % Illumination with QD
+    % I) Illumination with QD
     disp(['Illumination']);  
     [fitness, values, phenotypes]       = fitfun(initSamples); %
     obsMap                              = createMap(app.d{iter}, app.p{iter});
     [replaced, replacement, features]   = nicheCompete(initSamples, fitness, phenotypes, obsMap, app.d{iter}, app.p{iter});
     obsMap                              = updateMap(replaced,replacement,obsMap,fitness,initSamples,values,features,app.p{iter}.extraMapValues);
-    [app.map{iter}, ~, ~, ~, ~]     = illuminate(fitfun,obsMap,app.p{iter},app.d{iter});
+    [app.map{iter}, ~, ~, ~, ~]         = illuminate(fitfun,obsMap,app.p{iter},app.d{iter});
     
-    % Extract prototypes
+    % II) Extract prototypes
     disp(['Similarity space and prototype extraction']);    
     [app.classification{iter}, simspace] = extractClasses(app.map{iter}.genes,[],'kmedoids',nPrototypes);
         % Show classes in similarity space
-        figure(3);figHandle=axes;viewClasses(app.map{iter}.genes,app.classification{iter},figHandle);
+        figure(3);figHandle=axes;cla(figHandle);viewClasses(app.map{iter}.genes,app.classification{iter},figHandle);
         % Show prototypes
         numRows = ceil( size(app.classification{iter}.protoX,1).^(2/3) );
         for i=1:size(app.classification{iter}.protoX,1)
             placement(i,:) = [mod(i-1,numRows) floor((i-1)/numRows)]*app.d{iter}.spacer;
         end
-        figure(4);figHandle=axes;
-        showPhenotype(figHandle,app.d{iter},app.classification{iter}.protoX,placement);
+        figure(4);figHandle=axes;cla(figHandle);showPhenotype(figHandle,app.d{iter},app.classification{iter}.protoX,placement);
     
-    % Selection procedure
-    prompt = 'Please select a prototype by entering an integer ID: ';
+    % III) Selection procedure
+    prompt = 'Please select a prototype by entering an integer ID (bottom left to upper right: ';
     app.selectedPrototypes{iter} = input(prompt);
-    % Create UDHM based on selected prototypes
+    
+    % IV) Create UDHM based on selected prototypes
     if length(app.selectedPrototypes) >= iter && ~isempty(app.selectedPrototypes{iter})
         app.constraints{iter} = setConstraints(app.classification{iter},app.selectedPrototypes{iter},[],'class');
-        iter = iter + 1;        
         % Initialize configuration for next iteration
+        iter = iter + 1;        
         app.d{iter} = app.d{iter-1};
         app.p{iter} = app.p{iter-1};
-        % Show selection history
-        %cla(app.UIAxes6);
-        %app.showHistory(app.UIAxes6);
-        %cla(app.UIAxes5_2);
-        %app.showHistory(app.UIAxes5_2);
+        
+            figure(5);figHandle=axes;cla(figHandle); showHistory(app.constraints,app.classification,app.d{iter},figHandle)
     end
 end
 %------------- END CODE --------------
