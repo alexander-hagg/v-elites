@@ -70,7 +70,6 @@ d.description{4} = ['Representation:   sequence of (x,y) pairs.'];
 d.description{5} = ['Fitness function: maximize radial symmetry.'];
 % Show a high fitness and a low fitness phenotype
 d.sampleHighFit         = zeros(1,d.dof);
-d.sampleLowFit          = 0.5*ones(1,d.dof); d.sampleLowFit(1,end-4:end) = -0.5;
 
 end
 
