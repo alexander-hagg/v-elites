@@ -19,28 +19,27 @@ function d = domain(dof)
 %------------- BEGIN CODE --------------
 
 RandStream.setGlobalStream(RandStream('mt19937ar','Seed','shuffle')); % Random number stream
-warning('off', 'MATLAB:MKDIR:DirectoryExists');
-warning('off', 'MATLAB:polyshape:repairedBySimplify');
+warning('off', 'MATLAB:MKDIR:DirectoryExists');warning('off', 'MATLAB:polyshape:repairedBySimplify');
 
+% Default number of degrees of freedom in representation
 if strcmp(dof,'default')
     d.dof = 12;
 else
     d.dof = dof;
 end
 
-% FEATURES
+% Features
+d.categorize                = 'categorize';
 d.featureLabels             = {'area','perimeter','maxspan','minspan','random'};
 % Feature ranges
 d.featureMin                = [0   1.75   0.5      0      0];
 d.featureMax                = [4   15     3.5      0.05   1];
 d.selectedFeatures          = [1    2]; % Default selection of features
-d.categorize                = 'categorize';
 d.nDims                     = 2; % Feature map resolution (do not change, other nD maps not supported as of yet)
 
 d.debug                     = false;
 
-% Base shape. Specific to this domain, as encoding uses a free form
-% deformation of a base shape.
+% FFD base shape. Specific to this domain, as encoding uses a free form deformation of a base shape.
 t = 0:2*pi/(d.dof/2):2*pi;
 t(end) = [];
 x1 = 0.5*cos(t);
@@ -54,15 +53,15 @@ d.fitnessRange              = [0 1];
 
 % Genotypic ranges
 d.ranges          = [-1 1];
-d.validate        = 'validate';
+d.validate        = 'validate'; % Validation function that is called when creating new solutions. Can contain any constraints.
 
 % Visualization
-% This spacer is used for visualization purposes
+% This spacer is used when displaying multiple phenotypes in the same plot
 d.spacer = 2.5;
 d.flipMap = true;
 
-%% Domain explanation tab content
-% Contains description text that is shown to the user
+%% OPTIONAL
+% Domain explanation tab content, can contain description text that is shown to the user
 d.description{1} = ['N-poly domain'];
 d.description{2} = '';
 d.description{3} = ['Description:      n-polygons, with n currently set to ' int2str(d.dof)];

@@ -15,7 +15,7 @@ function p = defaultParamSet(varargin)
 %------------- BEGIN CODE --------------
 
 p.numInitSamples            = 2^6;      % number of initial samples
-p.nGens                     = 25;       % number of generations
+p.nGens                     = 2^8;       % number of generations
 p.nChildren                 = 2^5;      % number of children per generation
 p.mutSigma                  = 0.2;      % mutation drawn from Gaussian distribution with this \sigma
 %p.maxBins                   = 2^3;     % not used yet but intention is to
@@ -23,7 +23,6 @@ p.mutSigma                  = 0.2;      % mutation drawn from Gaussian distribut
                                         % based on number of requested bins to
                                         % control complexity
 p.featureResolution         = 0.04;     % resolution of the map is controlled by local competition distance threshold
-%p.infReplacement            = 5;        
 
 % Selection
 p.penaltyWeight             = 2;        % User selection drift, weight for soft constraints
